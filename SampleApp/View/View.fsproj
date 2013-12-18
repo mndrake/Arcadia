@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a17bd663-210e-4274-a87d-8f66b39e1b22</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CalcFramework.View</RootNamespace>
+    <RootNamespace>SampleApp.View</RootNamespace>
     <AssemblyName>SampleApp.View</AssemblyName>
     <targetframeworkversion>v4.5</targetframeworkversion>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <DocumentationFile>bin\Debug\CalcFramework.View.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\SampleApp.View.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>

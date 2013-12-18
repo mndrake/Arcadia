@@ -44,6 +44,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ViewModel", "SampleApp\View
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "View", "SampleApp\View\View.fsproj", "{A17BD663-210E-4274-A87D-8F66B39E1B22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewCS", "SampleApp\ViewCS\ViewCS.csproj", "{9D123727-F1D5-47DB-9D23-FC5D14779485}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,16 @@ Global
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|x86.ActiveCfg = Release|x86
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|x86.Build.0 = Release|x86
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9D123727-F1D5-47DB-9D23-FC5D14779485}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +117,6 @@ Global
 		{537B629C-B7DB-4890-8B71-BB6C38910E65} = {DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}
 		{04CCE700-C8AC-4959-90B8-668114835D3C} = {DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}
 		{A17BD663-210E-4274-A87D-8F66B39E1B22} = {DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}
+		{9D123727-F1D5-47DB-9D23-FC5D14779485} = {DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}
 	EndGlobalSection
 EndGlobal

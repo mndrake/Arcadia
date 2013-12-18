@@ -21,7 +21,7 @@ type GraphViewModel() =
             | _ -> failwith "not a valid calculation type"
             this.OnPropertyChanged "CalculationType"
     
-    member this.CalcEngine = graph
+    //member this.CalcEngine = graph
     member this.LayoutAlgorithmType = "EfficientSugiyama"
     override this.Name = "Graph"
     member this.CalculateFullCommand = 

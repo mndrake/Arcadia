@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalcEngine.fs" />
+    <Compile Include="CalcEngine2.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Utopia\Utopia.fsproj">

@@ -17,7 +17,7 @@
         <DataTemplate x:Key="InputVertexTemplate" DataType="{x:Type vm:CustomVertex}">
             <StackPanel Orientation="Vertical" Margin="5">
                 <TextBlock Text="{Binding Path=ID}" Foreground="Green" />
-                <v:SubmitTextBox Text="{Binding Path=Value, UpdateSourceTrigger=Explicit}" Foreground="Blue" />
+                <v:SubmitTextBox Text="{Binding Path=Value, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=Explicit}" Foreground="Blue" />
             </StackPanel>
         </DataTemplate>
 
@@ -92,7 +92,6 @@
         </StackPanel>
 
         <zoom:ZoomControl Grid.Row="1" Background="#ff656565">
-            <!-- Grid.Row="1"  Zoom="0.2" ZoomBoxOpacity="0.5" Background="#ff656565" Margin="0"-->
             <vm:CustomGraphLayout x:Name="graphLayout" Margin="10"
 						Graph="{Binding Graph}"
 						LayoutAlgorithmType="{Binding Path=LayoutAlgorithmType, Mode=OneWay}"

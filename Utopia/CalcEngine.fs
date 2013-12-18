@@ -5,6 +5,7 @@ open System.Collections.Generic
 open System.Diagnostics
 open System.Threading
 open Microsoft.FSharp.Reflection
+open Helpers
 
 type CalculationMode = 
     | Manual
@@ -127,7 +128,11 @@ and Input<'U>(parent : CalculationEngine, v : 'U, id) =
 and Output<'N, 'T, 'U>(parent : CalculationEngine, nodes : 'N, func : 'T -> Async<'U>, id) as this = 
     inherit NodeBase(id)
     let changed = Event<unit>()
-    let nodesArray = FSharpValue.GetTupleFields(nodes) |> Array.map(fun x -> x :?> INode)
+    let nodesArray = 
+        if isTuple nodes then
+            FSharpValue.GetTupleFields(nodes) |> Array.map(fun x -> x :?> INode)
+        else
+            [| (box nodes) :?> INode |]
     let dirty = ref true
     let processing = ref false
     let initValue = ref(Unchecked.defaultof<'U>)
@@ -169,7 +174,11 @@ and Output<'N, 'T, 'U>(parent : CalculationEngine, nodes : 'N, func : 'T -> Asyn
                 let! arrayValues = nodesArray
                                    |> Seq.map(fun n -> n.Eval)
                                    |> Async.Parallel
-                let arrayFunc = fun p -> (FSharpValue.MakeTuple(p, typeof<'T>) :?> 'T) |> func
+                let arrayFunc = 
+                    if isTuple nodes then
+                        fun p -> (FSharpValue.MakeTuple(p, typeof<'T>) :?> 'T) |> func
+                    else
+                        fun p -> (p.[0] :?> 'T) |> func
                 let! result = arrayFunc arrayValues
                 initValue := result
                 Debug.Print
