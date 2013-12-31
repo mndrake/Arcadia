@@ -68,8 +68,6 @@ type CustomGraph(ce : ICalculationEngine) as this =
     
     do 
         for n in ce.Nodes do
-            Debug.Print(n.ID)
-        for n in ce.Nodes do
             let vertex = new CustomVertex(n)
             vertices.Add(n.ID, vertex)
             this.AddVertex(vertex) |> ignore
@@ -81,7 +79,7 @@ type CustomGraph(ce : ICalculationEngine) as this =
     member this.CalcEngine = ce
     member this.UpdateNode(id : string) = 
         let vertex = vertices.[id]
-        vertex.Node.Update()
+        vertex.Node.AsyncCalculate()
 
 type CustomGraphLayout() = 
     inherit GraphLayout<CustomVertex, CustomEdge, CustomGraph>()

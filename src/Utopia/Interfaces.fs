@@ -22,8 +22,9 @@ type INode =
     abstract ID : string with get
     abstract IsInput : bool with get
     abstract Processing : bool with get
+    abstract RaiseChanged : unit -> unit
     abstract UntypedValue : obj with get, set
-    abstract Update : unit -> unit
+    abstract AsyncCalculate : unit -> unit
 
 type INode<'U> =
     inherit INode

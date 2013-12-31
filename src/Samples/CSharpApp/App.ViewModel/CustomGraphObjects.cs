@@ -99,7 +99,7 @@
         public void Update(string id)
         {
             var vertex = _vertices[id];
-            vertex.Node.Update();
+            vertex.Node.AsyncCalculate();
         }
 
     }

@@ -27,7 +27,7 @@ type CalculationEngine(calculationHandler : ICalculationHandler) as this =
             | Some i -> i
             | None -> "out" + string outputCount
         outputCount <- outputCount + 1
-        let output = OutputNode<'N, 'T, 'U>(this.Calculation, dependentNodes, nodeFunction, id)
+        let output = OutputNode<'N, 'T, 'U>(this.Calculation, id, dependentNodes, nodeFunction)
         nodes.Add(output)
         output
     
