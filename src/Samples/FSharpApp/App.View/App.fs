@@ -1,4 +1,4 @@
-﻿namespace SampleApp.View
+﻿namespace FSharpApp.View
 open System
 open System.Windows
 open System.Windows.Input
@@ -6,7 +6,7 @@ open System.Windows.Data
 open System.Windows.Controls
 open FSharpx
 open Helpers
-open SampleApp.ViewModel
+open FSharpApp.ViewModel
 
 type GraphViewType = XAML<"GraphView.xaml">
 

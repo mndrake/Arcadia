@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:vm="clr-namespace:SampleApp.ViewModel;assembly=SampleApp.ViewModel"
-                    xmlns:vw="clr-namespace:SampleApp.View;assembly=SampleApp.View">
+                    xmlns:vm="clr-namespace:FSharpApp.ViewModel;assembly=FSharpApp.ViewModel"
+                    xmlns:vw="clr-namespace:FSharpApp.View;assembly=FSharpApp.View">
 
     <!-- custom styles -->
 

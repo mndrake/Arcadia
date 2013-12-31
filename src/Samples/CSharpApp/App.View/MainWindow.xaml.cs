@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 
-namespace SampleApp.ViewCS
+namespace CSharpApp.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

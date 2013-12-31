@@ -1,4 +1,4 @@
-﻿namespace SampleApp.ViewModel
+﻿namespace FSharpApp.ViewModel
 
 open System.Linq
 open Utopia

@@ -8,7 +8,7 @@
     <ProjectGuid>537b629c-b7db-4890-8b71-bb6c38910e65</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>CalcFramework.Model</RootNamespace>
-    <AssemblyName>SampleApp.Model</AssemblyName>
+    <AssemblyName>App.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Name>Model</Name>
   </PropertyGroup>
@@ -29,7 +29,8 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\CalcFramework.Model.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

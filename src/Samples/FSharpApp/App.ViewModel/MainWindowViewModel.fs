@@ -1,8 +1,8 @@
-﻿namespace SampleApp.ViewModel
+﻿namespace FSharpApp.ViewModel
 
 open System.Collections.ObjectModel
 open Utopia.ViewModel
-open SampleApp.Model
+open App.Model
 
 type MainWindowViewModel() =
     inherit ViewModelBase()

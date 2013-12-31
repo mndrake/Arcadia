@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Model
+﻿namespace App.Model
 
 open System.Collections.Generic
 open System.Threading

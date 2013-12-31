@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SampleApp.ViewCS.Properties {
+namespace CSharpApp.View.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -11,9 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SampleApp.ViewModelCS;
+using CSharpApp.ViewModel;
 
-namespace SampleApp.ViewCS
+namespace CSharpApp.View
 {
     /// <summary>
     /// Interaction logic for GraphView.xaml

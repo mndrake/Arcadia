@@ -1,9 +1,9 @@
-﻿namespace SampleApp.ViewModelCS
+﻿namespace CSharpApp.ViewModel
 {
     using System.Collections.ObjectModel;
     using System.Linq;
     using Utopia.ViewModel;
-    using SampleApp.Model;
+    using App.Model;
 
     public class MainWindowViewModel : ViewModelBase
     {

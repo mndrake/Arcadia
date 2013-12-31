@@ -1,11 +1,10 @@
-﻿namespace SampleApp.ViewModel
+﻿namespace FSharpApp.ViewModel
 
-open GraphSharp.Controls
-open QuickGraph
-open SampleApp.Model
 open System
 open System.Collections.Generic
 open System.Diagnostics
+open QuickGraph
+open GraphSharp.Controls
 open Utopia
 open Utopia.ViewModel
 

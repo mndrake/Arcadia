@@ -1,32 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E1CF7C2-BBC1-4B58-890E-5E00ABB26559}"
-	ProjectSection(SolutionItems) = preProject
-		Solution Items\presentation.fsx = Solution Items\presentation.fsx
-		readme.md = readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{B9E3442A-9263-4046-A0FD-F22ED5FB1DDF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphSharp", "GraphSharp", "{B3522D66-58DF-48B0-8E4B-47011CFCBAD8}"
-	ProjectSection(SolutionItems) = preProject
-		lib\GraphSharp\GraphSharp.Controls.dll = lib\GraphSharp\GraphSharp.Controls.dll
-		lib\GraphSharp\GraphSharp.dll = lib\GraphSharp\GraphSharp.dll
-		lib\GraphSharp\QuickGraph.dll = lib\GraphSharp\QuickGraph.dll
-		lib\GraphSharp\WPFExtensions.dll = lib\GraphSharp\WPFExtensions.dll
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MahApps", "MahApps", "{602CCF35-503B-4F55-94AA-DF97A1F69B1B}"
-	ProjectSection(SolutionItems) = preProject
-		lib\MahApps\MahApps.Metro.dll = lib\MahApps\MahApps.Metro.dll
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FSharpx", "FSharpx", "{228237A9-8CDF-4C96-B9EE-F67F5095BD4D}"
-	ProjectSection(SolutionItems) = preProject
-		lib\FSharpx\FSharpx.TypeProviders.Xaml.dll = lib\FSharpx\FSharpx.TypeProviders.Xaml.dll
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FSharpApp", "FSharpApp", "{DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharpApp", "CSharpApp", "{DB8029BF-E724-4A2A-9FCB-33B8584E9AAF}"
@@ -39,13 +13,27 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Utopia", "src\Utopia\Utopia
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{71C3A425-8F3C-4470-B175-71A726FB083C}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "App.ViewModel", "src\Samples\FSharpApp\App.ViewModel\App.ViewModel.fsproj", "{04CCE700-C8AC-4959-90B8-668114835D3C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ViewModel", "src\Samples\FSharpApp\App.ViewModel\ViewModel.fsproj", "{04CCE700-C8AC-4959-90B8-668114835D3C}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "App.View", "src\Samples\FSharpApp\App.View\App.View.fsproj", "{A17BD663-210E-4274-A87D-8F66B39E1B22}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "View", "src\Samples\FSharpApp\App.View\View.fsproj", "{A17BD663-210E-4274-A87D-8F66B39E1B22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.ViewModel", "src\Samples\CSharpApp\App.ViewModel\App.ViewModel.csproj", "{9EA9452A-9BAF-4855-AAEC-560E8B3F472B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "src\Samples\CSharpApp\App.ViewModel\ViewModel.csproj", "{9EA9452A-9BAF-4855-AAEC-560E8B3F472B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.View", "src\Samples\CSharpApp\App.View\App.View.csproj", "{9D123727-F1D5-47DB-9D23-FC5D14779485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "src\Samples\CSharpApp\App.View\View.csproj", "{9D123727-F1D5-47DB-9D23-FC5D14779485}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E23D3580-F71D-4825-AF13-B7618EEA37CC}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\Utopia.nuspec = nuget\Utopia.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3EB595D-376B-4A0A-B014-10CC5699AE9D}"
+	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		build.fsx = build.fsx
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+		RELEASE_NOTES.md = RELEASE_NOTES.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,9 +110,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B3522D66-58DF-48B0-8E4B-47011CFCBAD8} = {B9E3442A-9263-4046-A0FD-F22ED5FB1DDF}
-		{602CCF35-503B-4F55-94AA-DF97A1F69B1B} = {B9E3442A-9263-4046-A0FD-F22ED5FB1DDF}
-		{228237A9-8CDF-4C96-B9EE-F67F5095BD4D} = {B9E3442A-9263-4046-A0FD-F22ED5FB1DDF}
 		{71C3A425-8F3C-4470-B175-71A726FB083C} = {39F8B9ED-57EE-44D6-B88B-58BAB5792DA0}
 		{7178C7A8-8CF2-4CFB-8431-A5DDEA28BC01} = {39F8B9ED-57EE-44D6-B88B-58BAB5792DA0}
 		{DAE8BB37-FD22-44AA-BA1E-69893FCE3E41} = {71C3A425-8F3C-4470-B175-71A726FB083C}
@@ -134,8 +119,5 @@ Global
 		{A17BD663-210E-4274-A87D-8F66B39E1B22} = {DAE8BB37-FD22-44AA-BA1E-69893FCE3E41}
 		{9EA9452A-9BAF-4855-AAEC-560E8B3F472B} = {DB8029BF-E724-4A2A-9FCB-33B8584E9AAF}
 		{9D123727-F1D5-47DB-9D23-FC5D14779485} = {DB8029BF-E724-4A2A-9FCB-33B8584E9AAF}
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

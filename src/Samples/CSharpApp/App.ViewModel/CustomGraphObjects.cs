@@ -1,4 +1,4 @@
-﻿namespace SampleApp.ViewModelCS
+﻿namespace CSharpApp.ViewModel
 {
     using System;
     using System.Collections.Generic;
