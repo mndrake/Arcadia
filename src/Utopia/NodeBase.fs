@@ -17,6 +17,7 @@ type NodeBase<'U>(calculationHandler : ICalculationHandler, id, initialValue) as
     abstract Eval : Async<obj> with get
     abstract IsInput : bool with get
     abstract Value : 'U with get, set
+    member this.ToINode() = this :> INode<'U>
     member this.AsyncCalculate() = async { do! this.Eval |> Async.Ignore } |> Async.Start
     member this.Calculation = calculationHandler
     

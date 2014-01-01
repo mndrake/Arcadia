@@ -6,6 +6,12 @@ module Helpers =
         match box value with
         | null -> false
         | _ -> Microsoft.FSharp.Reflection.FSharpType.IsTuple(value.GetType())
+
+    /// checks to see if object is of type 'T
+    let isType<'T> o =
+        match box o with 
+        | :? 'T -> true
+        | _ -> false
     
     // http://stackoverflow.com/questions/2361851/c-sharp-and-f-casting-specifically-the-as-keyword
     /// F# implementation of the C# 'as' keyword
