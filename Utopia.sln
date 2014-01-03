@@ -35,6 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphSharp", "GraphSharp", 
 		lib\GraphSharp\WPFExtensions.dll = lib\GraphSharp\WPFExtensions.dll
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EF3ED3C7-1CDE-4B10-B7A8-ED51415C8FC4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "UtopiaTests", "tests\UtopiaTests\UtopiaTests.fsproj", "{696571E8-1719-4E18-82DF-3D53476BE6A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,16 @@ Global
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|x86.ActiveCfg = Release|x86
 		{A17BD663-210E-4274-A87D-8F66B39E1B22}.Release|x86.Build.0 = Release|x86
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +99,6 @@ Global
 		{9D123727-F1D5-47DB-9D23-FC5D14779485} = {71C3A425-8F3C-4470-B175-71A726FB083C}
 		{A17BD663-210E-4274-A87D-8F66B39E1B22} = {71C3A425-8F3C-4470-B175-71A726FB083C}
 		{E0C70BD3-69A8-42D7-9BE4-1E95B643EFEF} = {E69813FF-7495-4BD9-B678-34F15D0C543D}
+		{696571E8-1719-4E18-82DF-3D53476BE6A9} = {EF3ED3C7-1CDE-4B10-B7A8-ED51415C8FC4}
 	EndGlobalSection
 EndGlobal

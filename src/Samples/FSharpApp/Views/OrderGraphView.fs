@@ -5,9 +5,9 @@ open FSharpx
 
 // 'code-behind' for GraphView.xaml
 
-type GraphViewType = XAML<"Views\GraphView.xaml">
+type OrderGraphViewType = XAML<"Views\OrderGraphView.xaml">
     
-type GraphView() = 
+type OrderGraphView() = 
     inherit UserControl()
-    let view = new GraphViewType()
+    let view = new OrderGraphViewType()
     do base.Content <- view.Root

@@ -2,7 +2,7 @@
 {
     using System.Threading;
 
-    public static class CalculationMethods
+    public static class SimpleMethods
     {
         public static int Add2(int x1, int x2)
         {

@@ -14,8 +14,16 @@
             <vm:MainWindowViewModel x:Key="MainWindowViewModel" />
 
             <!-- view/view model bindings -->
-            <DataTemplate DataType="{x:Type vm:GraphViewModel}">
-                <v:GraphView />
+            <DataTemplate DataType="{x:Type vm:SimpleGraphViewModel}">
+                <v:SimpleGraphView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:OrderViewModel}">
+                <v:OrderView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:OrderGraphViewModel}">
+                <v:OrderGraphView />
             </DataTemplate>
 
             <!-- custom styles -->

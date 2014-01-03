@@ -3,15 +3,15 @@
     using System;
     using Utopia;
 
-    public class CalculationEngineModel : CalculationEngine
+    public class SimpleCalculationEngine : CalculationEngine
     {
-        public CalculationEngineModel()
+        public SimpleCalculationEngine()
             : base()
         {
             // NodeFunc wrappers around static methods
 
-            var add2 = new NodeFunc<Tuple<int, int>, int>(x => CalculationMethods.Add2(x.Item1, x.Item2));
-            var add3 = new NodeFunc<Tuple<int, int, int>, int>(x => CalculationMethods.Add3(x.Item1, x.Item2, x.Item3));
+            var add2 = new NodeFunc<Tuple<int, int>, int>(x => SimpleMethods.Add2(x.Item1, x.Item2));
+            var add3 = new NodeFunc<Tuple<int, int, int>, int>(x => SimpleMethods.Add3(x.Item1, x.Item2, x.Item3));
 
             // input nodes
 

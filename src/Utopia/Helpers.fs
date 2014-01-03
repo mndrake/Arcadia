@@ -1,5 +1,7 @@
 ﻿namespace Utopia
 
+open System.ComponentModel
+
 module Helpers = 
     /// checks if value is a F# Tuple type
     let isTuple value = 
@@ -19,6 +21,11 @@ module Helpers =
         match o with
         | :? 'T as res -> res
         | _ -> null
+
+    let OnAnyPropertyChanged (action:unit -> unit) (o:obj) =
+        let propertyChanged = castAs<INotifyPropertyChanged>(o)
+        if propertyChanged <> null then 
+            propertyChanged.PropertyChanged.Add(fun _ -> action()) 
 
 [<RequireQualifiedAccess>]
 module Array2D = 

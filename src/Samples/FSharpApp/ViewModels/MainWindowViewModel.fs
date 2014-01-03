@@ -2,23 +2,39 @@
 
 open System.Collections.ObjectModel
 open Utopia.ViewModel
+open FSharpApp.Data
 open FSharpApp.Models
 
 type MainWindowViewModel() =
     inherit ViewModelBase()
-    let mutable currentpage:PageViewModel = new PageViewModel()
+
     let pages = new ObservableCollection<PageViewModel>()
+    let mutable currentPage = new PageViewModel()
 
-    let ce = CalculationEngineModel()
+    // services
+    let dataService = new DataService()
 
-    // viewmodels of app
-    let graphVM = new GraphViewModel(ce)
+    // models
+    let simpleCalc = SimpleCalculationEngine()
+    let orderCalc = OrderCalculationEngine(dataService)
+
+    // page viewmodels
+    let simpleGraphVM = new SimpleGraphViewModel(simpleCalc)
+    let orderVM = new OrderViewModel(orderCalc)
+    let orderGraphVM = new OrderGraphViewModel(orderCalc)
 
     let addPage page = pages.Add(page :> PageViewModel)
 
     do
-          graphVM |> addPage
-          currentpage <- pages.[0]
+          simpleGraphVM |> addPage
+          orderVM |> addPage
+          orderGraphVM |> addPage
+          currentPage <- pages.[0]
+
+          // set order calculation engine to automatic calculation
+          orderCalc.Calculation.Automatic <- true
+
+    member val CurrentPage = currentPage
    
-    member this.Title = "Calc FrameWork v0.1"
+    member this.Title = "Utopia v0.0"
     member this.PageViewModels = pages

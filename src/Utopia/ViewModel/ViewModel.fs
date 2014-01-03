@@ -6,19 +6,33 @@ open System.ComponentModel
 open System.Windows
 open System.Windows.Input
 
+// lightweight model class (ObservableObject) and view model base class (ViewModelBase) for MVVM framework
+// the Utopia CalculationEngine does implement ObservableObject, which is just a simple implementation of INotifyPropertyChanged
+
+
 type ObservableObject() as this = 
     let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
-    
-    member this.OnPropertyChanged propertyName = 
+
+    do
+        let t = (this :> INotifyPropertyChanged).PropertyChanged.Add(this.OnPropertyChanged)
+        ()
+
+    abstract OnPropertyChanged : PropertyChangedEventArgs -> unit
+
+    default this.OnPropertyChanged(args) = ()
+
+    member this.RaisePropertyChanged propertyName = 
         propertyChangedEvent.Trigger([| this; new PropertyChangedEventArgs(propertyName) |])
-    
-    member this.PropertyChanged = propertyChangedEvent.Publish
+
     interface INotifyPropertyChanged with
         [<CLIEvent>]
-        member I.PropertyChanged = this.PropertyChanged
+        member I.PropertyChanged = propertyChangedEvent.Publish
+    
+
 
 type ViewModelBase() as this = 
-    let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
+    inherit ObservableObject()
+
     abstract ValidatedProperties : string [] with get
     override this.ValidatedProperties = [||]
     abstract GetValidationError : string -> string
@@ -28,51 +42,15 @@ type ViewModelBase() as this =
     abstract OnDispose : unit with get
     override this.OnDispose with get () = ()
     member this.IsValid with get () = this.ValidatedProperties |> Seq.forall(fun p -> this.GetValidationError(p) = null)
-    
-    member x.OnPropertyChanged propertyName = 
-        propertyChangedEvent.Trigger([| x
-                                        new PropertyChangedEventArgs(propertyName) |])
-    
+        
     member this.Dispose() = this.OnDispose
-    
-    interface INotifyPropertyChanged with
-        [<CLIEvent>]
-        member x.PropertyChanged = propertyChangedEvent.Publish
-    
+        
     interface IDisposable with
         member this.Dispose() = this.Dispose()
     
     interface IDataErrorInfo with
         member I.Error with get () = this.Error
         member I.Item with get (propertyName) = this.GetValidationError(propertyName)
-
-type RelayCommandCanExecuteDelegate = delegate of obj -> bool
-
-type RelayCommandActionDelegate = delegate of obj -> unit
-
-type RelayCommand(canExecute : RelayCommandCanExecuteDelegate, action : RelayCommandActionDelegate) = 
-    let event = new DelegateEvent<EventHandler>()
-    interface ICommand with
-        
-        [<CLIEvent>]
-        member x.CanExecuteChanged = event.Publish
-        
-        member x.CanExecute(arg) = canExecute.Invoke(arg)
-        member x.Execute(arg) = action.Invoke(arg)
-
-type ActionDelegate = delegate of unit -> unit
-
-type ActionCommand(f : ActionDelegate) = 
-    inherit RelayCommand((fun _ -> true), (fun _ -> f.Invoke()))
-
-type CommandViewModel(displayName : string, command : ICommand) = 
-    inherit ViewModelBase()
-    member this.DisplayName = displayName
-    member this.Command = command
-
-[<AutoOpen>]
-module Utils = 
-    let inline command f = new RelayCommand((fun canExecute -> true), (fun action -> f()))
 
 type PageViewModel() = 
     inherit ViewModelBase()
@@ -82,3 +60,8 @@ type PageViewModel() =
     member x.RequestClose = requestClose.Publish
     member x.OnRequestClose() = requestClose.Trigger(x)
     member x.CloseCommand = new RelayCommand((fun canExecute -> true), (fun action -> x.OnRequestClose()))
+
+type CommandViewModel(displayName : string, command : ICommand) = 
+    inherit ViewModelBase()
+    member this.DisplayName = displayName
+    member this.Command = command

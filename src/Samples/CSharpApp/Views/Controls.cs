@@ -1,30 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CSharpApp.ViewModels;
-
-namespace CSharpApp.Views
+﻿namespace CSharpApp.Views
 {
-    /// <summary>
-    /// Interaction logic for GraphView.xaml
-    /// </summary>
-    public partial class GraphView : UserControl
-    {
-        public GraphView()
-        {
-            InitializeComponent();
-        }
-    }
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using CSharpApp.ViewModels;
 
     public class SubmitTextBox : TextBox
     {
@@ -54,10 +34,10 @@ namespace CSharpApp.Views
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             FrameworkElement element = container as FrameworkElement;
-            if (element != null && item != null && item is CustomVertex)
+            if (element != null && item != null && item is INodeVertex)
             {
-                CustomVertex vertexItem = (CustomVertex)item;
-                if (vertexItem.IsInput)
+                INodeVertex vertexItem = (INodeVertex)item;
+                if (vertexItem.Node.IsInput)
                 {
                     return element.FindResource("InputVertexTemplate") as DataTemplate;
                 }

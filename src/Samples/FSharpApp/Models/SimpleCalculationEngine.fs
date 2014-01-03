@@ -6,7 +6,7 @@ open Utopia
 open System
 
 [<AutoOpen>]
-module CalculationMethods =
+module SimpleMethods =
 
     // async functions that are used to calculate output nodes
     let add2(x1, x2) = 
@@ -21,7 +21,7 @@ module CalculationMethods =
             Thread.Sleep 1500
             x1 + x2 + x3 + x4
 
-type CalculationEngineModel() as this =
+type SimpleCalculationEngine() as this =
     inherit CalculationEngine()
 
     do        

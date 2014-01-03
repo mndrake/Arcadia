@@ -3,34 +3,36 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Utopia.ViewModel;
-    using CSharpApp.Models;
+    using Data;
+    using Models;
 
     public class MainWindowViewModel : ViewModelBase
     {
-        PageViewModel _currentPage;
-
-        public PageViewModel CurrentPage
+        public MainWindowViewModel() : base()
         {
-            get { return _currentPage; }
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged("CurrentPage");
-            }
+            // services
+            var dataService = new DataService();
+
+            // models
+            var simpleCalc = new SimpleCalculationEngine();
+            var orderCalc = new OrderCalculationEngine(dataService);
+
+            // page viewmodels
+            PageViewModels = new ObservableCollection<PageViewModel>();
+            PageViewModels.Add(new SimpleGraphViewModel(simpleCalc));
+            PageViewModels.Add(new OrderViewModel(orderCalc));
+            PageViewModels.Add(new OrderGraphViewModel(orderCalc));
+
+            CurrentPage = PageViewModels.FirstOrDefault();
+
+            // set order calculation engine to automatic calculation
+            orderCalc.Calculation.Automatic = true;
         }
+
+        public PageViewModel CurrentPage { get; set; }
 
         public ObservableCollection<PageViewModel> PageViewModels { get; private set; }
 
-        public MainWindowViewModel() : base()
-        {
-            var calcEngine = new CalculationEngineModel();
-
-            PageViewModels = new ObservableCollection<PageViewModel>();
-            PageViewModels.Add(new GraphViewModel(calcEngine));
-
-            CurrentPage = PageViewModels.FirstOrDefault();
-        }
-
-        public string Title {get { return "Calc FrameWork v0.1"; } }
+        public string Title {get { return "Utopia v0.0"; } }
     }
 }

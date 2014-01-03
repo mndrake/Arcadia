@@ -54,18 +54,28 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="Models\CalculationEngineModel.fs" />
-    <Compile Include="ViewModels\CustomGraphObjects.fs" />
-    <Compile Include="ViewModels\GraphViewModel.fs" />
+    <Compile Include="Data\OrderModel.fs" />
+    <Compile Include="Data\IDataService.fs" />
+    <Compile Include="Data\DataService.fs" />
+    <Compile Include="Models\SimpleCalculationEngine.fs" />
+    <Compile Include="Models\OrderCalculationEngine.fs" />
+    <Compile Include="ViewModels\NodeGraph.fs" />
+    <Compile Include="ViewModels\SimpleGraphViewModel.fs" />
+    <Compile Include="ViewModels\OrderGraphViewModel.fs" />
+    <Compile Include="ViewModels\OrderViewModel.fs" />
     <Compile Include="ViewModels\MainWindowViewModel.fs" />
     <Compile Include="Views\Controls.fs" />
-    <Resource Include="Views\GraphView.xaml" />
-    <Compile Include="Views\GraphView.fs" />
+    <Resource Include="Views\SimpleGraphView.xaml" />
+    <Compile Include="Views\SimpleGraphView.fs" />
+    <Resource Include="Views\OrderView.xaml" />
+    <Compile Include="Views\OrderView.fs" />
+    <Resource Include="Views\OrderGraphView.xaml" />
+    <Compile Include="Views\OrderGraphView.fs" />
     <Resource Include="Views\MainWindow.xaml" />
     <Resource Include="App.xaml" />
     <Compile Include="App.fs" />
-    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -80,7 +90,7 @@
       <HintPath>..\..\..\lib\GraphSharp\GraphSharp.Controls.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>..\..\..\..\packages\MahApps.Metro.0.11.0.0\lib\net40\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\..\packages\MahApps.Metro.0.12.0.16-ALPHA\lib\net40\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -102,7 +112,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\..\..\packages\MahApps.Metro.0.11.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\packages\MahApps.Metro.0.12.0.16-ALPHA\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />

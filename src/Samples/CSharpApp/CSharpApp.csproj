@@ -7,8 +7,8 @@
     <ProjectGuid>{9D123727-F1D5-47DB-9D23-FC5D14779485}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CSharpApp.View</RootNamespace>
-    <AssemblyName>CSharpApp.View</AssemblyName>
+    <RootNamespace>CSharpApp</RootNamespace>
+    <AssemblyName>CSharpApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -91,10 +91,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\CustomGraphObjects.cs" />
-    <Compile Include="ViewModels\GraphViewModel.cs" />
+    <Compile Include="Data\DataService.cs" />
+    <Compile Include="Data\IDataService.cs" />
+    <Compile Include="Data\OrderModel.cs" />
+    <Compile Include="Models\IOrderCalculationEngine.cs" />
+    <Compile Include="Models\OrderCalculationEngine.cs" />
+    <Compile Include="Models\OrderMethods.cs" />
+    <Compile Include="ViewModels\OrderGraphViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\SimpleGraphViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Page Include="Views\GraphView.xaml">
+    <Page Include="Views\OrderGraphView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SimpleGraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,8 +121,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\GraphView.xaml.cs">
-      <DependentUpon>GraphView.xaml</DependentUpon>
+    <Compile Include="ViewModels\NodeGraph.cs" />
+    <Compile Include="Views\Controls.cs" />
+    <Compile Include="Views\OrderGraphView.xaml.cs">
+      <DependentUpon>OrderGraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimpleGraphView.xaml.cs">
+      <DependentUpon>SimpleGraphView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -115,8 +138,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CalculationEngineModel.cs" />
-    <Compile Include="Models\CalculationMethods.cs" />
+    <Compile Include="Models\SimpleCalculationEngine.cs" />
+    <Compile Include="Models\SimpleMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

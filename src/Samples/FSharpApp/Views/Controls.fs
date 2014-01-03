@@ -9,9 +9,9 @@ type VertexDataTemplateSelector() =
     inherit DataTemplateSelector()
     override this.SelectTemplate(item : obj, container : DependencyObject) : DataTemplate = 
         let element = castAs<FrameworkElement>(container)
-        if (element <> null && item <> null && (item |> isType<CustomVertex>)) then 
-            let vertexItem = item :?> CustomVertex
-            if (vertexItem.IsInput) then element.FindResource("InputVertexTemplate") |> castAs<DataTemplate>
+        if (element <> null && item <> null && (item |> isType<INodeVertex>)) then 
+            let vertexItem = item :?> INodeVertex
+            if (vertexItem.Node.IsInput) then element.FindResource("InputVertexTemplate") |> castAs<DataTemplate>
             else element.FindResource("OutputVertexTemplate") |> castAs<DataTemplate>
         else null
 
