@@ -1,8 +1,8 @@
 ﻿namespace Utopia
 
-open Helpers
 open System
 open System.ComponentModel
+open Helpers
 
 type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
     inherit NodeBase<'U>(calculationHandler, id, initialValue)
@@ -20,10 +20,10 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
         if propertyChanged <> null then 
             propertyChanged.PropertyChanged.Add(fun args -> this.RaiseChanged())   
 
-    override this.DependentNodes = [||]
-    override this.Eval = async { return box this.Value }
+    override this.GetDependentNodes() = [||]
+    override this.Computation = async { return box this.Value }
     override this.IsInput = true
-    
+    override this.Status = Valid
     override this.Value 
         with get () = !this.initValue
         and set v = 

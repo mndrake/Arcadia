@@ -49,20 +49,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GraphSharp, Version=1.0.2.0, Culture=neutral, PublicKeyToken=f9c24778325a6b82, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GraphSharp">
       <HintPath>..\..\..\lib\GraphSharp\GraphSharp.dll</HintPath>
     </Reference>
-    <Reference Include="GraphSharp.Controls, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f9c24778325a6b82, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GraphSharp.Controls">
       <HintPath>..\..\..\lib\GraphSharp\GraphSharp.Controls.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.12.0.16, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\MahApps.Metro.0.12.0.16-ALPHA\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="QuickGraph">
       <HintPath>..\..\..\lib\GraphSharp\QuickGraph.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -81,8 +78,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFExtensions, Version=1.0.3437.34043, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="WPFExtensions">
       <HintPath>..\..\..\lib\GraphSharp\WPFExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -121,8 +117,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\NodeGraph.cs" />
-    <Compile Include="Views\Controls.cs" />
     <Compile Include="Views\OrderGraphView.xaml.cs">
       <DependentUpon>OrderGraphView.xaml</DependentUpon>
     </Compile>
@@ -168,12 +162,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utopia\Utopia.fsproj">
-      <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
-      <Name>Utopia</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -195,7 +183,20 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utopia.Graph\Utopia.Graph.csproj">
+      <Project>{73564ece-3335-4f30-b308-9bbd114e3cca}</Project>
+      <Name>Utopia.Graph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utopia.MVVM\Utopia.MVVM.fsproj">
+      <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
+      <Name>Utopia.MVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utopia\Utopia.fsproj">
+      <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
+      <Name>Utopia</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

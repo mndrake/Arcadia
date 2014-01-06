@@ -3,70 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-             xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+             xmlns:graph="clr-namespace:Utopia.Graph;assembly=Utopia.Graph"
              xmlns:vm="clr-namespace:FSharpApp.ViewModels;assembly=FSharpApp"
-             xmlns:v="clr-namespace:FSharpApp.Views;assembly=FSharpApp"
              mc:Ignorable="d" 
-             DataContext="{Binding}"
              d:DesignHeight="600" d:DesignWidth="700">
 
-        <UserControl.Resources>
+    <UserControl.Resources>
+
+        <!--override default input output vertex templates-->
 
         <DataTemplate x:Key="InputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
             <StackPanel Orientation="Vertical" Margin="5">
-                <TextBlock Text="{Binding Path=ID}" Foreground="Green" />
-                <v:SubmitTextBox Text="{Binding Path=Value, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=Explicit}" Foreground="Blue" />
+                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Id}" Foreground="Green" />
+                <TextBox Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Blue" />
             </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Key="OutputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
             <StackPanel Orientation="Vertical" Margin="5">
-                <TextBlock x:Name="outId" Text="{Binding Path=ID}" Foreground="Blue" />                
+                <TextBlock x:Name="outId" Text="{Binding Path=Id}" Foreground="Blue" />
                 <TextBlock x:Name="outValue" Text="{Binding Path=Value}" Foreground="Blue" />
             </StackPanel>
             <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Dirty}" Value="true">
+                <DataTrigger Binding="{Binding Dirty}" Value="true">
                     <Setter TargetName="outId" Property="Foreground" Value="Red" />
                     <Setter TargetName="outValue" Property="Foreground" Value="Red" />
-                    </DataTrigger>
+                </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-
-        <v:VertexDataTemplateSelector x:Key="vertexTemplateSelector"/>
-
-        <Style TargetType="{x:Type graphsharp:VertexControl}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type graphsharp:VertexControl}">
-                        <Border BorderBrush="White" 
-                                Background="Black"
-                                BorderThickness="2"
-                                CornerRadius="10,10,10,10"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter Name="contentPresenter" Content="{TemplateBinding Vertex}" 
-                                              ContentTemplateSelector="{StaticResource vertexTemplateSelector}"/>
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="2" Color="LightGray" 
-                            Opacity="0.3" Direction="315"/>
-                            </Border.Effect>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="{x:Type graphsharp:EdgeControl}">
-            <Style.Resources>
-                <ToolTip x:Key="ToolTipContent">
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold" Text="Edge.ID"/>
-                        <TextBlock Text="{Binding Path=ID}"/>
-                    </StackPanel>
-                </ToolTip>
-            </Style.Resources>
-            <Setter Property="ToolTip" Value="{StaticResource ToolTipContent}"/>
-        </Style>
 
     </UserControl.Resources>
 
@@ -92,13 +56,7 @@
             </StackPanel>
         </StackPanel>
 
-        <zoom:ZoomControl Grid.Row="1" Background="#ff656565">
-            <vm:NodeGraphLayout x:Name="graphLayout" Margin="10"
-                        Graph="{Binding Graph}"
-                        LayoutAlgorithmType="{Binding Path=LayoutAlgorithmType, Mode=OneWay}"
-                        OverlapRemovalAlgorithmType="FSA"
-                        HighlightAlgorithmType="Simple" />
-        </zoom:ZoomControl>
+        <graph:NodeGraphControl Grid.Row="1" DataContext="{Binding Graph}" />
 
     </Grid>
 </UserControl>

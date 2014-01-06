@@ -2,6 +2,7 @@
 {
     using System;
     using Utopia;
+    using Utopia.Graph;
     using Utopia.ViewModel;
 
     public class OrderGraphVertex : NodeVertexBase
@@ -17,8 +18,7 @@
         public OrderGraphViewModel(ICalculationEngine calculationEngine) : base()
         {
             _calculationEngine = calculationEngine;
-            Func<INode, INodeVertex> vertexConstructor = node => (INodeVertex)new OrderGraphVertex(node);
-            _graph = new NodeGraph(calculationEngine, vertexConstructor);
+            _graph = new NodeGraph(calculationEngine, new VertexConstructor(node => (INodeVertex)new OrderGraphVertex(node)));
         }
 
         public bool AutoCalculate

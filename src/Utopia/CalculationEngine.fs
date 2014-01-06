@@ -1,14 +1,13 @@
 ﻿namespace Utopia
 
 open System
-open System.Collections.Generic
-open Utopia.ViewModel
+open System.Collections.ObjectModel
 
 type NodeFunc<'T, 'U> = delegate of 'T -> 'U
 
 type CalculationEngine(calculationHandler : ICalculationHandler) as this = 
 
-    let nodes = List<INode>()
+    let nodes = Collection<INode>()
     let mutable inputCount = 0
     let mutable outputCount = 0
     new() = new CalculationEngine(new CalculationHandler())
@@ -18,29 +17,29 @@ type CalculationEngine(calculationHandler : ICalculationHandler) as this =
     // overloaded methods instead of using an F# optional parameter
     // otherwise an F# option would be exposed to CLI
     
-    member this.AddInput(value : 'U, nodeID : string) = 
-        let input = InputNode<'U>(this.Calculation, nodeID, value)
+    member this.AddInput(value : 'U, nodeId : string) = 
+        let input = InputNode<'U>(this.Calculation, nodeId, value)
         nodes.Add(input)
         input
 
     member this.AddInput(value : 'U) =
-        let nodeID = "in" + string inputCount
+        let nodeId = "in" + string inputCount
         inputCount <- inputCount + 1
-        this.AddInput(value, nodeID)
+        this.AddInput(value, nodeId)
     
-    member this.AddOutput(dependentNodes : 'N, nodeFunction : NodeFunc<'T,'U>, nodeID : string) =
+    member this.AddOutput(dependentNodes : 'N, nodeFunction : NodeFunc<'T,'U>, nodeId : string) =
         let f(t) = nodeFunction.Invoke(t)
-        let output = OutputNode<'N, 'T, 'U>(this.Calculation, nodeID, dependentNodes, f)
+        let output = OutputNode<'N, 'T, 'U>(this.Calculation, nodeId, dependentNodes, f)
         nodes.Add(output)
         output
 
     member this.AddOutput(dependentNodes : 'N, nodeFunction : NodeFunc<'T,'U>) =
-        let nodeID = "out" + string outputCount
+        let nodeId = "out" + string outputCount
         outputCount <- outputCount + 1
-        this.AddOutput(dependentNodes, nodeFunction, "out" + string outputCount)
+        this.AddOutput(dependentNodes, nodeFunction, nodeId)
  
     interface ICalculationEngine with
         member I.Nodes = this.Nodes
         member I.Calculation = this.Calculation
     
-    static member Eval(node : INode) = async { node.Eval |> ignore } |> Async.Start
+    static member Eval(node : INode) = async { node.Computation |> ignore } |> Async.Start

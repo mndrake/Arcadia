@@ -1,25 +1,36 @@
 ﻿namespace Utopia
 
 open System
-open System.Collections.Generic
+open System.Collections.ObjectModel
 open System.ComponentModel
+open System.Threading
 
-type ChangedEventHandler = delegate of obj * EventArgs -> unit
+type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
+
+type NodeStatus =
+    | Valid
+    | Error
+    | Processing
+    | Dirty
+    | Cancelling
 
 type ICalculationHandler = 
+    abstract CancellationToken : CancellationToken with get
     abstract Automatic : bool with get, set
     [<CLIEvent>] 
     abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
     abstract Cancel : unit -> unit
+    abstract Reset : unit -> unit
 
 type INode = 
     abstract Calculation : ICalculationHandler with get    
     [<CLIEvent>] 
     abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
-    abstract DependentNodes : INode [] with get
+    abstract Status : NodeStatus
+    abstract GetDependentNodes : unit -> INode []
     abstract Dirty : bool with get
-    abstract Eval : Async<obj> with get
-    abstract ID : string with get
+    abstract Computation : Async<obj> with get
+    abstract Id : string with get
     abstract IsInput : bool with get
     abstract Processing : bool with get
     abstract RaiseChanged : unit -> unit
@@ -32,4 +43,4 @@ type INode<'U> =
 
 type ICalculationEngine = 
     abstract Calculation : ICalculationHandler with get
-    abstract Nodes : List<INode> with get
+    abstract Nodes : Collection<INode> with get

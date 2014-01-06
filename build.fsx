@@ -39,6 +39,7 @@ Target "AssemblyInfo" (fun _ ->
     |> Seq.iter (fun (fileName, title, project, summary) ->
         CreateFSharpAssemblyInfo fileName
            [ Attribute.Title title
+             Attribute.ComVisible false
              Attribute.Product project
              Attribute.Description summary
              Attribute.Version release.AssemblyVersion
@@ -46,15 +47,21 @@ Target "AssemblyInfo" (fun _ ->
 )
 
 // --------------------------------------------------------------------------------------
+// directory definitions
+
+let buildDir = "bin"
+let testDir = "test"
+
+// --------------------------------------------------------------------------------------
 // Clean build results
 
-Target "Clean" (fun _ -> CleanDirs [ "bin"; "deploy"; "deploy/FSharpApp"; "deploy/CSharpApp"; "deploy/Utopia" ])
+Target "Clean" (fun _ -> CleanDirs [ buildDir; testDir; "deploy"; "deploy/FSharpApp"; "deploy/CSharpApp"; "deploy/Utopia" ])
 
 // --------------------------------------------------------------------------------------
 // Build library (builds Visual Studio solution)
 
 Target "Build" (fun _ ->
-    MSBuildRelease "bin" "Rebuild" ["Utopia.sln"]
+    MSBuildRelease buildDir "Rebuild" ["Utopia.sln"]
     |> Log "Build-Output: "
 )
 
@@ -89,6 +96,21 @@ Target "Deploy" (fun _ ->
     |> CopyFiles "deploy/Utopia"
 
     )
+
+// --------------------------------------------------------------------------------------
+// FxCop - Code Analysis 
+// /c /f:$(TargetPath) /d:$(BinDir) /r:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Team Tools\Static Analysis Tools\FxCop\Rules"
+Target "FxCop" (fun () ->  
+//    !! (buildDir + @"\**\*.dll") 
+//    ++ (buildDir + @"\**\*.exe") 
+    !! ("bin/Utopia.dll")
+    |> FxCop 
+        (fun p -> 
+            {p with 
+              // override default parameters
+              ReportFileName = buildDir + "/FXCopResults.xml"
+              ToolPath = """C:\Program Files (x86)\Microsoft Visual Studio 11.0\Team Tools\Static Analysis Tools\FxCop\FxCopCmd.exe"""})
+)
 
 
 // --------------------------------------------------------------------------------------
@@ -136,5 +158,8 @@ Target "All" DoNothing
 
 "Build"
 ==> "Deploy"
+
+"Build"
+==> "FxCop"
 
 RunTargetOrDefault "Help"

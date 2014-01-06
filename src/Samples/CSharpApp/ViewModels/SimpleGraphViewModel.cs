@@ -4,6 +4,7 @@
     using System.Windows.Input;
     using Utopia;
     using Utopia.ViewModel;
+    using Utopia.Graph;
 
     public class SimpleGraphVertex : NodeVertexBase
     {
@@ -41,9 +42,7 @@
         {
             _calculationEngine = calculationEngine;
 
-            Func<INode,INodeVertex> vertexConstuctor = node => (INodeVertex)new SimpleGraphVertex(node);
-
-            Graph = new NodeGraph(_calculationEngine, vertexConstuctor);
+            Graph = new NodeGraph(_calculationEngine, new VertexConstructor(node => (INodeVertex)new SimpleGraphVertex(node)));
 
             CalculateFullCommand = new ActionCommand(() => Graph.UpdateNode("out9"));
             CancelCalculateCommand = new ActionCommand(() => _calculationEngine.Calculation.Cancel());

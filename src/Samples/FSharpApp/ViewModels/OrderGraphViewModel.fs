@@ -2,7 +2,9 @@
 
 open System.Linq
 open Utopia
+open Utopia.Graph
 open Utopia.ViewModel
+
 
 type OrderGraphVertex(node)  = inherit NodeVertexBase(node)
 

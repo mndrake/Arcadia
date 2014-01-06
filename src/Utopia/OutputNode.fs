@@ -1,12 +1,12 @@
 ﻿namespace Utopia
 
-open Helpers
-open Microsoft.FSharp.Reflection
 open System
 open System.ComponentModel
 open System.Diagnostics
 open System.Linq
 open System.Threading
+open Microsoft.FSharp.Reflection
+open Helpers
 
 type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this = 
     inherit NodeBase<'U>(calculationHandler, id, initialValue)
@@ -21,8 +21,8 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
         else fun p -> (p.[0] :?> 'T) |> nodeFunction
     
     // debug messages
-    let msgCancel() = Debug.Print("EVAL CANCELLED : ID {0}, Dirty {1}", this.ID, this.Dirty)
-    let msgUpdate() = Debug.Print("ID {0} VALUE UPDATED : THREAD {1}", this.ID, Thread.CurrentThread.ManagedThreadId)
+    let msgCancel() = Debug.Print("EVAL CANCELLED : ID {0}, Dirty {1}", this.Id, this.Dirty)
+    let msgUpdate() = Debug.Print("ID {0} VALUE UPDATED : THREAD {1}", this.Id, Thread.CurrentThread.ManagedThreadId)
     
     do 
         this.dirty := true
@@ -32,20 +32,34 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
                          this.RaiseChanged()))
         this.Changed.Add
             (fun args -> 
-            if not !this.processing && this.Calculation.Automatic && nodes.All(fun n -> not n.Dirty) then 
-                async { do! this.Eval |> Async.Ignore } |> Async.Start)
+            if !this.processing then
+                // cancel evaluation
+                this.Cancel()
+                // restart evaluation
+                this.AsyncCalculate()
+            if this.Calculation.Automatic && not (this.GetDependentNodes().Any(fun n -> n.Dirty)) then
+                 this.AsyncCalculate())
     
-    override this.DependentNodes = nodes
+    override this.GetDependentNodes() = nodes.Clone() |> unbox
+
+    override this.Status = 
+        if !this.processing then
+            Processing
+        elif !this.dirty then
+            Dirty
+        else
+            Valid
     
-    override this.Eval = 
+    override this.Computation = 
         async { 
             use! cancelHandler = Async.OnCancel(fun () -> 
                                      this.processing := false
+                                     this.RaiseChanged()
                                      msgCancel())
             if !this.dirty && not !this.processing then 
                 this.processing := true
                 let! values = nodes
-                              |> Seq.map(fun n -> n.Eval)
+                              |> Seq.map(fun n -> n.Computation)
                               |> Async.Parallel
                 let! result = async { return func values }
                 this.initValue := result

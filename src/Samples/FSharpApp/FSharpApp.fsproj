@@ -59,12 +59,10 @@
     <Compile Include="Data\DataService.fs" />
     <Compile Include="Models\SimpleCalculationEngine.fs" />
     <Compile Include="Models\OrderCalculationEngine.fs" />
-    <Compile Include="ViewModels\NodeGraph.fs" />
     <Compile Include="ViewModels\SimpleGraphViewModel.fs" />
     <Compile Include="ViewModels\OrderGraphViewModel.fs" />
     <Compile Include="ViewModels\OrderViewModel.fs" />
     <Compile Include="ViewModels\MainWindowViewModel.fs" />
-    <Compile Include="Views\Controls.fs" />
     <Resource Include="Views\SimpleGraphView.xaml" />
     <Compile Include="Views\SimpleGraphView.fs" />
     <Resource Include="Views\OrderView.xaml" />
@@ -125,9 +123,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Utopia.Graph\Utopia.Graph.csproj">
+      <Name>Utopia.Graph</Name>
+      <Project>{73564ece-3335-4f30-b308-9bbd114e3cca}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utopia.MVVM\Utopia.MVVM.fsproj">
+      <Name>Utopia.MVVM</Name>
+      <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Utopia\Utopia.fsproj">
       <Name>Utopia</Name>
-      <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
+      <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
