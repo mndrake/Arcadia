@@ -44,9 +44,6 @@
     <Compile Include="OutputNode.fs" />
     <Compile Include="CalculationHandler.fs" />
     <Compile Include="CalculationEngine.fs" />
-    <None Include="status.fsx" />
-    <None Include="cancellation.fsx" />
-    <None Include="Agents.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

@@ -29,17 +29,7 @@
 
         public bool IsInput { get { return _node.IsInput; } }
 
-        public string Status 
-        { 
-            get 
-            {
-                if (_node.Status.IsDirty) { return "Dirty"; }
-
-                return null;
-            }
-        }
-
-        public bool Dirty { get { return _node.Dirty; } }
+        public bool Dirty { get { return _node.IsDirty; } }
 
         public override string ToString() { return string.Format("{0}-{1}",Id,IsInput); }
     }

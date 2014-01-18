@@ -1,6 +1,7 @@
 ﻿namespace Utopia
 
 open System
+open System.Collections.Generic
 open System.ComponentModel
 open System.Diagnostics
 open System.Linq
@@ -10,8 +11,9 @@ open Helpers
 
 type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this = 
     inherit NodeBase<'U>(calculationHandler, id, initialValue)
-    
-    // convert input nodes and function into array versions to ease parallel async support
+
+    // convert tuple to object array
+
     let nodes = 
         if isTuple nodeInputs then FSharpValue.GetTupleFields(nodeInputs) |> Array.map(fun x -> x :?> INode)
         else [| (box nodeInputs) :?> INode |]
@@ -20,60 +22,130 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
         if isTuple nodeInputs then fun p -> (FSharpValue.MakeTuple(p, typeof<'T>) :?> 'T) |> nodeFunction
         else fun p -> (p.[0] :?> 'T) |> nodeFunction
     
-    // debug messages
-    let msgCancel() = Debug.Print("EVAL CANCELLED : ID {0}, Dirty {1}", this.Id, this.Dirty)
-    let msgUpdate() = Debug.Print("ID {0} VALUE UPDATED : THREAD {1}", this.Id, Thread.CurrentThread.ManagedThreadId)
+    let status = ref NodeStatus.Dirty
+    let changed = new Event<ChangedEventHandler, EventArgs>()
+    let cancelled = new Event<CancelledEventHandler, EventArgs>()
+    let newCts() = CancellationTokenSource.CreateLinkedTokenSource(
+                    calculationHandler.CancellationToken, new CancellationToken())    
+    let queue = List<Message>()
+
+    let agent = 
+        MailboxProcessor.Start(fun inbox -> 
+
+            let rec nextMsg() = async {
+                // process incoming messages
+                while (queue.Count = 0 && inbox.CurrentQueueLength = 0) || 
+                      inbox.CurrentQueueLength > 0 do
+                    let! msg = inbox.Receive()
+                    queue.Add(msg)
+
+                // process Changed messages first, but only need to process as one
+                if queue.Contains(Changed) then
+                    queue.RemoveAll(fun m -> m=Changed) |> ignore
+                    return Changed
+                else
+                    // process all other requests in order
+                    let msg = queue.First()
+                    queue.RemoveAt(0)
+                    return msg
+                }
+            
+            let rec calculate() = async {
+                let! nodeValues = Async.Parallel(nodes |> Array.map(fun n -> n.Evaluate()))
+                let statuses, values = nodeValues |> Array.unzip
+                if (statuses |> Array.forall(fun n -> n = NodeStatus.Valid)) then
+                    if this.cts.IsCancellationRequested then
+                        this.cts <- newCts()
+                    Async.StartWithContinuations(
+                        async {return func values},
+                        (fun v -> this.value := v
+                                  inbox.Post(Processed)),
+                        (fun _ -> ()),
+                        (fun _ -> inbox.Post(Cancelled)),
+                        this.cts.Token)
+                return! processing()
+                }
+            
+            and valid() = async { 
+                let! msg = nextMsg()
+                match msg with
+                | Changed ->
+                    if not calculationHandler.Automatic then
+                        status := NodeStatus.Dirty
+                        changed.Trigger(this, EventArgs.Empty)
+                        return! dirty()
+                    else 
+                        status := NodeStatus.Processing
+                        changed.Trigger(this, EventArgs.Empty)                    
+                        return! calculate()                    
+                | Eval r -> 
+                    r.Reply(NodeStatus.Valid, box !this.value)
+                    return! valid()
+                | _ -> 
+                    return! valid()
+                }
+            
+            and processing() = async { 
+                let! msg = nextMsg()
+                match msg with
+                | Changed -> 
+                    return! calculate()
+                | Eval r -> 
+                    r.Reply(NodeStatus.Processing, null)
+                    return! processing()
+                | Processed -> 
+                    status := NodeStatus.Valid
+                    changed.Trigger(null, EventArgs.Empty)
+                    return! valid()
+                | AutoCalculation _ -> 
+                    return! processing()
+                | Cancelled ->
+                    status := NodeStatus.Dirty
+                    cancelled.Trigger(null, EventArgs.Empty)
+                    return! dirty()
+                }
+            
+            and dirty() = 
+                async { 
+                    let! msg = nextMsg()
+                    match msg with
+                    | Changed ->
+                        return! dirty()
+                    | Eval r -> 
+                        r.Reply(NodeStatus.Dirty, null)
+                        return! calculate()
+                    | AutoCalculation true ->
+                        return! calculate()
+                    | _ -> return! dirty()
+                    }
+            
+            // initial state
+            match calculationHandler.Automatic with
+            | true  -> calculate()
+            | false -> dirty()
+            )
     
     do 
-        this.dirty := true
-        nodes |> Seq.iter(fun n -> 
-                     n.Changed.Add(fun args -> 
-                         this.dirty := true
-                         this.RaiseChanged()))
-        this.Changed.Add
-            (fun args -> 
-            if !this.processing then
-                // cancel evaluation
-                this.Cancel()
-                // restart evaluation
-                this.AsyncCalculate()
-            if this.Calculation.Automatic && not (this.GetDependentNodes().Any(fun n -> n.Dirty)) then
-                 this.AsyncCalculate())
+        nodes |> Seq.iter(fun n -> n.Changed.Add(fun _ -> agent.Post(Changed)))
+        nodes |> Seq.iter(fun n -> n.Cancelled.Add(fun _ -> agent.Post(Cancelled)))
+        calculationHandler.Changed.Add(fun _ -> agent.Post(AutoCalculation(calculationHandler.Automatic)))
     
+    override this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
     override this.GetDependentNodes() = nodes.Clone() |> unbox
-
-    override this.Status = 
-        if !this.processing then
-            Processing
-        elif !this.dirty then
-            Dirty
-        else
-            Valid
-    
-    override this.Computation = 
-        async { 
-            use! cancelHandler = Async.OnCancel(fun () -> 
-                                     this.processing := false
-                                     this.RaiseChanged()
-                                     msgCancel())
-            if !this.dirty && not !this.processing then 
-                this.processing := true
-                let! values = nodes
-                              |> Seq.map(fun n -> n.Computation)
-                              |> Async.Parallel
-                let! result = async { return func values }
-                this.initValue := result
-                msgUpdate()
-                this.dirty := false
-                this.processing := false
-                this.RaiseChanged()
-            while (!this.processing) do
-                do! Async.Sleep(100)
-            return box <| !this.initValue
-        }
-    
+    override this.Status = !status
+    override this.Value with get() = !this.value
+                         and set v = failwith "cannot set the value of an output node"
+    override this.RaiseChanged() = changed.Trigger(this, EventArgs.Empty)
+    override this.IsDirty = 
+        match !status with
+        |NodeStatus.Valid -> false
+        |_ -> true
+    override this.IsProcessing = 
+        match !status with
+        |NodeStatus.Processing -> true
+        |_ -> false
+    [<CLIEvent>]
+    override this.Changed = changed.Publish
+    [<CLIEvent>]
+    override this.Cancelled = cancelled.Publish
     override this.IsInput = false
-    
-    override this.Value 
-        with get () = !this.initValue
-        and set v = invalidArg "Value" "cannot set value of an output node"

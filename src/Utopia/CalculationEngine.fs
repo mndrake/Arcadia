@@ -42,4 +42,4 @@ type CalculationEngine(calculationHandler : ICalculationHandler) as this =
         member I.Nodes = this.Nodes
         member I.Calculation = this.Calculation
     
-    static member Eval(node : INode) = async { node.Computation |> ignore } |> Async.Start
+    static member Evaluate(node : INode) = async { node.Evaluate |> ignore } |> Async.Start

@@ -6,13 +6,19 @@ open System.ComponentModel
 open System.Threading
 
 type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
+type CancelledEventHandler = delegate of sender:obj * e:EventArgs -> unit
 
 type NodeStatus =
-    | Valid
-    | Error
-    | Processing
-    | Dirty
-    | Cancelling
+    | Dirty = 0
+    | Processing = 1
+    | Valid = 2
+
+type Message = 
+    | Cancelled
+    | Changed
+    | Eval of AsyncReplyChannel<NodeStatus * obj>
+    | Processed
+    | AutoCalculation of bool
 
 type ICalculationHandler = 
     abstract CancellationToken : CancellationToken with get
@@ -21,21 +27,23 @@ type ICalculationHandler =
     abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
     abstract Cancel : unit -> unit
     abstract Reset : unit -> unit
-
+    
 type INode = 
-    abstract Calculation : ICalculationHandler with get    
-    [<CLIEvent>] 
-    abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
-    abstract Status : NodeStatus
-    abstract GetDependentNodes : unit -> INode []
-    abstract Dirty : bool with get
-    abstract Computation : Async<obj> with get
-    abstract Id : string with get
-    abstract IsInput : bool with get
-    abstract Processing : bool with get
-    abstract RaiseChanged : unit -> unit
+    abstract Calculation : ICalculationHandler with get
+    abstract Evaluate : unit -> Async<NodeStatus * obj>
     abstract UntypedValue : obj with get, set
+    abstract Id : string with get
+    abstract Status : NodeStatus with get
     abstract AsyncCalculate : unit -> unit
+    abstract IsDirty : bool with get
+    abstract GetDependentNodes : unit -> INode []
+    abstract IsInput : bool with get
+    abstract IsProcessing : bool with get
+    [<CLIEvent>]
+    abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
+    [<CLIEvent>]
+    abstract Cancelled : IEvent<CancelledEventHandler, EventArgs> with get
+    abstract RaiseChanged : unit -> unit
 
 type INode<'U> =
     inherit INode
