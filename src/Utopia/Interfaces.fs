@@ -3,6 +3,7 @@
 open System
 open System.Collections.ObjectModel
 open System.ComponentModel
+open System.Diagnostics.CodeAnalysis
 open System.Threading
 
 type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
@@ -13,6 +14,7 @@ type NodeStatus =
     | Processing = 1
     | Valid = 2
 
+[<ExcludeFromCodeCoverage>]
 type Message = 
     | Cancelled
     | Changed
@@ -43,7 +45,6 @@ type INode =
     abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
     [<CLIEvent>]
     abstract Cancelled : IEvent<CancelledEventHandler, EventArgs> with get
-    abstract RaiseChanged : unit -> unit
 
 type INode<'U> =
     inherit INode

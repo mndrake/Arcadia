@@ -1,7 +1,9 @@
 ﻿namespace Utopia
 
 open System.ComponentModel
+open System.Diagnostics.CodeAnalysis
 
+[<ExcludeFromCodeCoverage>]
 module Helpers = 
     /// checks if value is a F# Tuple type
     let isTuple value = 

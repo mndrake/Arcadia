@@ -19,20 +19,21 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
                     let! msg = inbox.Receive()
                     match msg with
                     | Eval r -> r.Reply(NodeStatus.Valid, box !this.value)
-                    | Processed -> changed.Trigger(null, EventArgs.Empty)
-                    | _ -> ()
-                    return! valid()
+                                return! valid()
+                    | _ -> return! valid()
                     }
             valid())
     
     do
         propertyChanged <- castAs<INotifyPropertyChanged>(!this.value)
         if propertyChanged <> null then 
-            propertyChanged.PropertyChanged.Add(fun args -> this.RaiseChanged())  
+            propertyChanged.PropertyChanged.Add(fun args -> changed.Trigger(this, EventArgs.Empty))
+            
+    new (calculationHandler, ?initialValue) = 
+        match initialValue with
+        |Some v -> InputNode(calculationHandler, "", v)
+        |None -> InputNode(calculationHandler, "")
 
-    member this.SetValue v = 
-        this.value := v
-        agent.Post(Processed)
     override this.IsProcessing = false
     override this.Status = NodeStatus.Valid
     
@@ -40,7 +41,7 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
     member this.Id = id
     override this.Value with get() = !this.value
                          and set v = this.value := v
-                                     agent.Post(Processed)
+                                     changed.Trigger(this, EventArgs.Empty)
 
     member this.Calculation = calculationHandler
     [<CLIEvent>]
@@ -51,4 +52,3 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
     override this.IsInput = true
     member this.ToINode() = this :> INode<'U>
     override this.GetDependentNodes() = [||]
-    override this.RaiseChanged() = changed.Trigger(this, EventArgs.Empty)
