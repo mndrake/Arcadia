@@ -32,20 +32,30 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="M:Arcadia.CalculationEngine.Evaluate(Arcadia.INode)">
+<summary>
+ evaluates a given calculation node asynchronously
+</summary>
 </member>
-<member name="">
-
+<member name="M:Arcadia.CalculationEngine.AddOutput``3(``0,Arcadia.NodeFunc{``1,``2})">
+<summary>
+ adds an OutputNode to the CalculationEngine
+</summary>
 </member>
-<member name="">
-
+<member name="M:Arcadia.CalculationEngine.AddOutput``3(``0,Arcadia.NodeFunc{``1,``2},System.String)">
+<summary>
+ adds an OutputNode to the CalculationEngine    
+</summary>
 </member>
-<member name="">
-
+<member name="M:Arcadia.CalculationEngine.AddInput``1(``0)">
+<summary>
+ adds an InputNode to the CalculationEngine
+</summary>
 </member>
-<member name="">
-
+<member name="M:Arcadia.CalculationEngine.AddInput``1(``0,System.String)">
+<summary>
+ adds an InputNode to the CalculationEngine
+</summary>
 </member>
 <member name="">
 
@@ -53,8 +63,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.CalculationEngine">
+<summary>
+ asynchronous calculation engine
+</summary>
 </member>
 <member name="">
 
@@ -119,20 +131,26 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.CalculationHandler">
+<summary>
+ handles calculation state for a CalculationEngine
+</summary>
 </member>
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.CancelledEventHandler">
+<summary>
+ event handler for calculation Cancelled event
+</summary>
 </member>
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.ChangedEventHandler">
+<summary>
+ event handler for an objects Changed event
+</summary>
 </member>
 <member name="">
 
@@ -140,8 +158,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.ICalculationEngine">
+<summary>
+ interface for CalculationEngine
+</summary>
 </member>
 <member name="">
 
@@ -167,8 +187,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.ICalculationHandler">
+<summary>
+ interface of CalculationHandler
+</summary>
 </member>
 <member name="">
 
@@ -221,8 +243,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.INode">
+<summary>
+ untyped interface of InputNode and OutputNode
+</summary>
 </member>
 <member name="">
 
@@ -230,8 +254,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.INode`1">
+<summary>
+ typed interface for InputNode and OutputNode
+</summary>
 </member>
 <member name="">
 
@@ -311,8 +337,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.InputNode`1">
+<summary>
+ input node used within a CalculationEngine
+</summary>
 </member>
 <member name="">
 
@@ -329,8 +357,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.Message">
+<summary>
+ message types used between nodes MailboxProcessor
+</summary>
 </member>
 <member name="">
 
@@ -469,7 +499,30 @@
 </member>
 <member name="T:Arcadia.NodeBase`1">
 <summary>
- base class for Calculation Nodes
+ base class for calculation nodes
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Arcadia.NodeStatus">
+<summary>
+ the Status of InputNodes and OutputNodes
 </summary>
 </member>
 <member name="">
@@ -541,41 +594,19 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="M:Arcadia.Helpers.castAs``1(System.Object)">
+<member name="T:Arcadia.OutputNode`3">
 <summary>
- F# implementation of the C# &apos;as&apos; keyword
+ output node used within a CalculationEngine
 </summary>
 </member>
 <member name="M:Arcadia.Helpers.isType``1(System.Object)">
 <summary>
  checks to see if object is of type &apos;T
+</summary>
+</member>
+<member name="M:Arcadia.Helpers.castAs``1(System.Object)">
+<summary>
+ F# implementation of the C# &apos;as&apos; keyword
 </summary>
 </member>
 <member name="M:Arcadia.Helpers.isTuple``1(``0)">
@@ -584,7 +615,9 @@
 </summary>
 </member>
 <member name="T:Arcadia.Helpers">
-
+<summary>
+ internal utility functions
+</summary>
 </member>
 <member name="">
 
