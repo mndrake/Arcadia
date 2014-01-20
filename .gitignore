@@ -1,5 +1,6 @@
-# Visual Studio build files
+# Visual Studio excluded files
 obj/
+*.suo
 
 # build folder
 bin/

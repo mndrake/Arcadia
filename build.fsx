@@ -111,6 +111,7 @@ Target "ReleaseBinaries" (fun _ ->
     Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/release"
     Branches.checkoutBranch "temp/release" "release"
     CopyRecursive "bin" "temp/release" true |> printfn "%A"
+    CommandHelper.runSimpleGitCommand "temp/release" "add ." |> printfn "%s"
     let cmd = sprintf """commit -a -m "Update binaries for version %s""" release.NugetVersion
     CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
     Branches.push "temp/release"
