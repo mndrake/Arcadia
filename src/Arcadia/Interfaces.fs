@@ -3,18 +3,20 @@
 open System
 open System.Collections.ObjectModel
 open System.ComponentModel
-open System.Diagnostics.CodeAnalysis
 open System.Threading
 
+/// event handler for an objects Changed event
 type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
+/// event handler for calculation Cancelled event
 type CancelledEventHandler = delegate of sender:obj * e:EventArgs -> unit
 
+/// the Status of InputNodes and OutputNodes
 type NodeStatus =
     | Dirty = 0
     | Processing = 1
     | Valid = 2
 
-[<ExcludeFromCodeCoverage>]
+/// message types used between nodes MailboxProcessor
 type Message = 
     | Cancelled
     | Changed
@@ -22,6 +24,7 @@ type Message =
     | Processed
     | AutoCalculation of bool
 
+/// interface of CalculationHandler
 type ICalculationHandler = 
     abstract CancellationToken : CancellationToken with get
     abstract Automatic : bool with get, set
@@ -30,6 +33,7 @@ type ICalculationHandler =
     abstract Cancel : unit -> unit
     abstract Reset : unit -> unit
     
+/// untyped interface of InputNode and OutputNode
 type INode = 
     abstract Calculation : ICalculationHandler with get
     abstract Evaluate : unit -> Async<NodeStatus * obj>
@@ -46,10 +50,12 @@ type INode =
     [<CLIEvent>]
     abstract Cancelled : IEvent<CancelledEventHandler, EventArgs> with get
 
+/// typed interface for InputNode and OutputNode
 type INode<'U> =
     inherit INode
     abstract Value : 'U with get,set
 
+/// interface for CalculationEngine
 type ICalculationEngine = 
     abstract Calculation : ICalculationHandler with get
     abstract Nodes : Collection<INode> with get

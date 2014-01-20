@@ -6,9 +6,10 @@ open System.Threading
 open Microsoft.FSharp.Reflection
 open Helpers
 
+/// output node used within a CalculationEngine
 type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this = 
     inherit NodeBase<'U>(calculationHandler, id, initialValue)
-    
+
     // convert tuple to object array
     let nodes = 
         if isTuple nodeInputs then FSharpValue.GetTupleFields(nodeInputs) |> Array.map(fun x -> x :?> INode)

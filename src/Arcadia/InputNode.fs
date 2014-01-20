@@ -4,8 +4,10 @@ open System
 open System.ComponentModel
 open Helpers
 
+/// input node used within a CalculationEngine
 type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
     inherit NodeBase<'U>(calculationHandler, id, initialValue)
+
     let changed = new Event<ChangedEventHandler, EventArgs>()
     let cancelled = new Event<CancelledEventHandler, EventArgs>()
 

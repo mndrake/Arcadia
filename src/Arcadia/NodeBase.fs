@@ -6,7 +6,7 @@ open System.Linq
 open System.Threading
 
 
-/// base class for Calculation Nodes
+/// base class for calculation nodes
 [<AbstractClass>]
 type NodeBase<'U>(calculationHandler : ICalculationHandler, id, initialValue) = 
     
