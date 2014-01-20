@@ -505,8 +505,10 @@
 <member name="">
 
 </member>
-<member name="">
-
+<member name="T:Arcadia.NodeFunc`2">
+<summary>
+ delegate of node function with inputs of input node values (&apos;T) to output value (&apos;U)
+</summary>
 </member>
 <member name="">
 
@@ -522,7 +524,7 @@
 </member>
 <member name="T:Arcadia.NodeStatus">
 <summary>
- the Status of InputNodes and OutputNodes
+ the status of InputNodes and OutputNodes
 </summary>
 </member>
 <member name="">
