@@ -4,17 +4,17 @@
 // --------------------------------------------------------------------------------------
 
 // Binaries that have XML documentation (in a corresponding generated XML file)
-let referenceBinaries = [ "FSharp.ProjectTemplate.dll" ]
+let referenceBinaries = [ "Arcadia.dll" ]
 // Web site location for the generated documentation
-let website = "/FSharp.ProjectScaffold"
+let website = "/Arcadia"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "FSharp.ProjectScaffold"
-    "project-author", "Your Name"
-    "project-summary", "A short summary of your project"
-    "project-github", "http://github.com/fsprojects/FSharp.ProjectScaffold"
-    "project-nuget", "http://nuget.com/packages/FSharp.ProjectScaffold" ]
+  [ "project-name", "Arcadia"
+    "project-author", "David Carlson"
+    "project-summary", "Asynchronous Calculation Framework for MVVM Models"
+    "project-github", "http://github.com/mndrake/Arcadia"
+    "project-nuget", "http://nuget.com/packages/Arcadia" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below

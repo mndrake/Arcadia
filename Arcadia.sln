@@ -43,18 +43,18 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.MVVM.UnitTests", "t
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.UnitTests", "tests\Arcadia.UnitTests\Arcadia.UnitTests.fsproj", "{696571E8-1719-4E18-82DF-3D53476BE6A9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{80A8719D-8734-46CD-8273-ECF264811030}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{80A8719D-8734-46CD-8273-ECF264811030}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{A7ADEADC-F5CE-46DD-B559-AECEF498095A}"
 	ProjectSection(SolutionItems) = preProject
-		doc\tools\generate.fsx = doc\tools\generate.fsx
-		doc\tools\templates\template.cshtml = doc\tools\templates\template.cshtml
+		docs\tools\generate.fsx = docs\tools\generate.fsx
+		docs\tools\templates\template.cshtml = docs\tools\templates\template.cshtml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{89F1AACE-91B4-4644-9FFD-9D2C1F1B3E97}"
 	ProjectSection(SolutionItems) = preProject
-		doc\content\index.fsx = doc\content\index.fsx
-		doc\content\tutorial.fsx = doc\content\tutorial.fsx
+		docs\content\index.fsx = docs\content\index.fsx
+		docs\content\tutorial.fsx = docs\content\tutorial.fsx
 	EndProjectSection
 EndProject
 Global

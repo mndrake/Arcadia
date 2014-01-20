@@ -8,6 +8,7 @@ open System
 open System.IO
 open Fake 
 open Fake.AssemblyInfoFile
+open Fake.Git
 
 // --------------------------------------------------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
@@ -31,6 +32,8 @@ let release =
     File.ReadLines "RELEASE_NOTES.md" 
     |> ReleaseNotesHelper.parseReleaseNotes
 
+let releaseNotes = release.Notes |> String.concat "\n"
+
 // --------------------------------------------------------------------------------------
 // Generate assembly info files with the right version & up-to-date information
 
@@ -47,71 +50,21 @@ Target "AssemblyInfo" (fun _ ->
 )
 
 // --------------------------------------------------------------------------------------
-// directory definitions
-
-let buildDir = "bin"
-let testDir = "test"
-
-// --------------------------------------------------------------------------------------
 // Clean build results
 
-Target "Clean" (fun _ -> CleanDirs [ buildDir; testDir; "deploy"; "deploy/FSharpApp"; "deploy/CSharpApp"; "deploy/Arcadia" ])
+Target "Clean" (fun _ -> CleanDirs ["bin";"temp"])
+
+Target "CleanDocs" (fun _ -> CleanDirs ["docs/outout"])
+
 
 // --------------------------------------------------------------------------------------
 // Build library (builds Visual Studio solution)
 
 Target "Build" (fun _ ->
-    MSBuildRelease buildDir "Rebuild" ["Arcadia.sln"]
+    !! "Arcadia.sln"
+    |> MSBuildRelease "" "Rebuild"
     |> Log "Build-Output: "
 )
-
-// --------------------------------------------------------------------------------------
-// Setup Deployment Folders
-
-Target "Deploy" (fun _ ->
-    
-    let common = 
-        !! "bin/App.Model.dll"
-        ++ "bin/FSharp.Core.dll"
-        ++ "bin/GraphSharp.Controls.dll"
-        ++ "bin/GraphSharp.dll"
-        ++ "bin/MahApps.Metro.dll"
-        ++ "bin/QuickGraph.dll"
-        ++ "bin/System.Windows.Interactivity.dll"
-        ++ "bin/Arcadia.dll"
-        ++ "bin/WPFExtensions.dll"
-
-    // setup FSharpApp sample
-    common
-    ++ "bin/FSharp*.*"
-    |> CopyFiles "deploy/FSharpApp/"
-
-    // setup CSharpApp sample
-    common
-    ++ "bin/CSharpApp*.*"
-    |> CopyFiles "deploy/CSharpApp/"
-        
-    // setup Utopia deployment
-    !! "bin/Arcadia.*"
-    |> CopyFiles "deploy/Arcadia"
-
-    )
-
-// --------------------------------------------------------------------------------------
-// FxCop - Code Analysis 
-// /c /f:$(TargetPath) /d:$(BinDir) /r:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Team Tools\Static Analysis Tools\FxCop\Rules"
-Target "FxCop" (fun () ->  
-//    !! (buildDir + @"\**\*.dll") 
-//    ++ (buildDir + @"\**\*.exe") 
-    !! ("bin/Arcadia.dll")
-    |> FxCop 
-        (fun p -> 
-            {p with 
-              // override default parameters
-              ReportFileName = buildDir + "/FXCopResults.xml"
-              ToolPath = """C:\Program Files (x86)\Microsoft Visual Studio 11.0\Team Tools\Static Analysis Tools\FxCop\FxCopCmd.exe"""})
-)
-
 
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
@@ -135,6 +88,62 @@ Target "NuGet" (fun _ ->
 )
 
 // --------------------------------------------------------------------------------------
+// Generate the documentation
+
+Target "GenerateDocs" (fun _ ->
+    executeFSIWithArgs "docs/tools" "generate.fsx" ["--define:RELEASE"] [] |> ignore
+)
+
+// --------------------------------------------------------------------------------------
+// Release Scripts
+
+Target "ReleaseDocs" (fun _ ->
+    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/gh-pages"
+    Branches.checkoutBranch "temp/gh-pages" "gh-pages"
+    CopyRecursive "docs/output" "temp/gh-pages" true |> printfn "%A"
+    CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
+    let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" release.NugetVersion
+    CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
+    Branches.push "temp/gh-pages"
+)
+
+Target "ReleaseBinaries" (fun _ ->
+    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/release"
+    Branches.checkoutBranch "temp/release" "release"
+    CopyRecursive "bin" "temp/release" true |> printfn "%A"
+    let cmd = sprintf """commit -a -m "Update binaries for version %s""" release.NugetVersion
+    CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
+    Branches.push "temp/release"
+)
+//
+//
+//Target "ReleaseDocs" (fun _ ->
+//    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/gh-pages"
+//    Branches.checkoutBranch "temp/gh-pages" "gh-pages"
+//    CopyRecursive "docs/output" "temp/gh-pages" true |> printfn "%A"
+//    CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
+//    let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" release.NugetVersion
+//    CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
+//    Branches.push "temp/gh-pages"
+//)
+//
+//Target "ReleaseBinaries" (fun _ ->
+//    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/release"
+//    Branches.checkoutBranch "temp/release" "release"
+//    CopyRecursive "bin" "temp/release/bin" true |> printfn "%A"
+//    let cmd = sprintf """commit -a -m "Update binaries for version %s""" release.NugetVersion
+//    CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
+//    Branches.push "temp/release"
+//)
+
+Target "Release" DoNothing
+
+"CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
+"ReleaseDocs" ==> "Release"
+"ReleaseBinaries" ==> "Release"
+"NuGet" ==> "Release"
+
+// --------------------------------------------------------------------------------------
 // Help
 
 Target "Help" (fun _ ->
@@ -143,23 +152,20 @@ Target "Help" (fun _ ->
     printfn ""
     printfn "  Targets for building:"
     printfn "  * Build"
+    printfn "  * All (calls previous 1)"
     printfn ""
-    printfn "  Targets for releasing:"
+    printfn "  Targets for releasing (requires write access to the 'https://github.com/mndrake/Arcadia.git' repository):"
+    printfn "  * GenerateDocs"
+    printfn "  * ReleaseDocs (calls previous)"
+    printfn "  * ReleaseBinaries"
     printfn "  * NuGet (creates package only, doesn't publish)"
+    printfn "  * Release (calls previous 4)"
     printfn "")
 
 Target "All" DoNothing
 
-"Clean" 
-==> "AssemblyInfo" 
-==> "Build" 
-==> "NuGet" 
-==> "All"
+"Clean" ==> "AssemblyInfo" ==> "Build"
+"Build" ==> "All"
 
-"Build"
-==> "Deploy"
-
-"Build"
-==> "FxCop"
 
 RunTargetOrDefault "Help"

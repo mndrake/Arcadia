@@ -13,14 +13,14 @@ Documentation
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      The F# ProjectTemplate library can be <a href="https://nuget.org/packages/FSharp.ProjectTemplate">installed from NuGet</a>:
-      <pre>PM> Install-Package FSharp.ProjectTemplate</pre>
+      The Arcadia library can be <a href="https://nuget.org/packages/Arcadia">installed from NuGet</a>:
+      <pre>PM> Install-Package Arcadia</pre>
     </div>
   </div>
   <div class="span1"></div>
 </div>
 
-<img src="img/logo.png" alt="F# Project" style="float:right;width:150px;margin:10px" />
+<img src="img/logo.png" alt="Arcadia" style="float:right;width:150px;margin:10px" />
 
 Example
 -------
@@ -28,10 +28,10 @@ Example
 This example demonstrates using a function defined in this sample library.
 
 *)
-#r "FSharp.ProjectTemplate.dll"
-open FSharp.ProjectTemplate
+#r "Arcadia.dll"
+open Arcadia
 
-printfn "hello = %i" <| Library.hello 0
+printfn "hello = %i" <| 0
 
 (**
 Some more info
@@ -61,9 +61,9 @@ The library is available under Public Domain license, which allows modification 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
-  [content]: https://github.com/fsprojects/FSharp.ProjectScaffold/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/FSharp.ProjectScaffold
-  [issues]: https://github.com/fsprojects/FSharp.ProjectScaffold/issues
-  [readme]: https://github.com/fsprojects/FSharp.ProjectScaffold/blob/master/README.md
-  [license]: https://github.com/fsprojects/FSharp.ProjectScaffold/blob/master/LICENSE.txt
+  [content]: https://github.com/mndrake/Arcadia/tree/master/docs/content
+  [gh]: https://github.com/mndrake/Arcadia
+  [issues]: https://github.com/mndrake/Arcadia/issues
+  [readme]: https://github.com/mndrake/Arcadia/blob/master/README.md
+  [license]: https://github.com/mndrake/Arcadia/blob/master/LICENSE.txt
 *)
