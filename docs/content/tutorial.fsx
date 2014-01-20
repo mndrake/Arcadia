@@ -4,16 +4,15 @@
 #I "../../bin"
 
 (**
-Introducing your project
-========================
-
-Say more
+Introduction to Arcadia
+=======================
 
 *)
-#r "FSharp.ProjectTemplate.dll"
-open FSharp.ProjectTemplate
+#r "Arcadia.dll"
+open Arcadia
 
-Library.hello 0
-(**
-Some more info
-*)
+let ce = CalculationEngine()
+
+let in1 = ce.AddInput(1)
+let in2 = ce.AddInput(1)
+let out1 = ce.AddOutput((in1,in2), fun (x,y) -> x+y)

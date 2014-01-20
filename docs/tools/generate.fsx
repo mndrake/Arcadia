@@ -14,7 +14,7 @@ let info =
     "project-author", "David Carlson"
     "project-summary", "Asynchronous Calculation Framework for MVVM Models"
     "project-github", "http://github.com/mndrake/Arcadia"
-    "project-nuget", "http://nuget.com/packages/Arcadia" ]
+    "project-nuget", "http://nuget.org/packages/Arcadia" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below

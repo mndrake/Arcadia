@@ -4,8 +4,8 @@
 #I "../../bin"
 
 (**
-F# Project Scaffold
-===================
+Arcadia
+=======
 
 Documentation
 
@@ -14,13 +14,11 @@ Documentation
   <div class="span6">
     <div class="well well-small" id="nuget">
       The Arcadia library can be <a href="https://nuget.org/packages/Arcadia">installed from NuGet</a>:
-      <pre>PM> Install-Package Arcadia</pre>
+      <pre>PM> Install-Package Arcadia -pre</pre>
     </div>
   </div>
   <div class="span1"></div>
 </div>
-
-<img src="img/logo.png" alt="Arcadia" style="float:right;width:150px;margin:10px" />
 
 Example
 -------
@@ -31,7 +29,11 @@ This example demonstrates using a function defined in this sample library.
 #r "Arcadia.dll"
 open Arcadia
 
-printfn "hello = %i" <| 0
+let ce = CalculationEngine()
+
+let in1 = ce.AddInput(1)
+let in2 = ce.AddInput(1)
+let out1 = ce.AddOutput((in1,in2), fun (x,y) -> x+y)
 
 (**
 Some more info
@@ -57,7 +59,7 @@ the project and submit pull requests. If you're adding new public API, please al
 consider adding [samples][content] that can be turned into a documentation. You might
 also want to read [library design notes][readme] to understand how it works.
 
-The library is available under Public Domain license, which allows modification and 
+The library is available under the MIT license, which allows modification and 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
