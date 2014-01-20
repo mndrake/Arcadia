@@ -116,26 +116,6 @@ Target "ReleaseBinaries" (fun _ ->
     CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
     Branches.push "temp/release"
 )
-//
-//
-//Target "ReleaseDocs" (fun _ ->
-//    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/gh-pages"
-//    Branches.checkoutBranch "temp/gh-pages" "gh-pages"
-//    CopyRecursive "docs/output" "temp/gh-pages" true |> printfn "%A"
-//    CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
-//    let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" release.NugetVersion
-//    CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
-//    Branches.push "temp/gh-pages"
-//)
-//
-//Target "ReleaseBinaries" (fun _ ->
-//    Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/release"
-//    Branches.checkoutBranch "temp/release" "release"
-//    CopyRecursive "bin" "temp/release/bin" true |> printfn "%A"
-//    let cmd = sprintf """commit -a -m "Update binaries for version %s""" release.NugetVersion
-//    CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
-//    Branches.push "temp/release"
-//)
 
 Target "Release" DoNothing
 
