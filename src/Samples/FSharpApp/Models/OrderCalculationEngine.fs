@@ -1,7 +1,7 @@
 ﻿namespace FSharpApp.Models
 
 open System.Threading
-open Utopia
+open Arcadia
 open FSharpApp.Data
 
 type IOrderCalculationEngine =

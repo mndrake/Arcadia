@@ -1,4 +1,4 @@
-﻿Utopia
+﻿Arcadia
 -------------
 
 An asynchronous node based calculation framework.  
@@ -10,4 +10,4 @@ video : www.youtube.com/watch?v=BsOtAXV_URI
 
 F# script from presentation can be found in the src folder  
 
-Project Site : http://mndrake.github.io/Utopia
+Project Site : http://mndrake.github.io/Arcadia

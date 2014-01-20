@@ -46,7 +46,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Utopia.Graph;component/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Arcadia.Graph;component/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
         </ResourceDictionary>

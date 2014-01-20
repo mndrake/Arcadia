@@ -1,9 +1,9 @@
 ﻿namespace CSharpApp.ViewModels
 {
     using System;
-    using Utopia;
-    using Utopia.Graph;
-    using Utopia.ViewModel;
+    using Arcadia;
+    using Arcadia.Graph;
+    using Arcadia.ViewModel;
 
     public class OrderGraphVertex : NodeVertexBase
     {

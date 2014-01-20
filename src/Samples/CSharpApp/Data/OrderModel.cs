@@ -2,7 +2,7 @@
 {
     using System;
     using System.ComponentModel;
-    using Utopia.ViewModel;
+    using Arcadia.ViewModel;
 
     public class Product
     {

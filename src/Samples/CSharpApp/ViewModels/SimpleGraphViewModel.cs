@@ -2,9 +2,9 @@
 {
     using System;
     using System.Windows.Input;
-    using Utopia;
-    using Utopia.ViewModel;
-    using Utopia.Graph;
+    using Arcadia;
+    using Arcadia.ViewModel;
+    using Arcadia.Graph;
 
     public class SimpleGraphVertex : NodeVertexBase
     {

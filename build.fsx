@@ -13,15 +13,15 @@ open Fake.AssemblyInfoFile
 // Information about the project to be used at NuGet and in AssemblyInfo files
 // --------------------------------------------------------------------------------------
 
-let project = "Utopia"
+let project = "Arcadia"
 let authors = ["David Carlson"]
-let summary = "An asynchronous node based calculation framework for F# Models (MVVM)"
+let summary = "An asynchronous calculation framework for MVVM Models"
 let description = """
-  An asynchronous node based calculation framework."""
+  An asynchronous calculation framework for MVVM Models"""
 let tags = "F# MVVM"
 
 let gitHome = "https://github.com/mndrake"
-let gitName = "Utopia"
+let gitName = "Arcadia"
 
 RestorePackages()
 
@@ -35,7 +35,7 @@ let release =
 // Generate assembly info files with the right version & up-to-date information
 
 Target "AssemblyInfo" (fun _ ->
-    [ ("src/Utopia/AssemblyInfo.fs", "Utopia", project, summary) ]
+    [ ("src/Arcadia/AssemblyInfo.fs", "Arcadia", project, summary) ]
     |> Seq.iter (fun (fileName, title, project, summary) ->
         CreateFSharpAssemblyInfo fileName
            [ Attribute.Title title
@@ -55,13 +55,13 @@ let testDir = "test"
 // --------------------------------------------------------------------------------------
 // Clean build results
 
-Target "Clean" (fun _ -> CleanDirs [ buildDir; testDir; "deploy"; "deploy/FSharpApp"; "deploy/CSharpApp"; "deploy/Utopia" ])
+Target "Clean" (fun _ -> CleanDirs [ buildDir; testDir; "deploy"; "deploy/FSharpApp"; "deploy/CSharpApp"; "deploy/Arcadia" ])
 
 // --------------------------------------------------------------------------------------
 // Build library (builds Visual Studio solution)
 
 Target "Build" (fun _ ->
-    MSBuildRelease buildDir "Rebuild" ["Utopia.sln"]
+    MSBuildRelease buildDir "Rebuild" ["Arcadia.sln"]
     |> Log "Build-Output: "
 )
 
@@ -78,7 +78,7 @@ Target "Deploy" (fun _ ->
         ++ "bin/MahApps.Metro.dll"
         ++ "bin/QuickGraph.dll"
         ++ "bin/System.Windows.Interactivity.dll"
-        ++ "bin/Utopia.dll"
+        ++ "bin/Arcadia.dll"
         ++ "bin/WPFExtensions.dll"
 
     // setup FSharpApp sample
@@ -92,8 +92,8 @@ Target "Deploy" (fun _ ->
     |> CopyFiles "deploy/CSharpApp/"
         
     // setup Utopia deployment
-    !! "bin/Utopia.*"
-    |> CopyFiles "deploy/Utopia"
+    !! "bin/Arcadia.*"
+    |> CopyFiles "deploy/Arcadia"
 
     )
 
@@ -103,7 +103,7 @@ Target "Deploy" (fun _ ->
 Target "FxCop" (fun () ->  
 //    !! (buildDir + @"\**\*.dll") 
 //    ++ (buildDir + @"\**\*.exe") 
-    !! ("bin/Utopia.dll")
+    !! ("bin/Arcadia.dll")
     |> FxCop 
         (fun p -> 
             {p with 
@@ -131,7 +131,7 @@ Target "NuGet" (fun _ ->
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey"
             Dependencies = [] })
-        "nuget/Utopia.nuspec"
+        "nuget/Arcadia.nuspec"
 )
 
 // --------------------------------------------------------------------------------------

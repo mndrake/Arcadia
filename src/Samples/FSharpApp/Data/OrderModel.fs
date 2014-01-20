@@ -2,7 +2,7 @@
 
 open System
 open System.ComponentModel
-open Utopia.ViewModel
+open Arcadia.ViewModel
 
 type Product = 
     { ID : int

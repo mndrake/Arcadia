@@ -184,17 +184,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utopia.Graph\Utopia.Graph.csproj">
+    <ProjectReference Include="..\..\Arcadia.Graph\Arcadia.Graph.csproj">
       <Project>{73564ece-3335-4f30-b308-9bbd114e3cca}</Project>
-      <Name>Utopia.Graph</Name>
+      <Name>Arcadia.Graph</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utopia.MVVM\Utopia.MVVM.fsproj">
+    <ProjectReference Include="..\..\Arcadia.MVVM\Arcadia.MVVM.fsproj">
       <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
-      <Name>Utopia.MVVM</Name>
+      <Name>Arcadia.MVVM</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utopia\Utopia.fsproj">
+    <ProjectReference Include="..\..\Arcadia\Arcadia.fsproj">
       <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
-      <Name>Utopia</Name>
+      <Name>Arcadia</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Utopia.ViewModel;
+    using Arcadia.ViewModel;
     using Data;
     using Models;
 

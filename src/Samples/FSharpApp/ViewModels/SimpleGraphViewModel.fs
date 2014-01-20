@@ -1,9 +1,9 @@
 ﻿namespace FSharpApp.ViewModels
 
 open System.Linq
-open Utopia
-open Utopia.Graph
-open Utopia.ViewModel
+open Arcadia
+open Arcadia.Graph
+open Arcadia.ViewModel
 
 type SimpleGraphVertex(node) as this = 
     inherit NodeVertexBase(node)

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:vm="clr-namespace:CSharpApp.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:graph="clr-namespace:Utopia.Graph;assembly=Utopia.Graph"
+             xmlns:graph="clr-namespace:Arcadia.Graph;assembly=Arcadia.Graph"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="700">
     

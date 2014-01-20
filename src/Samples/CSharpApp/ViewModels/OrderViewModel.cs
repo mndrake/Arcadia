@@ -1,8 +1,8 @@
 ﻿namespace CSharpApp.ViewModels
 {
     using System.ComponentModel;
-    using Utopia;
-    using Utopia.ViewModel;
+    using Arcadia;
+    using Arcadia.ViewModel;
     using Data;
     using Models;
 

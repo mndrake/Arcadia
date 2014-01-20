@@ -2,9 +2,9 @@
 
 open System.ComponentModel
 open System.Linq
-open Utopia
-open Utopia.Helpers
-open Utopia.ViewModel
+open Arcadia
+open Arcadia.Helpers
+open Arcadia.ViewModel
 open FSharpApp.Models
 
 type OrderViewModel(ce : IOrderCalculationEngine) as this = 
