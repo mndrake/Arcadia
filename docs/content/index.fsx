@@ -20,6 +20,9 @@ Documentation
   <div class="span1"></div>
 </div>
 
+<p>Alternatively, you can download the <a href="https://github.com/mndrake/Arcadia/zipball/master">source as a ZIP file</a> or download 
+the <a href="https://github.com/mndrake/Arcadia/zipball/release">compiled binaries</a> as a ZIP.</p>  
+
 Example
 -------
 
