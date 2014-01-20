@@ -3,7 +3,6 @@
 open System.ComponentModel
 open System.Linq
 open Arcadia
-open Arcadia.Helpers
 open Arcadia.ViewModel
 open FSharpApp.Models
 
