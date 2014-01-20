@@ -8,14 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39F8B9ED-57E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{71C3A425-8F3C-4470-B175-71A726FB083C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E23D3580-F71D-4825-AF13-B7618EEA37CC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{E3EB595D-376B-4A0A-B014-10CC5699AE9D}"
 	ProjectSection(SolutionItems) = preProject
-		nuget\Utopia.nuspec = nuget\Utopia.nuspec
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3EB595D-376B-4A0A-B014-10CC5699AE9D}"
-	ProjectSection(SolutionItems) = preProject
-		build.bat = build.bat
+		nuget\Arcadia.nuspec = nuget\Arcadia.nuspec
 		build.fsx = build.fsx
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
@@ -47,6 +42,20 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.MVVM.UnitTests", "tests\Arcadia.MVVM.UnitTests\Arcadia.MVVM.UnitTests.fsproj", "{24483DCE-C6BC-4DBD-9973-4EEF48CFCEC5}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.UnitTests", "tests\Arcadia.UnitTests\Arcadia.UnitTests.fsproj", "{696571E8-1719-4E18-82DF-3D53476BE6A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{80A8719D-8734-46CD-8273-ECF264811030}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{A7ADEADC-F5CE-46DD-B559-AECEF498095A}"
+	ProjectSection(SolutionItems) = preProject
+		doc\tools\generate.fsx = doc\tools\generate.fsx
+		doc\tools\templates\template.cshtml = doc\tools\templates\template.cshtml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{89F1AACE-91B4-4644-9FFD-9D2C1F1B3E97}"
+	ProjectSection(SolutionItems) = preProject
+		doc\content\index.fsx = doc\content\index.fsx
+		doc\content\tutorial.fsx = doc\content\tutorial.fsx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -142,5 +151,7 @@ Global
 		{E0C70BD3-69A8-42D7-9BE4-1E95B643EFEF} = {E69813FF-7495-4BD9-B678-34F15D0C543D}
 		{24483DCE-C6BC-4DBD-9973-4EEF48CFCEC5} = {EF3ED3C7-1CDE-4B10-B7A8-ED51415C8FC4}
 		{696571E8-1719-4E18-82DF-3D53476BE6A9} = {EF3ED3C7-1CDE-4B10-B7A8-ED51415C8FC4}
+		{A7ADEADC-F5CE-46DD-B559-AECEF498095A} = {80A8719D-8734-46CD-8273-ECF264811030}
+		{89F1AACE-91B4-4644-9FFD-9D2C1F1B3E97} = {80A8719D-8734-46CD-8273-ECF264811030}
 	EndGlobalSection
 EndGlobal
