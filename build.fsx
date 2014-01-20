@@ -54,7 +54,7 @@ Target "AssemblyInfo" (fun _ ->
 
 Target "Clean" (fun _ -> CleanDirs ["bin";"temp"])
 
-Target "CleanDocs" (fun _ -> CleanDirs ["docs/outout"])
+Target "CleanDocs" (fun _ -> CleanDirs ["docs/output"])
 
 
 // --------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ Target "Release" DoNothing
 
 "CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
 "ReleaseDocs" ==> "Release"
-"ReleaseBinaries" ==> "Release"
+//"ReleaseBinaries" ==> "Release"
 "NuGet" ==> "Release"
 
 // --------------------------------------------------------------------------------------
