@@ -140,7 +140,7 @@ Target "Release" DoNothing
 
 "CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
 "ReleaseDocs" ==> "Release"
-//"ReleaseBinaries" ==> "Release"
+"ReleaseBinaries" ==> "Release"
 "NuGet" ==> "Release"
 
 // --------------------------------------------------------------------------------------
