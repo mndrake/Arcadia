@@ -34,11 +34,7 @@
           
 <h2>test</h2>
 
-<p><strong>C#</strong>
-<code></code>`csharp
-namespace DocTest
-{
-    using ExcelDna.Integration;</p>
+<p><strong>C#</strong></p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
@@ -53,29 +49,76 @@ namespace DocTest
 <span class="l">10: </span>
 <span class="l">11: </span>
 <span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
-<span class="k">public</span> <span class="k">class</span> <span class="i">Text</span> 
+<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">using</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">System</span>;
+<span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">using</span> <span class="i">Arcadia</span>;
+<span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">using</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="i">Data</span>;
+
+<span class="k">public</span> <span class="k">class</span> <span class="i">OrderCalculationEngine</span> <span class="o">:</span> <span class="i">CalculationEngine</span>, <span class="i">IOrderCalculationEngine</span>
 {
-    [<span class="i">ExcelFunction</span>( <span class="i">Name</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">Text</span><span class="s">.</span><span class="s">ConcatThem</span><span class="s">&quot;</span>, 
-                    <span class="i">Description</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">concatenates</span><span class="s"> </span><span class="s">two</span><span class="s"> </span><span class="s">strings</span><span class="s">&quot;</span>, 
-                    <span class="i">HelpTopic</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">DocTest</span><span class="s">-</span><span class="s">AddIn</span><span class="s">.</span><span class="s">chm</span><span class="s">!</span><span class="s">1002</span><span class="s">&quot;</span>)]
-    <span class="k">public</span> <span class="k">static</span> <span class="i">object</span> <span class="i">ConcatThem</span>(
-        [<span class="i">ExcelArgument</span>(<span class="i">Description</span><span class="o">=</span><span class="s">&quot;</span><span class="s">the</span><span class="s"> </span><span class="s">first</span><span class="s"> </span><span class="s">string</span><span class="s">&quot;</span>)] <span class="i">object</span> <span class="i">a</span>, 
-        [<span class="i">ExcelArgument</span>(<span class="i">Description</span><span class="o">=</span><span class="s">&quot;</span><span class="s">the</span><span class="s"> </span><span class="s">second</span><span class="s"> </span><span class="s">string</span><span class="s">&quot;</span>)] <span class="i">object</span> <span class="i">b</span>)
+    <span class="k">public</span> <span class="i">OrderCalculationEngine</span>(<span class="i">IDataService</span> <span class="i">data</span>)
+        <span class="o">:</span> <span class="k">base</span>()
     {
-        <span class="k">return</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">string</span><span class="o">.</span><span class="i">Concat</span>(<span class="i">a</span><span class="o">.</span><span class="i">ToString</span>(), <span class="i">b</span><span class="o">.</span><span class="i">ToString</span>());
+        <span class="c">// inputs</span>
+        <span class="i">var</span> <span class="i">inventory</span> <span class="o">=</span> <span class="i">AddInput</span>(<span class="i">data</span><span class="o">.</span><span class="i">LoadInventory</span>(), <span class="s">&quot;</span><span class="s">Inventory</span><span class="s">&quot;</span>);
+        <span class="i">var</span> <span class="i">order</span> <span class="o">=</span> <span class="i">AddInput</span>(<span class="i">data</span><span class="o">.</span><span class="i">LoadOrder</span>(), <span class="s">&quot;</span><span class="s">Order</span><span class="s">&quot;</span>);
+
+        <span class="c">// outputs</span>
+        <span class="i">var</span> <span class="i">orderResult</span> <span class="o">=</span> <span class="i">AddOutput</span>(<span class="i">Tuple</span><span class="o">.</span><span class="i">Create</span>(<span class="i">order</span>, <span class="i">inventory</span>),
+                          <span class="k">new</span> <span class="i">NodeFunc</span><span class="o">&lt;</span><span class="i">Tuple</span><span class="o">&lt;</span><span class="i">Order</span>, <span class="i">Inventory</span><span class="o">&gt;</span>, <span class="i">OrderResult</span><span class="o">&gt;</span>(<span class="i">OrderMethods</span><span class="o">.</span><span class="i">GetOrderResults</span>),
+                          <span class="s">&quot;</span><span class="s">OrderResult</span><span class="s">&quot;</span>);
+
+        <span class="i">Inventory</span> <span class="o">=</span> <span class="i">inventory</span>;
+        <span class="i">Order</span> <span class="o">=</span> <span class="i">order</span>;
+        <span class="i">OrderResult</span> <span class="o">=</span> <span class="i">orderResult</span>;
+    }
+
+    <span class="k">public</span> <span class="i">INode</span><span class="o">&lt;</span><span class="i">Inventory</span><span class="o">&gt;</span> <span class="i">Inventory</span> { <span class="i">get</span>; <span class="k">private</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="i">set</span>; }
+
+    <span class="k">public</span> <span class="i">INode</span><span class="o">&lt;</span><span class="i">Order</span><span class="o">&gt;</span> <span class="i">Order</span> { <span class="i">get</span>; <span class="k">private</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="i">set</span>; }
+
+    <span class="k">public</span> <span class="i">INode</span><span class="o">&lt;</span><span class="i">OrderResult</span><span class="o">&gt;</span> <span class="i">OrderResult</span> { <span class="i">get</span>; <span class="k">private</span> <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">set</span>; }
+
+    <span class="k">public</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">bool</span> <span class="i">AutoCalculate</span>
+    {
+        <span class="i">get</span> { <span class="k">return</span> <span class="i">this</span><span class="o">.</span><span class="i">Calculation</span><span class="o">.</span><span class="i">Automatic</span>; }
+        <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="i">set</span> { <span class="i">this</span><span class="o">.</span><span class="i">Calculation</span><span class="o">.</span><span class="i">Automatic</span> <span class="o">=</span> <span class="i">value</span>; }
     }
 }</pre>
 </td>
 </tr>
 </table>
 
-<p>}
-<code></code>`</p>
-
-<div class="tip" id="fs1">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs1">val using : resource:&#39;T -&gt; action:(&#39;T -&gt; &#39;U) -&gt; &#39;U (requires &#39;T :&gt; System.IDisposable)<br /><br />Full name: Microsoft.FSharp.Core.Operators.using</div>
+<div class="tip" id="fs2">namespace System</div>
+<div class="tip" id="fs3">namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs4">val set : elements:seq&lt;&#39;T&gt; -&gt; Set&lt;&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.set</div>
+<div class="tip" id="fs5">type bool = System.Boolean<br /><br />Full name: Microsoft.FSharp.Core.bool</div>
 
         </div>
         <div class="span3">
