@@ -7,8 +7,8 @@ env:
 install:
   - wget "http://download.xamarin.com/MonoFrameworkMDK/Macx86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
   - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
-  - mono src/.nuget/NuGet.exe install NUnit.Runners -Version 2.6.3 -OutputDirectory src/packages -ExcludeVersion
+  - mono .nuget/NuGet.exe install NUnit.Runners -Version 2.6.3 -OutputDirectory packages -ExcludeVersion
 
 script: 
   - xbuild src/Arcadia.sln /p:Configuration=Release
-  - mono --runtime=v4.0 src/packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.UnitTests/bin/Release/Arcadia.UnitTests.dll
+  - mono --runtime=v4.0 packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.UnitTests/bin/Release/Arcadia.UnitTests.dll
