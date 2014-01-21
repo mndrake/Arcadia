@@ -7,10 +7,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0d6e7bb1-6352-4043-8d6e-8a18d11e65bc</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ArcadiaTests</RootNamespace>
-    <AssemblyName>ArcadiaTests</AssemblyName>
+    <RootNamespace>Arcadia.Tests</RootNamespace>
+    <AssemblyName>Arcadia.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <Name>ArcadiaTests</Name>
+    <Name>Arcadia.Tests</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
