@@ -10,4 +10,4 @@ install:
   - mono .nuget/NuGet.exe install NUnit.Runners -Version 2.6.3 -OutputDirectory packages -ExcludeVersion
 
 script: 
-  - xbuild src/Arcadia.sln /p:Configuration=Release
+  - xbuild Arcadia.sln /p:Configuration=Release
