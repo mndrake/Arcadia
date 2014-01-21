@@ -11,4 +11,3 @@ install:
 
 script: 
   - xbuild src/Arcadia.sln /p:Configuration=Release
-  - mono --runtime=v4.0 packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.UnitTests/bin/Release/Arcadia.UnitTests.dll
