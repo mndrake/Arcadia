@@ -1,9 +1,10 @@
-test
-----
+C# Example
+----------
 
 
 **C#**
 
+    [lang=csharp]
     using System;
     using Arcadia;
     using Data;

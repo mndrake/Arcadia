@@ -4,10 +4,8 @@
 #I "../../bin"
 
 (**
-Arcadia
-=======
-
-Documentation
+Arcadia - Asynchronous MVVM Models
+==================================
 
 <div class="row">
   <div class="span1"></div>
@@ -23,44 +21,22 @@ Documentation
 <p>Alternatively, you can download the <a href="https://github.com/mndrake/Arcadia/zipball/master">source as a ZIP file</a> or download 
 the <a href="https://github.com/mndrake/Arcadia/zipball/release">compiled binaries</a> as a ZIP.</p>  
 
-Example
--------
-
-This example demonstrates using a function defined in this sample library.
-
-*)
-#r "Arcadia.dll"
-open Arcadia
-
-let ce = CalculationEngine()
-
-let in1 = ce.AddInput(1)
-let in2 = ce.AddInput(1)
-let out1 = ce.AddOutput((in1,in2), fun (x,y) -> x+y)
-
-(**
-Some more info
-
 Samples & documentation
 -----------------------
 
-The library comes with comprehensible documentation. 
-It can include a tutorials automatically generated from `*.fsx` files in [the content folder][content]. 
-The API reference is automatically generated from Markdown comments in the library implementation.
+ * [Introduction](introduction.html) to the Arcadia library and purpose of library.
 
- * [Tutorial](tutorial.html) contains a further explanation of this sample library.
+ * [F# Example] * TO DO *
 
- * [API Reference](reference/index.html) contains automatically generated documentation for all types, modules
-   and functions in the library. This includes additional brief samples on using most of the
-   functions.
+ * [C# Example](csharp_example.html) * TO DO *
+
+ * [API Reference](reference/index.html) all public types, modules and functions in the library.  
  
 Contributing and copyright
 --------------------------
 
 The project is hosted on [GitHub][gh] where you can [report issues][issues], fork 
-the project and submit pull requests. If you're adding new public API, please also 
-consider adding [samples][content] that can be turned into a documentation. You might
-also want to read [library design notes][readme] to understand how it works.
+the project and submit pull requests.  
 
 The library is available under the MIT license, which allows modification and 
 redistribution for both commercial and non-commercial purposes. For more information see the 
