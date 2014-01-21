@@ -32,7 +32,7 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
     do 
         propertyChanged <- castAs<INotifyPropertyChanged>(!value)
         if propertyChanged <> null then 
-            propertyChanged.PropertyChanged.Add(fun args -> changed.Trigger(this, EventArgs.Empty))
+            propertyChanged.PropertyChanged.Add(fun _ -> changed.Trigger(this, EventArgs.Empty))
     
     new(calculationHandler, ?initialValue) = 
         match initialValue with

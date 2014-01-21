@@ -21,7 +21,7 @@ type ObservableObject() as this =
     let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
     do (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
     abstract OnPropertyChanged : string -> unit
-    override this.OnPropertyChanged(propertyName) = ()
+    override this.OnPropertyChanged(_) = ()
     
     member this.RaisePropertyChanged propertyName = 
         propertyChangedEvent.Trigger([| this
@@ -46,7 +46,7 @@ type ModelBase() as this =
     abstract Error : string with get
     override this.Error with get () = null
     abstract GetValidationError : string -> string
-    override this.GetValidationError(propertyName) = null
+    override this.GetValidationError(_) = null
     abstract ValidatedProperties : string [] with get
     override this.ValidatedProperties = [||]
     

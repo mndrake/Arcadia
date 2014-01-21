@@ -139,7 +139,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
     
     member this.Value 
         with get () = !value
-        and set v = failwith "cannot set the value of an output node"
+        and set _ = failwith "cannot set the value of an output node"
         
     member this.IsDirty = 
         match !status with
