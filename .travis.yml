@@ -21,4 +21,4 @@ install:
 # only build core Arcadia and tests since mono does not support WPF libs
 script: 
   - xbuild src/Arcadia/Arcadia.fsproj /p:Configuration=Release
-  - xbuild tests/Arcadia.UnitTests/Arcadia.UnitTests.fsproj /p:Configuration=Release
+  - xbuild tests/Arcadia.Tests/Arcadia.Tests.fsproj /p:Configuration=Release
