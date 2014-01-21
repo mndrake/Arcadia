@@ -337,6 +337,69 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
 <member name="T:Arcadia.InputNode`1">
 <summary>
  input node used within a CalculationEngine
@@ -359,7 +422,7 @@
 </member>
 <member name="T:Arcadia.Message">
 <summary>
- message types used between nodes MailboxProcessor
+ node messages used in internal MailboxProcessor
 </summary>
 </member>
 <member name="">
