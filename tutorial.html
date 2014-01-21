@@ -35,6 +35,27 @@
           
 <h1>Introduction to Arcadia</h1>
 
+<p>Arcadia is an asynchronous calculation framework inspired by a discussion by Tobias Gedell on Eden (http://www.youtube.com/watch?v=BsOtAXV_URI).</p>
+
+<p>The main points of the discussion on Eden that stuck with me were :</p>
+
+<p>1.Laziness and partial recalc<br />
+2.Caching<br />
+3.Asynchronous result production<br />
+4.Automatic parallelization<br />
+5.Optional manual calculation<br />
+6.Cancellation</p>
+
+<p>Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.</p>
+
+<p>Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.</p>
+
+<h1>Node Dependency Graph</h1>
+
+<img src="img/NodeGraph.png" />
+
+<h1>F# Example - simple integers</h1>
+
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l">1: </span>
 <span class="l">2: </span>
