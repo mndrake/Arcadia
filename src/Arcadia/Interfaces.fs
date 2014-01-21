@@ -10,14 +10,14 @@ type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
 /// event handler for calculation Cancelled event
 type CancelledEventHandler = delegate of sender:obj * e:EventArgs -> unit
 
-/// the Status of InputNodes and OutputNodes
+/// the status of InputNodes and OutputNodes
 type NodeStatus =
     | Dirty = 0
     | Processing = 1
     | Valid = 2
 
-/// message types used between nodes MailboxProcessor
-type Message = 
+/// node messages used in internal MailboxProcessor
+type internal Message = 
     | Cancelled
     | Changed
     | Eval of AsyncReplyChannel<NodeStatus * obj>

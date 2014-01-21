@@ -50,6 +50,7 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="app.config" />
+    <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Foq">

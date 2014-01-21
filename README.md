@@ -1,6 +1,8 @@
 ﻿Arcadia
 -------------
 
+Status: [![Build Status](https://travis-ci.org/mndrake/Arcadia.png)](https://travis-ci.org/mndrake/Arcadia)
+
 An asynchronous node based calculation framework.  
 
 Based on presentation on Eden :  

@@ -7,8 +7,7 @@ open Microsoft.FSharp.Reflection
 open Helpers
 
 /// output node used within a CalculationEngine
-type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this = 
-    inherit NodeBase<'U>(calculationHandler, id, initialValue)
+type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this =
 
     // convert tuple to object array
     let nodes = 
@@ -18,6 +17,14 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
     let func = 
         if isTuple nodeInputs then fun p -> (FSharpValue.MakeTuple(p, typeof<'T>) :?> 'T) |> nodeFunction
         else fun p -> (p.[0] :?> 'T) |> nodeFunction
+
+    let value = match initialValue with
+                | Some v -> ref v
+                | None -> ref Unchecked.defaultof<'U>
+
+    let mutable cts = 
+        CancellationTokenSource.CreateLinkedTokenSource(calculationHandler.CancellationToken, new CancellationToken())
+
     
     let status = ref NodeStatus.Dirty
     let changed = new Event<ChangedEventHandler, EventArgs>()
@@ -55,12 +62,12 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
                     let! nodeValues = Async.Parallel(nodes |> Array.map(fun n -> n.Evaluate()))
                     let statuses, values = nodeValues |> Array.unzip
                     if (statuses |> Array.forall(fun n -> n = NodeStatus.Valid)) then 
-                        if this.cts.IsCancellationRequested then this.cts <- newCts()
+                        if cts.IsCancellationRequested then cts <- newCts()
                         Async.StartWithContinuations
                             (async { return func values }, 
                              (fun v -> 
-                             this.value := v
-                             inbox.Post(Processed)), (fun _ -> ()), (fun _ -> inbox.Post(Cancelled)), this.cts.Token)
+                             value := v
+                             inbox.Post(Processed)), (fun _ -> ()), (fun _ -> inbox.Post(Cancelled)), cts.Token)
                     return! processing()
                 }
             
@@ -78,7 +85,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
                             changed.Trigger(this, EventArgs.Empty)
                             return! calculate()
                     | Eval r -> 
-                        r.Reply(NodeStatus.Valid, box !this.value)
+                        r.Reply(NodeStatus.Valid, box !value)
                         return! valid()
                     | _ -> return! valid()
                 }
@@ -126,28 +133,57 @@ type OutputNode<'N, 'T, 'U>(calculationHandler, id, nodeInputs : 'N, nodeFunctio
 
     new (calculationHandler, nodeInputs, nodeFunction) = OutputNode(calculationHandler, "", nodeInputs, nodeFunction) 
     
-    override this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
-    override this.GetDependentNodes() = nodes.Clone() |> unbox
-    override this.Status = !status
+    member this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
+    member this.GetDependentNodes() = nodes.Clone() |> unbox
+    member this.Status = !status
     
-    override this.Value 
-        with get () = !this.value
+    member this.Value 
+        with get () = !value
         and set v = failwith "cannot set the value of an output node"
         
-    override this.IsDirty = 
+    member this.IsDirty = 
         match !status with
         | NodeStatus.Valid -> false
         | _ -> true
     
-    override this.IsProcessing = 
+    member this.IsProcessing = 
         match !status with
         | NodeStatus.Processing -> true
         | _ -> false
     
     [<CLIEvent>]
-    override this.Changed = changed.Publish
-    
+    member this.Changed = changed.Publish    
     [<CLIEvent>]
-    override this.Cancelled = cancelled.Publish
-    
-    override this.IsInput = false
+    member this.Cancelled = cancelled.Publish    
+    member this.IsInput = false
+    member this.AsyncCalculate() = 
+        if calculationHandler.CancellationToken.IsCancellationRequested then
+            calculationHandler.Reset()
+        cts <- CancellationTokenSource.CreateLinkedTokenSource(
+                        calculationHandler.CancellationToken, new CancellationToken())
+        Async.Start((async { do! this.Evaluate() |> Async.Ignore }), cts.Token)
+
+    member this.ToINode() = this :> INode<'U>
+    member this.Calculation = calculationHandler
+    member this.Id = id
+
+    interface INode<'U> with
+        member this.AsyncCalculate() = this.AsyncCalculate()
+        member this.Calculation = this.Calculation
+        member this.Status = this.Status
+        [<CLIEvent>]
+        member this.Changed = this.Changed
+        [<CLIEvent>]
+        member this.Cancelled = this.Cancelled
+        member this.GetDependentNodes() = this.GetDependentNodes()
+        member this.IsDirty = this.IsDirty
+        member this.Evaluate() = this.Evaluate()
+        member this.Id = this.Id
+        member this.IsInput = this.IsInput
+        member this.IsProcessing = this.IsProcessing
+        member this.UntypedValue 
+            with get () = box this.Value
+            and set v = this.Value <- unbox v      
+        member this.Value 
+            with get () = this.Value
+            and set v = this.Value <- v

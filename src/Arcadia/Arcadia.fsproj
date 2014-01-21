@@ -39,7 +39,6 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Helpers.fs" />
     <Compile Include="Interfaces.fs" />
-    <Compile Include="NodeBase.fs" />
     <Compile Include="InputNode.fs" />
     <Compile Include="OutputNode.fs" />
     <Compile Include="CalculationHandler.fs" />

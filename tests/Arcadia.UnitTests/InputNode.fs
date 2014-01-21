@@ -43,9 +43,3 @@ type Test_InputNode() =
         event.Trigger(mock, PropertyChangedEventArgs("PropertyName"))
         // Assert
         Assert.IsTrue(!triggered)
-
-    [<TestMethod>]
-    member this.``Input Node is Valid``() =
-        let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
-        let input = InputNode(calc, 2)
-        Assert.AreEqual(NodeStatus.Valid, input.Status)

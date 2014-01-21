@@ -3,6 +3,7 @@
 open System
 open System.Collections.ObjectModel
 
+/// delegate of node function with inputs of input node values ('T) to output value ('U)
 type NodeFunc<'T, 'U> = delegate of 'T -> 'U
 
 /// asynchronous calculation engine

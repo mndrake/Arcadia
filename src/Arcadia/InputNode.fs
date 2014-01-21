@@ -6,51 +6,76 @@ open Helpers
 
 /// input node used within a CalculationEngine
 type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
-    inherit NodeBase<'U>(calculationHandler, id, initialValue)
-
     let changed = new Event<ChangedEventHandler, EventArgs>()
     let cancelled = new Event<CancelledEventHandler, EventArgs>()
-
-    let mutable propertyChanged = castAs<INotifyPropertyChanged>(!this.value)
-
+    
+    let value = 
+        match initialValue with
+        | Some v -> ref v
+        | None -> ref Unchecked.defaultof<'U>
+    
+    let mutable propertyChanged = castAs<INotifyPropertyChanged>(!value)
+    
     let agent = 
         MailboxProcessor.Start(fun inbox -> 
-
             let rec valid() = 
                 async { 
                     let! msg = inbox.Receive()
                     match msg with
-                    | Eval r -> r.Reply(NodeStatus.Valid, box !this.value)
-                                return! valid()
+                    | Eval r -> 
+                        r.Reply(NodeStatus.Valid, box !value)
+                        return! valid()
                     | _ -> return! valid()
-                    }
+                }
             valid())
     
-    do
-        propertyChanged <- castAs<INotifyPropertyChanged>(!this.value)
+    do 
+        propertyChanged <- castAs<INotifyPropertyChanged>(!value)
         if propertyChanged <> null then 
             propertyChanged.PropertyChanged.Add(fun args -> changed.Trigger(this, EventArgs.Empty))
-            
-    new (calculationHandler, ?initialValue) = 
-        match initialValue with
-        |Some v -> InputNode(calculationHandler, "", v)
-        |None -> InputNode(calculationHandler, "")
-
-    override this.IsProcessing = false
-    override this.Status = NodeStatus.Valid
     
-    override this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
-    member this.Id = id
-    override this.Value with get() = !this.value
-                         and set v = this.value := v
-                                     changed.Trigger(this, EventArgs.Empty)
+    new(calculationHandler, ?initialValue) = 
+        match initialValue with
+        | Some v -> InputNode(calculationHandler, "", v)
+        | None -> InputNode(calculationHandler, "")
 
+    member this.Id = id
+    
+    member this.Value 
+        with get () = !value
+        and set v = 
+            value := v
+            changed.Trigger(this, EventArgs.Empty)
+    
     member this.Calculation = calculationHandler
+    
     [<CLIEvent>]
-    override this.Cancelled = cancelled.Publish
-    [<CLIEvent>]
-    override this.Changed = changed.Publish
-    override this.IsDirty = false
-    override this.IsInput = true
+    member this.Changed = changed.Publish
+
     member this.ToINode() = this :> INode<'U>
-    override this.GetDependentNodes() = [||]
+
+    interface INode<'U> with
+        member this.AsyncCalculate() = ()
+        member this.Calculation = calculationHandler
+        member this.Status = NodeStatus.Valid
+        
+        [<CLIEvent>]
+        member this.Changed = changed.Publish
+        
+        [<CLIEvent>]
+        member this.Cancelled = cancelled.Publish
+        
+        member this.GetDependentNodes() = [||]
+        member this.IsDirty = false
+        member this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
+        member this.Id = this.Id
+        member this.IsInput = true
+        member this.IsProcessing = false
+        
+        member this.UntypedValue 
+            with get () = box this.Value
+            and set v = this.Value <- unbox v
+        
+        member this.Value 
+            with get () = this.Value
+            and set v = this.Value <- v

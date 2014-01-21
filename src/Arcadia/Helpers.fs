@@ -3,7 +3,7 @@
 open System.ComponentModel
 
 /// internal utility functions
-module Helpers = 
+module internal Helpers = 
     /// checks if value is a F# Tuple type
     let isTuple value = 
         match box value with
