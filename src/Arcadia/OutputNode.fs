@@ -100,12 +100,12 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                         return! processing()
                     | Processed -> 
                         status := NodeStatus.Valid
-                        changed.Trigger(null, EventArgs.Empty)
+                        changed.Trigger(this, EventArgs.Empty)
                         return! valid()
                     | AutoCalculation _ -> return! processing()
                     | Cancelled -> 
                         status := NodeStatus.Dirty
-                        cancelled.Trigger(null, EventArgs.Empty)
+                        cancelled.Trigger(this, EventArgs.Empty)
                         return! dirty()
                 }
             

@@ -10,9 +10,10 @@ open NUnit.Framework
 open Foq
 open Arcadia
 open System.ComponentModel
+open System.Threading
 
 [<Test>]
-let ``Changed Triggered on Input Changed``() = 
+let ``Changed Event Triggered on Input Changed``() = 
     // Arrange
     let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
     let event = Event<_, _>()
@@ -23,25 +24,35 @@ let ``Changed Triggered on Input Changed``() =
     let triggered = ref false
     output.Changed.Add(fun _ -> triggered := true)
     // Act
-    event.Trigger(input, System.EventArgs.Empty)
-    // since output nodes process asynchronously wait for changed event
-    Async.RunSynchronously(Async.AwaitEvent(output.Changed), 1000) |> ignore
+    Async.RunSynchronously(
+        async {
+            event.Trigger(input, System.EventArgs.Empty)
+            let! args = Async.AwaitEvent(output.Changed)
+            do () },
+        2000)
     // Assert
     Assert.IsTrue(!triggered)
 
 [<Test>]
 let ``Can Process Node Function``() = 
     // Arrange
-    let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
+    let cts = new CancellationTokenSource()
+    let calc = Mock<ICalculationHandler>()
+                .Setup(fun x -> <@ x.Automatic @>).Returns(true)
+                .Setup(fun x -> <@ x.CancellationToken @>).Returns(cts.Token)
+                .Create()
     let input1 = 
         Mock<INode>().Setup(fun x -> <@ x.Evaluate() @>).Returns(async { return (NodeStatus.Valid, box 1) }).Create()
     let input2 = 
         Mock<INode>().Setup(fun x -> <@ x.Evaluate() @>).Returns(async { return (NodeStatus.Valid, box 1) }).Create()
     let output = OutputNode(calc, (input1, input2), fun (x, y) -> x + y)
     // Act
-    output.AsyncCalculate()
-    // since output nodes process asynchronously wait for changed event
-    Async.RunSynchronously(Async.AwaitEvent(output.Changed), 1000) |> ignore
+    Async.RunSynchronously(
+        async {
+            let! (status, value) = output.Evaluate()
+            printfn "%A, %A" status value
+            do () },
+        2000)
     // Assert
     Assert.AreEqual(2, output.Value)
 

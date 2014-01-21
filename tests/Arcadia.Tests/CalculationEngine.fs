@@ -30,8 +30,12 @@ let ``can evaluate node``() =
     let input = ce.AddInput(1)
     let output = ce.AddOutput(input, fun (x:int) -> x)
     // Act
-    CalculationEngine.Evaluate (output)
-    Async.RunSynchronously(Async.AwaitEvent(output.Changed), 1000) |> ignore
+    Async.RunSynchronously(
+        async {
+            CalculationEngine.Evaluate (output)
+            let! args = Async.AwaitEvent(output.Changed)
+            do () },
+        2000)
     // Assert
     Assert.AreEqual(1, output.Value)
 
@@ -43,8 +47,12 @@ let ``Calculates on Automatic Calculation``() =
     let input2 = ce.AddInput(1)
     let output = ce.AddOutput((input1,input2), fun (x,y) -> x+y)
     // Act
-    ce.Calculation.Automatic <- true
-    Async.RunSynchronously(Async.AwaitEvent(output.Changed), 1000) |> ignore
+    Async.RunSynchronously(
+        async {
+            ce.Calculation.Automatic <- true
+            let! args = Async.AwaitEvent(output.Changed)
+            do () },
+        2000)
     // Assert
     Assert.AreEqual(2, output.Value)
 
@@ -57,9 +65,13 @@ let ``Can Cancel Calculation``() =
     let triggered = ref false
     output.Cancelled.Add(fun _ -> triggered := true)
     // Act
-    CalculationEngine.Evaluate output
-    ce.Calculation.Cancel()
-    Async.RunSynchronously(Async.AwaitEvent(output.Cancelled), 1000) |> ignore
+    Async.RunSynchronously(
+        async {
+            CalculationEngine.Evaluate output
+            ce.Calculation.Cancel()
+            let! args = Async.AwaitEvent(output.Cancelled)
+            do ()},
+        2000)
     // Assert
     Assert.IsTrue(!triggered)
 
@@ -70,12 +82,13 @@ let ``Output is dirty when changed``() =
     let input = ce.AddInput(1)
     let output = ce.AddOutput(input, (fun (x:int) -> x))
     // Act
-    async {
-        CalculationEngine.Evaluate output
-        let! args = Async.AwaitEvent(output.Changed)
-        input.Value <- 2
-        let! args = Async.AwaitEvent(output.Changed) 
-        do ()} 
-    |> Async.RunSynchronously
+    Async.RunSynchronously(
+        async {
+            CalculationEngine.Evaluate output
+            let! args = Async.AwaitEvent(output.Changed)
+            input.Value <- 2
+            let! args = Async.AwaitEvent(output.Changed) 
+            do ()},
+        2000)
     // Assert
     Assert.AreEqual(NodeStatus.Dirty, output.Status)
