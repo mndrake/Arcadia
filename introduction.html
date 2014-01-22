@@ -48,11 +48,11 @@
 <li>Cancellation</li>
 </ol>
 
-<p>Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.</p>
-
-<p><strong>TO DO LIST</strong><br />
-redo<br />
-serialization of <code>CalculationEngine</code></p>
+<p>Currently I have implemented the above plus basic error handling (changes the node with error to an Error status, no logging of error currently.)
+<strong>TO DO LIST</strong><br />
+logging
+redo/undo
+serialization/persistense of <code>CalculationEngine</code> to database</p>
 
 <p>Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.</p>
 
