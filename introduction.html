@@ -52,7 +52,7 @@
 
 <h1>Node Dependency Graph</h1>
 
-<p>Here is a dependency graph with input nodes (green) and output nodes (blue).  We will use this as an illustration of the dependency tree that we will now try to replecate using simple integer based nodes.</p>
+<p>Here is a dependency graph with input nodes (green) and output nodes (blue).  We will use this as an illustration of the dependency tree that we will now try to replicate using simple integer based nodes.</p>
 
 <img src="img/NodeGraph.png" height="300" width="600" />
 
@@ -86,7 +86,8 @@
 </tr>
 </table>
 
-<p>Now lets create a calculation engine that does simple addition at nodes based on the dependency graph we saw earlier.</p>
+<p>Now lets create a calculation engine that does simple addition at nodes based on the dependency graph we saw earlier. An optional custom ID can be assigned to a node.
+If no node ID is given then <code>InputNodes</code> will be named in0, in1, in2, ... and <code>OutputNodes</code> will be named out0, out1, out2, ...</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip">
 <span class="l"> 1: </span>
@@ -123,6 +124,7 @@
 <span class="l">32: </span>
 <span class="l">33: </span>
 <span class="l">34: </span>
+<span class="l">35: </span>
 </pre>
 </td>
 <td class="snippet"><pre class="fssnip">
@@ -147,22 +149,63 @@
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 54)" onmouseover="showTip(event, 'fs31', 54)" class="i">in9</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 55)" onmouseover="showTip(event, 'fs14', 55)" class="i">input</span> <span class="n">1</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 56)" onmouseover="showTip(event, 'fs32', 56)" class="i">in10</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 57)" onmouseover="showTip(event, 'fs14', 57)" class="i">input</span> <span class="n">1</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 58)" onmouseover="showTip(event, 'fs33', 58)" class="i">in11</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 59)" onmouseover="showTip(event, 'fs14', 59)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="i">in12</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 61)" onmouseover="showTip(event, 'fs14', 61)" class="i">input</span> <span class="n">1</span>
     
-
     <span class="c">// output nodes</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="i">out0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 61)" onmouseover="showTip(event, 'fs17', 61)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs22', 62)" onmouseover="showTip(event, 'fs22', 62)" class="i">in0</span>,<span onmouseout="hideTip(event, 'fs23', 63)" onmouseover="showTip(event, 'fs23', 63)" class="i">in1</span>) <span onmouseout="hideTip(event, 'fs3', 64)" onmouseover="showTip(event, 'fs3', 64)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 65)" onmouseover="showTip(event, 'fs35', 65)" class="i">out1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 66)" onmouseover="showTip(event, 'fs17', 66)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs24', 67)" onmouseover="showTip(event, 'fs24', 67)" class="i">in2</span>,<span onmouseout="hideTip(event, 'fs25', 68)" onmouseover="showTip(event, 'fs25', 68)" class="i">in3</span>) <span onmouseout="hideTip(event, 'fs3', 69)" onmouseover="showTip(event, 'fs3', 69)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 70)" onmouseover="showTip(event, 'fs36', 70)" class="i">out2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 71)" onmouseover="showTip(event, 'fs17', 71)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs26', 72)" onmouseover="showTip(event, 'fs26', 72)" class="i">in4</span>,<span onmouseout="hideTip(event, 'fs27', 73)" onmouseover="showTip(event, 'fs27', 73)" class="i">in5</span>,<span onmouseout="hideTip(event, 'fs28', 74)" onmouseover="showTip(event, 'fs28', 74)" class="i">in6</span>) <span onmouseout="hideTip(event, 'fs8', 75)" onmouseover="showTip(event, 'fs8', 75)" class="i">add3</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 76)" onmouseover="showTip(event, 'fs37', 76)" class="i">out3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 77)" onmouseover="showTip(event, 'fs17', 77)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs29', 78)" onmouseover="showTip(event, 'fs29', 78)" class="i">in7</span>,<span onmouseout="hideTip(event, 'fs30', 79)" onmouseover="showTip(event, 'fs30', 79)" class="i">in8</span>) <span onmouseout="hideTip(event, 'fs3', 80)" onmouseover="showTip(event, 'fs3', 80)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 81)" onmouseover="showTip(event, 'fs38', 81)" class="i">out4</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 82)" onmouseover="showTip(event, 'fs17', 82)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs35', 83)" onmouseover="showTip(event, 'fs35', 83)" class="i">out1</span>,<span onmouseout="hideTip(event, 'fs36', 84)" onmouseover="showTip(event, 'fs36', 84)" class="i">out2</span>) <span onmouseout="hideTip(event, 'fs3', 85)" onmouseover="showTip(event, 'fs3', 85)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 86)" onmouseover="showTip(event, 'fs39', 86)" class="i">out5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 87)" onmouseover="showTip(event, 'fs17', 87)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs34', 88)" onmouseover="showTip(event, 'fs34', 88)" class="i">out0</span>,<span onmouseout="hideTip(event, 'fs37', 89)" onmouseover="showTip(event, 'fs37', 89)" class="i">out3</span>) <span onmouseout="hideTip(event, 'fs3', 90)" onmouseover="showTip(event, 'fs3', 90)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 91)" onmouseover="showTip(event, 'fs40', 91)" class="i">out6</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 92)" onmouseover="showTip(event, 'fs17', 92)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs31', 93)" onmouseover="showTip(event, 'fs31', 93)" class="i">in9</span>,<span onmouseout="hideTip(event, 'fs32', 94)" onmouseover="showTip(event, 'fs32', 94)" class="i">in10</span>) <span onmouseout="hideTip(event, 'fs3', 95)" onmouseover="showTip(event, 'fs3', 95)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 96)" onmouseover="showTip(event, 'fs41', 96)" class="i">out7</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 97)" onmouseover="showTip(event, 'fs17', 97)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs33', 98)" onmouseover="showTip(event, 'fs33', 98)" class="i">in11</span>,<span class="i">in12</span>) <span onmouseout="hideTip(event, 'fs3', 99)" onmouseover="showTip(event, 'fs3', 99)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 100)" onmouseover="showTip(event, 'fs42', 100)" class="i">out8</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 101)" onmouseover="showTip(event, 'fs17', 101)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs38', 102)" onmouseover="showTip(event, 'fs38', 102)" class="i">out4</span>,<span onmouseout="hideTip(event, 'fs40', 103)" onmouseover="showTip(event, 'fs40', 103)" class="i">out6</span>) <span onmouseout="hideTip(event, 'fs3', 104)" onmouseover="showTip(event, 'fs3', 104)" class="i">add2</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 105)" onmouseover="showTip(event, 'fs43', 105)" class="i">out9</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 106)" onmouseover="showTip(event, 'fs17', 106)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs39', 107)" onmouseover="showTip(event, 'fs39', 107)" class="i">out5</span>,<span onmouseout="hideTip(event, 'fs41', 108)" onmouseover="showTip(event, 'fs41', 108)" class="i">out7</span>,<span onmouseout="hideTip(event, 'fs42', 109)" onmouseover="showTip(event, 'fs42', 109)" class="i">out8</span>) <span onmouseout="hideTip(event, 'fs8', 110)" onmouseover="showTip(event, 'fs8', 110)" class="i">add3</span></pre>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 62)" onmouseover="showTip(event, 'fs35', 62)" class="i">out0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 63)" onmouseover="showTip(event, 'fs17', 63)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs22', 64)" onmouseover="showTip(event, 'fs22', 64)" class="i">in0</span>,<span onmouseout="hideTip(event, 'fs23', 65)" onmouseover="showTip(event, 'fs23', 65)" class="i">in1</span>) <span onmouseout="hideTip(event, 'fs3', 66)" onmouseover="showTip(event, 'fs3', 66)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 67)" onmouseover="showTip(event, 'fs36', 67)" class="i">out1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 68)" onmouseover="showTip(event, 'fs17', 68)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs24', 69)" onmouseover="showTip(event, 'fs24', 69)" class="i">in2</span>,<span onmouseout="hideTip(event, 'fs25', 70)" onmouseover="showTip(event, 'fs25', 70)" class="i">in3</span>) <span onmouseout="hideTip(event, 'fs3', 71)" onmouseover="showTip(event, 'fs3', 71)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 72)" onmouseover="showTip(event, 'fs37', 72)" class="i">out2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 73)" onmouseover="showTip(event, 'fs17', 73)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs26', 74)" onmouseover="showTip(event, 'fs26', 74)" class="i">in4</span>,<span onmouseout="hideTip(event, 'fs27', 75)" onmouseover="showTip(event, 'fs27', 75)" class="i">in5</span>,<span onmouseout="hideTip(event, 'fs28', 76)" onmouseover="showTip(event, 'fs28', 76)" class="i">in6</span>) <span onmouseout="hideTip(event, 'fs8', 77)" onmouseover="showTip(event, 'fs8', 77)" class="i">add3</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 78)" onmouseover="showTip(event, 'fs38', 78)" class="i">out3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 79)" onmouseover="showTip(event, 'fs17', 79)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs29', 80)" onmouseover="showTip(event, 'fs29', 80)" class="i">in7</span>,<span onmouseout="hideTip(event, 'fs30', 81)" onmouseover="showTip(event, 'fs30', 81)" class="i">in8</span>) <span onmouseout="hideTip(event, 'fs3', 82)" onmouseover="showTip(event, 'fs3', 82)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 83)" onmouseover="showTip(event, 'fs39', 83)" class="i">out4</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 84)" onmouseover="showTip(event, 'fs17', 84)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs36', 85)" onmouseover="showTip(event, 'fs36', 85)" class="i">out1</span>,<span onmouseout="hideTip(event, 'fs37', 86)" onmouseover="showTip(event, 'fs37', 86)" class="i">out2</span>) <span onmouseout="hideTip(event, 'fs3', 87)" onmouseover="showTip(event, 'fs3', 87)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 88)" onmouseover="showTip(event, 'fs40', 88)" class="i">out5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 89)" onmouseover="showTip(event, 'fs17', 89)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs35', 90)" onmouseover="showTip(event, 'fs35', 90)" class="i">out0</span>,<span onmouseout="hideTip(event, 'fs38', 91)" onmouseover="showTip(event, 'fs38', 91)" class="i">out3</span>) <span onmouseout="hideTip(event, 'fs3', 92)" onmouseover="showTip(event, 'fs3', 92)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 93)" onmouseover="showTip(event, 'fs41', 93)" class="i">out6</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 94)" onmouseover="showTip(event, 'fs17', 94)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs31', 95)" onmouseover="showTip(event, 'fs31', 95)" class="i">in9</span>,<span onmouseout="hideTip(event, 'fs32', 96)" onmouseover="showTip(event, 'fs32', 96)" class="i">in10</span>) <span onmouseout="hideTip(event, 'fs3', 97)" onmouseover="showTip(event, 'fs3', 97)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 98)" onmouseover="showTip(event, 'fs42', 98)" class="i">out7</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 99)" onmouseover="showTip(event, 'fs17', 99)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs33', 100)" onmouseover="showTip(event, 'fs33', 100)" class="i">in11</span>,<span onmouseout="hideTip(event, 'fs34', 101)" onmouseover="showTip(event, 'fs34', 101)" class="i">in12</span>) <span onmouseout="hideTip(event, 'fs3', 102)" onmouseover="showTip(event, 'fs3', 102)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 103)" onmouseover="showTip(event, 'fs43', 103)" class="i">out8</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 104)" onmouseover="showTip(event, 'fs17', 104)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs39', 105)" onmouseover="showTip(event, 'fs39', 105)" class="i">out4</span>,<span onmouseout="hideTip(event, 'fs41', 106)" onmouseover="showTip(event, 'fs41', 106)" class="i">out6</span>) <span onmouseout="hideTip(event, 'fs3', 107)" onmouseover="showTip(event, 'fs3', 107)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs44', 108)" onmouseover="showTip(event, 'fs44', 108)" class="i">out9</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 109)" onmouseover="showTip(event, 'fs17', 109)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs40', 110)" onmouseover="showTip(event, 'fs40', 110)" class="i">out5</span>,<span onmouseout="hideTip(event, 'fs42', 111)" onmouseover="showTip(event, 'fs42', 111)" class="i">out7</span>,<span onmouseout="hideTip(event, 'fs43', 112)" onmouseover="showTip(event, 'fs43', 112)" class="i">out8</span>) <span onmouseout="hideTip(event, 'fs8', 113)" onmouseover="showTip(event, 'fs8', 113)" class="i">add3</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 114)" onmouseover="showTip(event, 'fs45', 114)" class="i">out10</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 115)" onmouseover="showTip(event, 'fs17', 115)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs35', 116)" onmouseover="showTip(event, 'fs35', 116)" class="i">out0</span>,<span onmouseout="hideTip(event, 'fs40', 117)" onmouseover="showTip(event, 'fs40', 117)" class="i">out5</span>) <span onmouseout="hideTip(event, 'fs3', 118)" onmouseover="showTip(event, 'fs3', 118)" class="i">add2</span></pre>
 </td>
 </tr>
 </table>
+
+<h2>Test out our Calculation Engine</h2>
+
+<p>Create an instance of the calculation engine and turn on automatic calculations.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 119)" onmouseover="showTip(event, 'fs46', 119)" class="i">ce</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs11', 120)" onmouseover="showTip(event, 'fs11', 120)" class="i">SimpleCalcEngine</span>()
+
+<span class="c">/// print out the status and value of a given node.</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 121)" onmouseover="showTip(event, 'fs47', 121)" class="i">nodeValue</span>(<span onmouseout="hideTip(event, 'fs48', 122)" onmouseover="showTip(event, 'fs48', 122)" class="i">nodeId</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 123)" onmouseover="showTip(event, 'fs49', 123)" class="i">n</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 124)" onmouseover="showTip(event, 'fs46', 124)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 125)" onmouseover="showTip(event, 'fs50', 125)" class="i">Node</span>(<span onmouseout="hideTip(event, 'fs48', 126)" onmouseover="showTip(event, 'fs48', 126)" class="i">nodeId</span>)
+    <span onmouseout="hideTip(event, 'fs51', 127)" onmouseover="showTip(event, 'fs51', 127)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s"> </span><span class="s">status</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s"> </span><span class="s">value</span><span class="s">:</span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs49', 128)" onmouseover="showTip(event, 'fs49', 128)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 129)" onmouseover="showTip(event, 'fs52', 129)" class="i">Id</span>) (<span onmouseout="hideTip(event, 'fs49', 130)" onmouseover="showTip(event, 'fs49', 130)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 131)" onmouseover="showTip(event, 'fs53', 131)" class="i">Status</span>) (<span onmouseout="hideTip(event, 'fs49', 132)" onmouseover="showTip(event, 'fs49', 132)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 133)" onmouseover="showTip(event, 'fs54', 133)" class="i">Value</span>)
+
+<span onmouseout="hideTip(event, 'fs47', 134)" onmouseover="showTip(event, 'fs47', 134)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Dirty value:0&quot;</span>
+
+<span onmouseout="hideTip(event, 'fs46', 135)" onmouseover="showTip(event, 'fs46', 135)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 136)" onmouseover="showTip(event, 'fs55', 136)" class="i">Calculation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 137)" onmouseover="showTip(event, 'fs56', 137)" class="i">Automatic</span> <span class="o">&lt;-</span> <span class="k">true</span>
+
+<span class="c">// check again (will need to wait a few seconds while calculations complete)</span>
+<span onmouseout="hideTip(event, 'fs47', 138)" onmouseover="showTip(event, 'fs47', 138)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Valid value:13&quot;</span></pre>
+</td>
+</tr>
+</table>
+
+<p>An example of how this can be implemented in an MVVM application can be found in the GitHub site.</p>
 
 <div class="tip" id="fs1">namespace System</div>
 <div class="tip" id="fs2">namespace System.Threading</div>
@@ -176,7 +219,7 @@
 <div class="tip" id="fs10">namespace Arcadia</div>
 <div class="tip" id="fs11">Multiple items<br />type SimpleCalcEngine =<br />&#160;&#160;inherit CalculationEngine<br />&#160;&#160;new : unit -&gt; SimpleCalcEngine<br /><br />Full name: Introduction.SimpleCalcEngine<br /><br />--------------------<br />new : unit -&gt; SimpleCalcEngine</div>
 <div class="tip" id="fs12">val this : SimpleCalcEngine</div>
-<div class="tip" id="fs13">Multiple items<br />type CalculationEngine =<br />&#160;&#160;interface ICalculationEngine<br />&#160;&#160;new : unit -&gt; CalculationEngine<br />&#160;&#160;new : calculationHandler:ICalculationHandler -&gt; CalculationEngine<br />&#160;&#160;member AddInput : value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddInput : value:&#39;U * nodeId:string -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; * nodeId:string -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member Calculation : ICalculationHandler<br />&#160;&#160;member Nodes : Collection&lt;INode&gt;<br />&#160;&#160;static member Evaluate : node:INode -&gt; unit<br /><br />Full name: Arcadia.CalculationEngine<br /><br />--------------------<br />new : unit -&gt; CalculationEngine<br />new : calculationHandler:ICalculationHandler -&gt; CalculationEngine</div>
+<div class="tip" id="fs13">Multiple items<br />type CalculationEngine =<br />&#160;&#160;interface ICalculationEngine<br />&#160;&#160;new : unit -&gt; CalculationEngine<br />&#160;&#160;new : calculationHandler:ICalculationHandler -&gt; CalculationEngine<br />&#160;&#160;member AddInput : value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddInput : value:&#39;U * nodeId:string -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; * nodeId:string -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member Node : nodeId:string -&gt; INode&lt;&#39;U&gt;<br />&#160;&#160;member Calculation : ICalculationHandler<br />&#160;&#160;member Nodes : Collection&lt;INode&gt;<br />&#160;&#160;...<br /><br />Full name: Arcadia.CalculationEngine<br /><br />--------------------<br />new : unit -&gt; CalculationEngine<br />new : calculationHandler:ICalculationHandler -&gt; CalculationEngine</div>
 <div class="tip" id="fs14">val input : (&#39;a -&gt; InputNode&lt;&#39;a&gt;)</div>
 <div class="tip" id="fs15">val v : &#39;a</div>
 <div class="tip" id="fs16">member CalculationEngine.AddInput : value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />member CalculationEngine.AddInput : value:&#39;U * nodeId:string -&gt; InputNode&lt;&#39;U&gt;</div>
@@ -197,16 +240,29 @@
 <div class="tip" id="fs31">val in9 : InputNode&lt;int&gt;</div>
 <div class="tip" id="fs32">val in10 : InputNode&lt;int&gt;</div>
 <div class="tip" id="fs33">val in11 : InputNode&lt;int&gt;</div>
-<div class="tip" id="fs34">val out0 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs35">val out1 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs36">val out2 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;</div>
-<div class="tip" id="fs37">val out3 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs38">val out4 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs39">val out5 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs40">val out6 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs41">val out7 : OutputNode&lt;(InputNode&lt;int&gt; * obj),(int * int),int&gt;</div>
-<div class="tip" id="fs42">val out8 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
-<div class="tip" id="fs43">val out9 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * obj),(int * int),int&gt; * OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;),(int * int * int),int&gt;</div>
+<div class="tip" id="fs34">val in12 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs35">val out0 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs36">val out1 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs37">val out2 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;</div>
+<div class="tip" id="fs38">val out3 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs39">val out4 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs40">val out5 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs41">val out6 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs42">val out7 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs43">val out8 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs44">val out9 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;),(int * int * int),int&gt;</div>
+<div class="tip" id="fs45">val out10 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs46">val ce : SimpleCalcEngine<br /><br />Full name: Introduction.ce</div>
+<div class="tip" id="fs47">val nodeValue : nodeId:string -&gt; unit<br /><br />Full name: Introduction.nodeValue<br /><em><br /><br />&#160;print out the status and value of a given node.</em></div>
+<div class="tip" id="fs48">val nodeId : string</div>
+<div class="tip" id="fs49">val n : INode&lt;int&gt;</div>
+<div class="tip" id="fs50">member CalculationEngine.Node : nodeId:string -&gt; INode&lt;&#39;U&gt;</div>
+<div class="tip" id="fs51">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs52">property INode.Id: string</div>
+<div class="tip" id="fs53">property INode.Status: NodeStatus</div>
+<div class="tip" id="fs54">property INode.Value: int</div>
+<div class="tip" id="fs55">property CalculationEngine.Calculation: ICalculationHandler</div>
+<div class="tip" id="fs56">property ICalculationHandler.Automatic: bool</div>
 
         </div>
         <div class="span3">
