@@ -39,14 +39,21 @@
 
 <p>The main points of the discussion on Eden that stuck with me were :</p>
 
-<p>1.Laziness and partial recalc<br />
-2.Caching<br />
-3.Asynchronous result production<br />
-4.Automatic parallelization<br />
-5.Optional manual calculation<br />
-6.Cancellation</p>
+<ol>
+<li>Laziness and partial recalc</li>
+<li>Caching</li>
+<li>Asynchronous result production</li>
+<li>Automatic parallelization</li>
+<li>Optional manual calculation</li>
+<li>Cancellation<br />
+(also the NEED ... TO ... REPLACE ... EXCEL)</li>
+</ol>
 
 <p>Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.</p>
+
+<p><strong>TO DO LIST</strong><br />
+redo<br />
+serialization of <code>CalculationEngine</code></p>
 
 <p>Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.</p>
 
@@ -205,7 +212,7 @@ If no node ID is given then <code>InputNodes</code> will be named in0, in1, in2,
 </tr>
 </table>
 
-<p>An example of how this can be implemented in an MVVM application can be found in the GitHub site.</p>
+<p>An example of how this can be implemented in an MVVM application can be found on the GitHub site.</p>
 
 <div class="tip" id="fs1">namespace System</div>
 <div class="tip" id="fs2">namespace System.Threading</div>
