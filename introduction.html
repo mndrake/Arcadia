@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Introduction to Arcadia
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Asynchronous Calculation Framework for MVVM Models">
+    <meta name="author" content="David Carlson">
+
+    <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="/Arcadia/content/style.css" />
+    <script type="text/javascript" src="/Arcadia/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/mndrake/Arcadia">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/Arcadia/index.html">Arcadia</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>Introduction to Arcadia</h1>
+
+<p>Arcadia is an asynchronous calculation framework inspired by a discussion by Tobias Gedell on Eden (http://www.youtube.com/watch?v=BsOtAXV_URI).</p>
+
+<p>The main points of the discussion on Eden that stuck with me were :</p>
+
+<p>1.Laziness and partial recalc<br />
+2.Caching<br />
+3.Asynchronous result production<br />
+4.Automatic parallelization<br />
+5.Optional manual calculation<br />
+6.Cancellation</p>
+
+<p>Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.</p>
+
+<p>Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.</p>
+
+<h1>Node Dependency Graph</h1>
+
+<p>Here is a dependency graph with input nodes (green) and output nodes (blue).  We will use this as an illustration of the dependency tree that we will now try to replecate using simple integer based nodes.</p>
+
+<img src="img/NodeGraph.png" height="300" width="600" />
+
+<h1>F# Example - simple integers</h1>
+
+<p>First lets define some simple functions to represent some slow running functions.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Threading</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">add2</span> (<span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">x1</span>,<span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">x2</span>) <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">Thread</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">Sleep</span> <span class="n">500</span>
+    <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="i">x1</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">x2</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">add3</span> (<span onmouseout="hideTip(event, 'fs4', 11)" onmouseover="showTip(event, 'fs4', 11)" class="i">x1</span>,<span onmouseout="hideTip(event, 'fs5', 12)" onmouseover="showTip(event, 'fs5', 12)" class="i">x2</span>,<span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">x3</span>) <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs6', 14)" onmouseover="showTip(event, 'fs6', 14)" class="i">Thread</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 15)" onmouseover="showTip(event, 'fs7', 15)" class="i">Sleep</span> <span class="n">1000</span>
+    <span onmouseout="hideTip(event, 'fs4', 16)" onmouseover="showTip(event, 'fs4', 16)" class="i">x1</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs5', 17)" onmouseover="showTip(event, 'fs5', 17)" class="i">x2</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="i">x3</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Now lets create a calculation engine that does simple addition at nodes based on the dependency graph we saw earlier.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="i">Arcadia</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="i">SimpleCalcEngine</span>() <span class="k">as</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">this</span> <span class="o">=</span>
+    <span class="k">inherit</span> <span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">CalculationEngine</span>()
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 23)" onmouseover="showTip(event, 'fs14', 23)" class="i">input</span> <span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="i">v</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 25)" onmouseover="showTip(event, 'fs12', 25)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="i">AddInput</span> <span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="i">v</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 28)" onmouseover="showTip(event, 'fs17', 28)" class="i">output</span> <span onmouseout="hideTip(event, 'fs18', 29)" onmouseover="showTip(event, 'fs18', 29)" class="i">nodes</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">func</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 31)" onmouseover="showTip(event, 'fs12', 31)" class="i">this</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="i">AddOutput</span>(<span onmouseout="hideTip(event, 'fs18', 33)" onmouseover="showTip(event, 'fs18', 33)" class="i">nodes</span>, <span onmouseout="hideTip(event, 'fs21', 34)" onmouseover="showTip(event, 'fs21', 34)" class="i">NodeFunc</span>(<span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">func</span>))
+
+    <span class="c">// input nodes</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="i">in0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 37)" onmouseover="showTip(event, 'fs14', 37)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 38)" onmouseover="showTip(event, 'fs23', 38)" class="i">in1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 39)" onmouseover="showTip(event, 'fs14', 39)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="i">in2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 41)" onmouseover="showTip(event, 'fs14', 41)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 42)" onmouseover="showTip(event, 'fs25', 42)" class="i">in3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 43)" onmouseover="showTip(event, 'fs14', 43)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="i">in4</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 45)" onmouseover="showTip(event, 'fs14', 45)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="i">in5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 47)" onmouseover="showTip(event, 'fs14', 47)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs28', 48)" onmouseover="showTip(event, 'fs28', 48)" class="i">in6</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 49)" onmouseover="showTip(event, 'fs14', 49)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 50)" onmouseover="showTip(event, 'fs29', 50)" class="i">in7</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 51)" onmouseover="showTip(event, 'fs14', 51)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 52)" onmouseover="showTip(event, 'fs30', 52)" class="i">in8</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 53)" onmouseover="showTip(event, 'fs14', 53)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 54)" onmouseover="showTip(event, 'fs31', 54)" class="i">in9</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 55)" onmouseover="showTip(event, 'fs14', 55)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 56)" onmouseover="showTip(event, 'fs32', 56)" class="i">in10</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 57)" onmouseover="showTip(event, 'fs14', 57)" class="i">input</span> <span class="n">1</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 58)" onmouseover="showTip(event, 'fs33', 58)" class="i">in11</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 59)" onmouseover="showTip(event, 'fs14', 59)" class="i">input</span> <span class="n">1</span>
+    
+
+    <span class="c">// output nodes</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="i">out0</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 61)" onmouseover="showTip(event, 'fs17', 61)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs22', 62)" onmouseover="showTip(event, 'fs22', 62)" class="i">in0</span>,<span onmouseout="hideTip(event, 'fs23', 63)" onmouseover="showTip(event, 'fs23', 63)" class="i">in1</span>) <span onmouseout="hideTip(event, 'fs3', 64)" onmouseover="showTip(event, 'fs3', 64)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 65)" onmouseover="showTip(event, 'fs35', 65)" class="i">out1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 66)" onmouseover="showTip(event, 'fs17', 66)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs24', 67)" onmouseover="showTip(event, 'fs24', 67)" class="i">in2</span>,<span onmouseout="hideTip(event, 'fs25', 68)" onmouseover="showTip(event, 'fs25', 68)" class="i">in3</span>) <span onmouseout="hideTip(event, 'fs3', 69)" onmouseover="showTip(event, 'fs3', 69)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 70)" onmouseover="showTip(event, 'fs36', 70)" class="i">out2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 71)" onmouseover="showTip(event, 'fs17', 71)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs26', 72)" onmouseover="showTip(event, 'fs26', 72)" class="i">in4</span>,<span onmouseout="hideTip(event, 'fs27', 73)" onmouseover="showTip(event, 'fs27', 73)" class="i">in5</span>,<span onmouseout="hideTip(event, 'fs28', 74)" onmouseover="showTip(event, 'fs28', 74)" class="i">in6</span>) <span onmouseout="hideTip(event, 'fs8', 75)" onmouseover="showTip(event, 'fs8', 75)" class="i">add3</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 76)" onmouseover="showTip(event, 'fs37', 76)" class="i">out3</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 77)" onmouseover="showTip(event, 'fs17', 77)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs29', 78)" onmouseover="showTip(event, 'fs29', 78)" class="i">in7</span>,<span onmouseout="hideTip(event, 'fs30', 79)" onmouseover="showTip(event, 'fs30', 79)" class="i">in8</span>) <span onmouseout="hideTip(event, 'fs3', 80)" onmouseover="showTip(event, 'fs3', 80)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 81)" onmouseover="showTip(event, 'fs38', 81)" class="i">out4</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 82)" onmouseover="showTip(event, 'fs17', 82)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs35', 83)" onmouseover="showTip(event, 'fs35', 83)" class="i">out1</span>,<span onmouseout="hideTip(event, 'fs36', 84)" onmouseover="showTip(event, 'fs36', 84)" class="i">out2</span>) <span onmouseout="hideTip(event, 'fs3', 85)" onmouseover="showTip(event, 'fs3', 85)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 86)" onmouseover="showTip(event, 'fs39', 86)" class="i">out5</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 87)" onmouseover="showTip(event, 'fs17', 87)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs34', 88)" onmouseover="showTip(event, 'fs34', 88)" class="i">out0</span>,<span onmouseout="hideTip(event, 'fs37', 89)" onmouseover="showTip(event, 'fs37', 89)" class="i">out3</span>) <span onmouseout="hideTip(event, 'fs3', 90)" onmouseover="showTip(event, 'fs3', 90)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 91)" onmouseover="showTip(event, 'fs40', 91)" class="i">out6</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 92)" onmouseover="showTip(event, 'fs17', 92)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs31', 93)" onmouseover="showTip(event, 'fs31', 93)" class="i">in9</span>,<span onmouseout="hideTip(event, 'fs32', 94)" onmouseover="showTip(event, 'fs32', 94)" class="i">in10</span>) <span onmouseout="hideTip(event, 'fs3', 95)" onmouseover="showTip(event, 'fs3', 95)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 96)" onmouseover="showTip(event, 'fs41', 96)" class="i">out7</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 97)" onmouseover="showTip(event, 'fs17', 97)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs33', 98)" onmouseover="showTip(event, 'fs33', 98)" class="i">in11</span>,<span class="i">in12</span>) <span onmouseout="hideTip(event, 'fs3', 99)" onmouseover="showTip(event, 'fs3', 99)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 100)" onmouseover="showTip(event, 'fs42', 100)" class="i">out8</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 101)" onmouseover="showTip(event, 'fs17', 101)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs38', 102)" onmouseover="showTip(event, 'fs38', 102)" class="i">out4</span>,<span onmouseout="hideTip(event, 'fs40', 103)" onmouseover="showTip(event, 'fs40', 103)" class="i">out6</span>) <span onmouseout="hideTip(event, 'fs3', 104)" onmouseover="showTip(event, 'fs3', 104)" class="i">add2</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 105)" onmouseover="showTip(event, 'fs43', 105)" class="i">out9</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 106)" onmouseover="showTip(event, 'fs17', 106)" class="i">output</span> (<span onmouseout="hideTip(event, 'fs39', 107)" onmouseover="showTip(event, 'fs39', 107)" class="i">out5</span>,<span onmouseout="hideTip(event, 'fs41', 108)" onmouseover="showTip(event, 'fs41', 108)" class="i">out7</span>,<span onmouseout="hideTip(event, 'fs42', 109)" onmouseover="showTip(event, 'fs42', 109)" class="i">out8</span>) <span onmouseout="hideTip(event, 'fs8', 110)" onmouseover="showTip(event, 'fs8', 110)" class="i">add3</span></pre>
+</td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.Threading</div>
+<div class="tip" id="fs3">val add2 : x1:int * x2:int -&gt; int<br /><br />Full name: Introduction.add2</div>
+<div class="tip" id="fs4">val x1 : int</div>
+<div class="tip" id="fs5">val x2 : int</div>
+<div class="tip" id="fs6">Multiple items<br />type Thread =<br />&#160;&#160;inherit CriticalFinalizerObject<br />&#160;&#160;new : start:ThreadStart -&gt; Thread + 3 overloads<br />&#160;&#160;member Abort : unit -&gt; unit + 1 overload<br />&#160;&#160;member ApartmentState : ApartmentState with get, set<br />&#160;&#160;member CurrentCulture : CultureInfo with get, set<br />&#160;&#160;member CurrentUICulture : CultureInfo with get, set<br />&#160;&#160;member DisableComObjectEagerCleanup : unit -&gt; unit<br />&#160;&#160;member ExecutionContext : ExecutionContext<br />&#160;&#160;member GetApartmentState : unit -&gt; ApartmentState<br />&#160;&#160;member GetCompressedStack : unit -&gt; CompressedStack<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;...<br /><br />Full name: System.Threading.Thread<br /><br />--------------------<br />Thread(start: ThreadStart) : unit<br />Thread(start: ParameterizedThreadStart) : unit<br />Thread(start: ThreadStart, maxStackSize: int) : unit<br />Thread(start: ParameterizedThreadStart, maxStackSize: int) : unit</div>
+<div class="tip" id="fs7">Thread.Sleep(timeout: System.TimeSpan) : unit<br />Thread.Sleep(millisecondsTimeout: int) : unit</div>
+<div class="tip" id="fs8">val add3 : x1:int * x2:int * x3:int -&gt; int<br /><br />Full name: Introduction.add3</div>
+<div class="tip" id="fs9">val x3 : int</div>
+<div class="tip" id="fs10">namespace Arcadia</div>
+<div class="tip" id="fs11">Multiple items<br />type SimpleCalcEngine =<br />&#160;&#160;inherit CalculationEngine<br />&#160;&#160;new : unit -&gt; SimpleCalcEngine<br /><br />Full name: Introduction.SimpleCalcEngine<br /><br />--------------------<br />new : unit -&gt; SimpleCalcEngine</div>
+<div class="tip" id="fs12">val this : SimpleCalcEngine</div>
+<div class="tip" id="fs13">Multiple items<br />type CalculationEngine =<br />&#160;&#160;interface ICalculationEngine<br />&#160;&#160;new : unit -&gt; CalculationEngine<br />&#160;&#160;new : calculationHandler:ICalculationHandler -&gt; CalculationEngine<br />&#160;&#160;member AddInput : value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddInput : value:&#39;U * nodeId:string -&gt; InputNode&lt;&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; * nodeId:string -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />&#160;&#160;member Calculation : ICalculationHandler<br />&#160;&#160;member Nodes : Collection&lt;INode&gt;<br />&#160;&#160;static member Evaluate : node:INode -&gt; unit<br /><br />Full name: Arcadia.CalculationEngine<br /><br />--------------------<br />new : unit -&gt; CalculationEngine<br />new : calculationHandler:ICalculationHandler -&gt; CalculationEngine</div>
+<div class="tip" id="fs14">val input : (&#39;a -&gt; InputNode&lt;&#39;a&gt;)</div>
+<div class="tip" id="fs15">val v : &#39;a</div>
+<div class="tip" id="fs16">member CalculationEngine.AddInput : value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />member CalculationEngine.AddInput : value:&#39;U * nodeId:string -&gt; InputNode&lt;&#39;U&gt;</div>
+<div class="tip" id="fs17">val output : (&#39;a -&gt; (&#39;b -&gt; &#39;c) -&gt; OutputNode&lt;&#39;a,&#39;b,&#39;c&gt;)</div>
+<div class="tip" id="fs18">val nodes : &#39;a</div>
+<div class="tip" id="fs19">val func : (&#39;b -&gt; &#39;c)</div>
+<div class="tip" id="fs20">member CalculationEngine.AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />member CalculationEngine.AddOutput : dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; * nodeId:string -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;</div>
+<div class="tip" id="fs21">type NodeFunc&lt;&#39;T,&#39;U&gt; =<br />&#160;&#160;delegate of &#39;T -&gt; &#39;U<br /><br />Full name: Arcadia.NodeFunc&lt;_,_&gt;</div>
+<div class="tip" id="fs22">val in0 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs23">val in1 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs24">val in2 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs25">val in3 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs26">val in4 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs27">val in5 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs28">val in6 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs29">val in7 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs30">val in8 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs31">val in9 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs32">val in10 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs33">val in11 : InputNode&lt;int&gt;</div>
+<div class="tip" id="fs34">val out0 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs35">val out1 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs36">val out2 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;</div>
+<div class="tip" id="fs37">val out3 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs38">val out4 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs39">val out5 : OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs40">val out6 : OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs41">val out7 : OutputNode&lt;(InputNode&lt;int&gt; * obj),(int * int),int&gt;</div>
+<div class="tip" id="fs42">val out8 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;</div>
+<div class="tip" id="fs43">val out9 : OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * obj),(int * int),int&gt; * OutputNode&lt;(OutputNode&lt;(OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int * int),int&gt;),(int * int),int&gt; * OutputNode&lt;(InputNode&lt;int&gt; * InputNode&lt;int&gt;),(int * int),int&gt;),(int * int),int&gt;),(int * int * int),int&gt;</div>
+
+        </div>
+        <div class="span3">
+          <ul class="nav nav-list" id="menu">
+            <li class="nav-header">Arcadia</li>
+            <li><a href="/Arcadia/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/Arcadia">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/mndrake/Arcadia">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/mndrake/Arcadia/blob/master/LICENSE.txt">License</a></li>
+            <li><a href="http://github.com/mndrake/Arcadia/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/Arcadia/tutorial.html">Sample tutorial</a></li>
+
+            <li><a href="/Arcadia/csharp_example.html">C# sample</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/Arcadia/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/mndrake/Arcadia"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  </body>
+  </html>
