@@ -32,6 +32,11 @@
 <member name="">
 
 </member>
+<member name="M:Arcadia.CalculationEngine.Node``1(System.String)">
+<summary>
+ get node by id
+</summary>
+</member>
 <member name="M:Arcadia.CalculationEngine.Evaluate(Arcadia.INode)">
 <summary>
  evaluates a given calculation node asynchronously
