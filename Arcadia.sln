@@ -7,6 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39F8B9ED-57E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{71C3A425-8F3C-4470-B175-71A726FB083C}"
+	ProjectSection(SolutionItems) = preProject
+		BasicExample.fsx = BasicExample.fsx
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{E3EB595D-376B-4A0A-B014-10CC5699AE9D}"
 	ProjectSection(SolutionItems) = preProject
@@ -45,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{89F1
 	ProjectSection(SolutionItems) = preProject
 		docs\content\csharp_example.md = docs\content\csharp_example.md
 		docs\content\index.fsx = docs\content\index.fsx
-		docs\content\tutorial.fsx = docs\content\tutorial.fsx
+		docs\content\introduction.fsx = docs\content\introduction.fsx
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.MVVM", "src\Arcadia.MVVM\Arcadia.MVVM.fsproj", "{7178C7A8-8CF2-4CFB-8431-A5DDEA28BC01}"

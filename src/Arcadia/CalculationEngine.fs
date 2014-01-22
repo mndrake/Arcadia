@@ -10,6 +10,14 @@ type NodeFunc<'T, 'U> = delegate of 'T -> 'U
 type CalculationEngine(calculationHandler : ICalculationHandler) as this = 
 
     let nodes = Collection<INode>()
+
+    let getNode(nodeId) = 
+            nodes
+            |> Seq.tryFind (fun n -> n.Id=nodeId)
+            |> function
+               | Some n -> n
+               | None -> failwith "node not found"
+
     let mutable inputCount = 0
     let mutable outputCount = 0
     new() = new CalculationEngine(new CalculationHandler())
@@ -43,7 +51,10 @@ type CalculationEngine(calculationHandler : ICalculationHandler) as this =
         let nodeId = "out" + string outputCount
         outputCount <- outputCount + 1
         this.AddOutput(dependentNodes, nodeFunction, nodeId)
- 
+
+    /// get node by id
+    member this.Node<'U>(nodeId) = getNode nodeId :?> INode<'U>
+
     interface ICalculationEngine with
         member I.Nodes = this.Nodes
         member I.Calculation = this.Calculation
