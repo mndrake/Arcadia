@@ -6,9 +6,9 @@ open System.Runtime.InteropServices
 [<assembly: ComVisibleAttribute(false)>]
 [<assembly: AssemblyProductAttribute("Arcadia")>]
 [<assembly: AssemblyDescriptionAttribute("An asynchronous calculation framework for MVVM Models")>]
-[<assembly: AssemblyVersionAttribute("0.0.5")>]
-[<assembly: AssemblyFileVersionAttribute("0.0.5")>]
+[<assembly: AssemblyVersionAttribute("0.1.0")>]
+[<assembly: AssemblyFileVersionAttribute("0.1.0")>]
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] Version = "0.0.5"
+    let [<Literal>] Version = "0.1.0"
