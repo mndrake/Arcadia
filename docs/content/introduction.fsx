@@ -19,11 +19,11 @@ The main points of the discussion on Eden that stuck with me were :
 5. Optional manual calculation  
 6. Cancellation  
 
-Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.  
-
+Currently I have implemented the above plus basic error handling (changes the node with error to an Error status, no logging of error currently.)
 **TO DO LIST**  
-redo  
-serialization of ``CalculationEngine``  
+logging
+redo/undo
+serialization/persistense of ``CalculationEngine`` to database
 
 Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.  
 

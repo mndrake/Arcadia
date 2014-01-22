@@ -10,15 +10,15 @@ module SimpleMethods =
 
     // async functions that are used to calculate output nodes
     let add2(x1, x2) = 
-            Thread.Sleep 500
+            Thread.Sleep 250
             x1 + x2
 
     let add3(x1, x2, x3) = 
-            Thread.Sleep 1000
+            Thread.Sleep 500
             x1 + x2 + x3
 
     let add4(x1, x2, x3, x4) = 
-            Thread.Sleep 1500
+            Thread.Sleep 750
             x1 + x2 + x3 + x4
 
 type SimpleCalculationEngine() as this =
@@ -47,7 +47,7 @@ type SimpleCalculationEngine() as this =
 
         // main calculation chain
         let out0 = output (in0,in1) add2
-        let out1 = output (in2,in3) (fun (x,y) -> if x = 2 then failwith "can't be 2" else x+y )
+        let out1 = output (in2,in3) add2
         let out2 = output (in4,in5,in6) add3
         let out3 = output (in7,in8) add2
         let out4 = output (out1,out2) add2
