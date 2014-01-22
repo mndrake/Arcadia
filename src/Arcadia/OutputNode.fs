@@ -43,16 +43,13 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                     // process priority - Cancelled -> Changed -> otherwise order received
                     if queue.Contains(Cancelled) then 
                         queue.RemoveAll(fun m -> m = Cancelled) |> ignore
-                        printfn "Cancelled"
                         return Cancelled
                     elif queue.Contains(Changed) then 
                         queue.RemoveAll(fun m -> m = Changed) |> ignore
-                        printfn "Changed"
                         return Changed
                     else 
                         let msg = queue |> Seq.head
                         queue.RemoveAt(0)
-                        printfn "%A" msg
                         return msg
                 }
             
