@@ -5,21 +5,27 @@ open System.Collections.ObjectModel
 open System.ComponentModel
 open System.Threading
 
-/// event handler for an objects Changed event
-type ChangedEventHandler = delegate of sender:obj * e:EventArgs -> unit
-/// event handler for calculation Cancelled event
-type CancelledEventHandler = delegate of sender:obj * e:EventArgs -> unit
-
 /// the status of InputNodes and OutputNodes
 type NodeStatus =
     | Dirty = 0
     | Processing = 1
-    | Valid = 2
+    | Cancelled = 2
+    | Error = 3
+    | Valid = 4
+
+// event arguments for an objects Changed event
+type ChangedEventArgs(status:NodeStatus) =
+    inherit EventArgs()
+    member this.Status = status
+
+/// event handler for an objects Changed event
+type ChangedEventHandler = delegate of sender:obj * e:ChangedEventArgs -> unit
 
 /// node messages used in internal MailboxProcessor
 type internal Message = 
     | Cancelled
     | Changed
+    | Error
     | Eval of AsyncReplyChannel<NodeStatus * obj>
     | Processed
     | AutoCalculation of bool
@@ -29,7 +35,7 @@ type ICalculationHandler =
     abstract CancellationToken : CancellationToken with get
     abstract Automatic : bool with get, set
     [<CLIEvent>] 
-    abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
+    abstract Changed : IEvent<EventHandler, EventArgs> with get
     abstract Cancel : unit -> unit
     abstract Reset : unit -> unit
     
@@ -46,9 +52,7 @@ type INode =
     abstract IsInput : bool with get
     abstract IsProcessing : bool with get
     [<CLIEvent>]
-    abstract Changed : IEvent<ChangedEventHandler, EventArgs> with get
-    [<CLIEvent>]
-    abstract Cancelled : IEvent<CancelledEventHandler, EventArgs> with get
+    abstract Changed : IEvent<ChangedEventHandler, ChangedEventArgs> with get
 
 /// typed interface for InputNode and OutputNode
 type INode<'U> =

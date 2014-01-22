@@ -27,8 +27,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
 
     
     let status = ref NodeStatus.Dirty
-    let changed = new Event<ChangedEventHandler, EventArgs>()
-    let cancelled = new Event<CancelledEventHandler, EventArgs>()
+    let changed = new Event<ChangedEventHandler, ChangedEventArgs>()
     let newCts() = 
         CancellationTokenSource.CreateLinkedTokenSource(calculationHandler.CancellationToken, new CancellationToken())
     let queue = List<Message>()
@@ -64,10 +63,23 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                     if (statuses |> Array.forall(fun n -> n = NodeStatus.Valid)) then 
                         if cts.IsCancellationRequested then cts <- newCts()
                         Async.StartWithContinuations
-                            (async { return func values }, 
+                            (async { 
+                                let result = 
+                                    try
+                                        Some <| func values
+                                    with
+                                    | _ -> None
+                                return result }, 
                              (fun v -> 
-                             value := v
-                             inbox.Post(Processed)), (fun _ -> ()), (fun _ -> inbox.Post(Cancelled)), cts.Token)
+                                match v with
+                                |Some v ->
+                                    value := v
+                                    inbox.Post(Processed)
+                                |None ->
+                                    inbox.Post(Error)), 
+                             (fun e -> 
+                                inbox.Post(Error)),
+                                (fun _ -> inbox.Post(Cancelled)), cts.Token)
                     return! processing()
                 }
             
@@ -78,11 +90,11 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                     | Changed -> 
                         if not calculationHandler.Automatic then 
                             status := NodeStatus.Dirty
-                            changed.Trigger(this, EventArgs.Empty)
+                            changed.Trigger(this, ChangedEventArgs(NodeStatus.Dirty))
                             return! dirty()
                         else 
                             status := NodeStatus.Processing
-                            changed.Trigger(this, EventArgs.Empty)
+                            changed.Trigger(this, ChangedEventArgs(NodeStatus.Processing))
                             return! calculate()
                     | Eval r -> 
                         r.Reply(NodeStatus.Valid, box !value)
@@ -98,17 +110,31 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                     | Eval r -> 
                         r.Reply(NodeStatus.Processing, null)
                         return! processing()
+                    | Error ->
+                        status := NodeStatus.Error
+                        changed.Trigger(this, ChangedEventArgs(NodeStatus.Error))
+                        return! error()
                     | Processed -> 
                         status := NodeStatus.Valid
-                        changed.Trigger(this, EventArgs.Empty)
+                        changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid))
                         return! valid()
                     | AutoCalculation _ -> return! processing()
                     | Cancelled -> 
                         status := NodeStatus.Dirty
-                        cancelled.Trigger(this, EventArgs.Empty)
+                        changed.Trigger(this, ChangedEventArgs(NodeStatus.Cancelled))
                         return! dirty()
                 }
-            
+            and error() =
+                async {
+                    let! msg = nextMsg()
+                    match msg with
+                    | Changed -> return! calculate()
+                    | Eval r -> 
+                        r.Reply(NodeStatus.Error, null)
+                        return! calculate()
+                    | _ -> return! error() 
+                }
+
             and dirty() = 
                 async { 
                     let! msg = nextMsg()
@@ -127,8 +153,12 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
             | false -> dirty())
     
     do 
-        nodes |> Seq.iter(fun n -> n.Changed.Add(fun _ -> agent.Post(Changed)))
-        nodes |> Seq.iter(fun n -> n.Cancelled.Add(fun _ -> agent.Post(Cancelled)))
+        nodes |> Seq.iter(fun n -> 
+                    n.Changed.Add(fun arg -> 
+                        match arg.Status with
+                        | NodeStatus.Cancelled -> agent.Post(Cancelled)
+                        | _ -> agent.Post(Changed)))
+
         calculationHandler.Changed.Add(fun _ -> agent.Post(AutoCalculation(calculationHandler.Automatic)))
 
     new (calculationHandler, nodeInputs, nodeFunction) = OutputNode(calculationHandler, "", nodeInputs, nodeFunction) 
@@ -153,8 +183,6 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
     
     [<CLIEvent>]
     member this.Changed = changed.Publish    
-    [<CLIEvent>]
-    member this.Cancelled = cancelled.Publish    
     member this.IsInput = false
     member this.AsyncCalculate() = 
         if calculationHandler.CancellationToken.IsCancellationRequested then
@@ -173,8 +201,6 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
         member this.Status = this.Status
         [<CLIEvent>]
         member this.Changed = this.Changed
-        [<CLIEvent>]
-        member this.Cancelled = this.Cancelled
         member this.GetDependentNodes() = this.GetDependentNodes()
         member this.IsDirty = this.IsDirty
         member this.Evaluate() = this.Evaluate()

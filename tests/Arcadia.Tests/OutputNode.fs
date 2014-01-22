@@ -26,7 +26,7 @@ let ``Changed Event Triggered on Input Changed``() =
     // Act
     Async.RunSynchronously(
         async {
-            event.Trigger(input, System.EventArgs.Empty)
+            event.Trigger(input, ChangedEventArgs(NodeStatus.Valid))
             let! args = Async.AwaitEvent(output.Changed)
             do () },
         2000)

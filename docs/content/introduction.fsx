@@ -18,7 +18,6 @@ The main points of the discussion on Eden that stuck with me were :
 4. Automatic parallelization  
 5. Optional manual calculation  
 6. Cancellation  
-(also the NEED ... TO ... REPLACE ... EXCEL)  
 
 Currently I have implemented the above 6 points, although larger scale tests are still needed to test how it scales.  
 

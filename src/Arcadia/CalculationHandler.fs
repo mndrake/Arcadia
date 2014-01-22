@@ -6,7 +6,7 @@ open System.Threading
 
 /// handles calculation state for a CalculationEngine
 type CalculationHandler() as this = 
-    let changed = new Event<ChangedEventHandler, EventArgs>()
+    let changed = new Event<EventHandler, EventArgs>()
     let automatic = ref false
 
     let mutable cts = new CancellationTokenSource()

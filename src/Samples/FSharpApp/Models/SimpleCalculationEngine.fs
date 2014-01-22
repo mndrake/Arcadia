@@ -47,7 +47,7 @@ type SimpleCalculationEngine() as this =
 
         // main calculation chain
         let out0 = output (in0,in1) add2
-        let out1 = output (in2,in3) add2
+        let out1 = output (in2,in3) (fun (x,y) -> if x = 2 then failwith "can't be 2" else x+y )
         let out2 = output (in4,in5,in6) add3
         let out3 = output (in7,in8) add2
         let out4 = output (out1,out2) add2

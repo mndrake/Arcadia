@@ -63,13 +63,13 @@ let ``Can Cancel Calculation``() =
     let input = ce.AddInput(1)
     let output = ce.AddOutput(input, (fun (x:int) -> System.Threading.Thread.Sleep 1000; x))
     let triggered = ref false
-    output.Cancelled.Add(fun _ -> triggered := true)
+    output.Changed.Add(fun arg -> if arg.Status=NodeStatus.Cancelled then triggered := true)
     // Act
     Async.RunSynchronously(
         async {
             CalculationEngine.Evaluate output
             ce.Calculation.Cancel()
-            let! args = Async.AwaitEvent(output.Cancelled)
+            let! args = Async.AwaitEvent(output.Changed)
             do ()},
         2000)
     // Assert

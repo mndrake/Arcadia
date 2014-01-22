@@ -6,8 +6,7 @@ open Helpers
 
 /// input node used within a CalculationEngine
 type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
-    let changed = new Event<ChangedEventHandler, EventArgs>()
-    let cancelled = new Event<CancelledEventHandler, EventArgs>()
+    let changed = new Event<ChangedEventHandler, ChangedEventArgs>()
     
     let value = 
         match initialValue with
@@ -32,7 +31,7 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
     do 
         propertyChanged <- castAs<INotifyPropertyChanged>(!value)
         if propertyChanged <> null then 
-            propertyChanged.PropertyChanged.Add(fun _ -> changed.Trigger(this, EventArgs.Empty))
+            propertyChanged.PropertyChanged.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
     
     new(calculationHandler, ?initialValue) = 
         match initialValue with
@@ -45,7 +44,7 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
         with get () = !value
         and set v = 
             value := v
-            changed.Trigger(this, EventArgs.Empty)
+            changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid))
     
     member this.Calculation = calculationHandler
     
@@ -61,9 +60,6 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
         
         [<CLIEvent>]
         member this.Changed = changed.Publish
-        
-        [<CLIEvent>]
-        member this.Cancelled = cancelled.Publish
         
         member this.GetDependentNodes() = [||]
         member this.IsDirty = false
