@@ -8,7 +8,7 @@
 Introduction to Arcadia
 =======================
 
-Arcadia is an asynchronous calculation framework inspired by a discussion by Tobias Gedell on Eden (http://www.youtube.com/watch?v=BsOtAXV_URI).  
+Arcadia is an asynchronous calculation framework inspired by a discussion by Tobias Gedell on Eden [YouTube](http://www.youtube.com/watch?v=BsOtAXV_URI).  
 
 The main points of the discussion on Eden that stuck with me were :  
 

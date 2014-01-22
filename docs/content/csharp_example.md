@@ -1,8 +1,7 @@
 C# Example
 ----------
 
-
-**C#**
+Snippet from C# example that can be found on GitHub site.
 
     [lang=csharp]
     using System;

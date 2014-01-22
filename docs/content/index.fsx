@@ -24,11 +24,9 @@ the <a href="https://github.com/mndrake/Arcadia/zipball/release">compiled binari
 Samples & documentation
 -----------------------
 
- * [Introduction](introduction.html) to the Arcadia library and purpose of library.
+ * [Introduction](introduction.html) to the Arcadia library and purpose of library with F# Example.
 
- * [F# Example] * TO DO *
-
- * [C# Example](csharp_example.html) * TO DO *
+ * [C# Example](csharp_example.html) Snippet from C# example that can be found on GitHub site.
 
  * [API Reference](reference/index.html) all public types, modules and functions in the library.  
  
