@@ -2,7 +2,11 @@
 // FAKE build script 
 // --------------------------------------------------------------------------------------
 
-#r "packages/FAKE/tools/FakeLib.dll"
+#I "packages/FAKE/tools/"
+//#r "Newtonsoft.Json.dll"
+#r "FakeLib.dll"
+
+//#r "packages/FAKE/tools/FakeLib.dll"
 
 open System
 open System.IO
