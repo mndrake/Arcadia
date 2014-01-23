@@ -60,17 +60,32 @@ Target "CleanDocs" (fun _ -> CleanDirs ["docs/output"])
 // --------------------------------------------------------------------------------------
 // Build library (builds Visual Studio solution)
 
+let runningOnMono = Type.GetType("Mono.Runtime") <> null
+
+//Target "Build" (fun _ ->
+//    (if runningOnMono then (!! "FSharp.Data.sln") else (!! "FSharp.Data.sln" ++ "FSharp.Data.ExtraPlatforms.sln"))
+//    |> MSBuildRelease "" "Rebuild"
+//    |> ignore
+//)
+//
+//Target "BuildTests" (fun _ ->
+//    !! "FSharp.Data.Tests.sln"
+//    |> MSBuildReleaseExt "" (if runningOnMono then ["DefineConstants","MONO"] else []) "Rebuild"
+//    |> ignore
+
 Target "Build" (fun _ ->
     !! "Arcadia.sln"
     |> MSBuildRelease "" "Rebuild"
-    |> Log "Build-Output: "
+    |> ignore
+//    |> Log "Build-Output: "
 )
 
 Target "BuildCore" (fun _ ->
+//    ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
     !! "src/Arcadia/Arcadia.fsproj"
-    ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
     |> MSBuildRelease "" "Rebuild"
-    |> Log "Build-Output: "
+    |> ignore
+//    |> Log "Build-Output: "
 )
 
 // --------------------------------------------------------------------------------------
