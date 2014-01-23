@@ -160,7 +160,8 @@ Target "Help" (fun _ ->
     printfn ""
     printfn "  Targets for building:"
     printfn "  * Build"
-    printfn "  * All (calls previous 1)"
+    printfn "  * RunTests"
+    printfn "  * All (calls previous 2)"
     printfn ""
     printfn "  Targets for releasing (requires write access to the 'https://github.com/mndrake/Arcadia.git' repository):"
     printfn "  * GenerateDocs"
@@ -172,9 +173,10 @@ Target "Help" (fun _ ->
 
 Target "All" DoNothing
 
-"Clean" ==> "AssemblyInfo" ==> "Build"
-"Build" ==> "All"
-"Build" ==> "RunTests" ==> "All"
-"RunTests" ==> "ReleaseDocs" ==> "All"
+"Clean" 
+ ==> "AssemblyInfo" 
+ ==> "Build" 
+ ==> "RunTests" 
+ ==> "All"
 
 RunTargetOrDefault "Help"
