@@ -3,16 +3,16 @@
 // --------------------------------------------------------------------------------------
 
 #I "packages/FAKE/tools/"
-//#r "Newtonsoft.Json.dll"
 #r "FakeLib.dll"
-
-//#r "packages/FAKE/tools/FakeLib.dll"
 
 open System
 open System.IO
 open Fake 
 open Fake.AssemblyInfoFile
 open Fake.Git
+
+
+let runningOnMono = Type.GetType("Mono.Runtime") <> null
 
 // --------------------------------------------------------------------------------------
 // Information about the project to be used at NuGet and in AssemblyInfo files
@@ -28,7 +28,7 @@ let tags = "F# MVVM"
 let gitHome = "https://github.com/mndrake"
 let gitName = "Arcadia"
 
-RestorePackages()
+if not runningOnMono then RestorePackages()
 
 // Read release notes & version info from RELEASE_NOTES.md
 Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
@@ -63,8 +63,6 @@ Target "CleanDocs" (fun _ -> CleanDirs ["docs/output"])
 
 // --------------------------------------------------------------------------------------
 // Build library (builds Visual Studio solution)
-
-let runningOnMono = Type.GetType("Mono.Runtime") <> null
 
 //Target "Build" (fun _ ->
 //    (if runningOnMono then (!! "FSharp.Data.sln") else (!! "FSharp.Data.sln" ++ "FSharp.Data.ExtraPlatforms.sln"))
