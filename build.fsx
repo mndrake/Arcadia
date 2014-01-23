@@ -62,33 +62,36 @@ Target "CleanDocs" (fun _ -> CleanDirs ["docs/output"])
 
 
 // --------------------------------------------------------------------------------------
-// Build library (builds Visual Studio solution)
-
-//Target "Build" (fun _ ->
-//    (if runningOnMono then (!! "FSharp.Data.sln") else (!! "FSharp.Data.sln" ++ "FSharp.Data.ExtraPlatforms.sln"))
-//    |> MSBuildRelease "" "Rebuild"
-//    |> ignore
-//)
-//
-//Target "BuildTests" (fun _ ->
-//    !! "FSharp.Data.Tests.sln"
-//    |> MSBuildReleaseExt "" (if runningOnMono then ["DefineConstants","MONO"] else []) "Rebuild"
-//    |> ignore
+// Build libraries
 
 Target "Build" (fun _ ->
-    !! "Arcadia.sln"
-    |> MSBuildRelease "" "Rebuild"
-    |> ignore
-//    |> Log "Build-Output: "
-)
-
-Target "BuildCore" (fun _ ->
     !! "src/Arcadia/Arcadia.fsproj"
     ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
     |> MSBuildRelease "" "Rebuild"
     |> ignore
-//    |> Log "Build-Output: "
 )
+
+// --------------------------------------------------------------------------------------
+// Run the unit tests using test runner & kill test runner when complete
+
+Target "RunTests" (fun _ ->
+    let nunitVersion = GetPackageVersion "packages" "NUnit.Runners"
+    let nunitPath = sprintf "packages/NUnit.Runners.%s/Tools" nunitVersion
+    ActivateFinalTarget "CloseTestRunner"
+
+    !! "tests/Arcadia.Tests/bin/Release/Arcadia.Tests.dll"
+    |> NUnit (fun p ->
+        { p with
+            ToolPath = nunitPath
+            DisableShadowCopy = true
+            TimeOut = TimeSpan.FromMinutes 20.
+            OutputFile = "TestResults.xml" })
+)
+
+FinalTarget "CloseTestRunner" (fun _ ->  
+    ProcessHelper.killProcess "nunit-agent.exe"
+)
+
 
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
@@ -171,10 +174,10 @@ Target "All" DoNothing
 
 "Clean" ==> "AssemblyInfo" ==> "Build"
 "Build" ==> "All"
+"RunTests" ==> "All"
 
 Target "CI" DoNothing
 
-"Clean" ==> "AssemblyInfo" ==> "BuildCore"
-"BuildCore" ==> "CI"
+"Build" ==> "CI"
 
 RunTargetOrDefault "Help"
