@@ -22,6 +22,9 @@ install:
 #  - xbuild src/Arcadia/Arcadia.fsproj /p:Configuration=Release
 #  - xbuild tests/Arcadia.Tests/Arcadia.Tests.fsproj /p:Configuration=Release
 
+before_script:
+ - chmod +x build.sh
+
 script: 
   - ./build.sh CI
   - mono --runtime=v4.0 packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.Tests/bin/Release/Arcadia.Tests.dll

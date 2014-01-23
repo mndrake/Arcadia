@@ -16,19 +16,15 @@ open System.Threading
 let ``Changed Event Triggered on Input Changed``() = 
     // Arrange
     let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
-    let event = Event<_, _>()
-    let input = 
-        Mock<INode>().SetupEvent(fun x -> <@ x.Changed @>).Publishes(event.Publish).Setup(fun x -> <@ x.Evaluate() @>)
-            .Returns(async { return (NodeStatus.Valid, box 1) }).Create()
+    let input = InputNode(calc, 1)
     let output = OutputNode(calc, input, fun (x : int) -> x)
     let triggered = ref false
     output.Changed.Add(fun _ -> triggered := true)
     // Act
     Async.RunSynchronously(
         async {
-            event.Trigger(input, ChangedEventArgs(NodeStatus.Valid))
-            let! args = Async.AwaitEvent(output.Changed)
-            do () },
+            input.Value <- 2
+            while !triggered = false do () },
         2000)
     // Assert
     Assert.IsTrue(!triggered)

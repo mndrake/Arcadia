@@ -84,9 +84,8 @@ let ``Output is dirty when changed``() =
     // Act
     Async.RunSynchronously(
         async {
-            CalculationEngine.Evaluate output
-            let! args = Async.AwaitEvent(output.Changed)
-            input.Value <- 2
+            do! output.Evaluate() |> Async.Ignore
+            input.Value <- 2            
             let! args = Async.AwaitEvent(output.Changed) 
             do ()},
         2000)
