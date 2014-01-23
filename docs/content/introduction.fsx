@@ -19,12 +19,13 @@ The main points of the discussion on Eden that stuck with me were :
 5. Optional manual calculation  
 6. Cancellation  
 
-Currently I have implemented the above plus basic error handling (changes the node with error to an Error status, no logging of error currently.)
-**TO DO LIST**  
-logging
-redo/undo
-serialization/persistense of ``CalculationEngine`` to database
+Currently I have implemented the above plus basic error handling (changes the node with error to an Error status, no logging of error currently.)  
 
+**TO DO LIST**  
+logging  
+redo/undo  
+serialization/persistense of ``CalculationEngine`` to database  
+  
 Arcadia is implemented using .Net generics so calculation "nodes" do not need to implement just a single numberic value.  Inputs/Outputs can be any POCO/recordset/struct that you want.  
 
 Node Dependency Graph
@@ -104,7 +105,7 @@ let ce = SimpleCalcEngine()
 
 /// print out the status and value of a given node.
 let nodeValue(nodeId) = 
-    let n = ce.Node(nodeId)
+    let n = ce.Node<int>(nodeId)
     printfn "%s status:%A value:%i" (n.Id) (n.Status) (n.Value)
 
 nodeValue "out9" // returns "out9 status:Dirty value:0"
@@ -115,5 +116,27 @@ ce.Calculation.Automatic <- true
 nodeValue "out9" // returns "out9 status:Valid value:13"
 
 (**
-An example of how this can be implemented in an MVVM application can be found on the GitHub site.
+You can also do manual calculations if you didn't want to have everything calculating automatically.
+*)
+// set calculations back to manual
+ce.Calculation.Automatic <- false
+
+// set the value of in1 to 3 
+ce.Node("in1").Value <- 3
+
+// check the value of nodes dependent on in1
+nodeValue "out9" // returns out9 status: Dirty value:13
+nodeValue "out10" // returns out10 status: Dirty value: 6
+
+// if we want to get the updated value we can request an update
+ce.Node<int>("out9").AsyncCalculate()
+
+// wait a couple of seconds (or not and see a Dirty result for out9)
+nodeValue "out9" // returns out9 status: Valid value:15
+nodeValue "out10" // returns out10 status: Dirty value: 6
+
+(**
+Since out9 does not depend on out10 it did not recalculate (point 1 from our starting list).
+
+An example of how this can be implemented in an MVVM application can be found on the GitHub site in the src/Samples folder.
 *)

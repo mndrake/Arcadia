@@ -19,7 +19,9 @@ install:
   - mono .nuget/NuGet.exe install NUnit.Runners -Version 2.6.3 -OutputDirectory packages -ExcludeVersion
 
 # only build core Arcadia and tests since mono does not support WPF libs
+#  - xbuild src/Arcadia/Arcadia.fsproj /p:Configuration=Release
+#  - xbuild tests/Arcadia.Tests/Arcadia.Tests.fsproj /p:Configuration=Release
+
 script: 
-  - xbuild src/Arcadia/Arcadia.fsproj /p:Configuration=Release
-  - xbuild tests/Arcadia.Tests/Arcadia.Tests.fsproj /p:Configuration=Release
+  - ./build.sh CI
   - mono --runtime=v4.0 packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.Tests/bin/Release/Arcadia.Tests.dll

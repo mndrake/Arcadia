@@ -66,6 +66,13 @@ Target "Build" (fun _ ->
     |> Log "Build-Output: "
 )
 
+Target "BuildCore" (fun _ ->
+    !! "src/Arcadia/Arcadia.fsproj"
+    ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
+    |> MSBuildRelease "" "Rebuild"
+    |> Log "Build-Output: "
+)
+
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
 
@@ -148,5 +155,9 @@ Target "All" DoNothing
 "Clean" ==> "AssemblyInfo" ==> "Build"
 "Build" ==> "All"
 
+Target "CI" DoNothing
+
+"Clean" ==> "AssemblyInfo" ==> "BuildCore"
+"BuildCore" ==> "CI"
 
 RunTargetOrDefault "Help"
