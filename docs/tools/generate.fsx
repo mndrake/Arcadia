@@ -20,7 +20,7 @@ let info =
 // For typical project, no changes are needed below
 // --------------------------------------------------------------------------------------
 
-#I "packages/FAKE/tools/"
+#I "../../FAKE/tools/"
 
 #I "../../packages/FSharp.Formatting.2.2.11-beta/lib/net40"
 #I "../../packages/RazorEngine.3.3.0/lib/net40/"
