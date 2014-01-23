@@ -83,8 +83,8 @@ Target "Build" (fun _ ->
 )
 
 Target "BuildCore" (fun _ ->
-//    ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
     !! "src/Arcadia/Arcadia.fsproj"
+    ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
     |> MSBuildRelease "" "Rebuild"
     |> ignore
 //    |> Log "Build-Output: "
