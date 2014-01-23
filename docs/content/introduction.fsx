@@ -98,7 +98,8 @@ type SimpleCalcEngine() as this =
 Test out our Calculation Engine
 -------------------------------
 
-Create an instance of the calculation engine and turn on automatic calculations.  
+Create an instance of the calculation engine and turn on automatic calculations. 
+Run the following a statement at a time and see how it works.  
 *)
 
 let ce = SimpleCalcEngine()

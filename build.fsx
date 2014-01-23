@@ -71,6 +71,12 @@ Target "Build" (fun _ ->
     |> ignore
 )
 
+Target "BuildExtras" (fun _ ->
+     !! "src/Arcadia.MVVM/Arcadia.MVVM.fsproj"
+    |> MSBuildRelease "bin" "Rebuild"
+    |> ignore
+)   
+
 // --------------------------------------------------------------------------------------
 // Run the unit tests using test runner & kill test runner when complete
 
@@ -144,13 +150,6 @@ Target "ReleaseBinaries" (fun _ ->
     Branches.push "temp/release"
 )
 
-Target "Release" DoNothing
-
-"CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
-"ReleaseDocs" ==> "Release"
-"ReleaseBinaries" ==> "Release"
-"NuGet" ==> "Release"
-
 // --------------------------------------------------------------------------------------
 // Help
 
@@ -178,5 +177,13 @@ Target "All" DoNothing
  ==> "Build" 
  ==> "RunTests" 
  ==> "All"
+
+Target "Release" DoNothing
+"All" ==> "CleanDocs"
+"BuildExtra" ==> "CleanDocs"
+"CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
+"ReleaseDocs" ==> "Release"
+"ReleaseBinaries" ==> "Release"
+"NuGet" ==> "Release"
 
 RunTargetOrDefault "Help"

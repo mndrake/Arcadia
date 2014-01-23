@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{89F1
 		docs\content\csharp_example.md = docs\content\csharp_example.md
 		docs\content\index.fsx = docs\content\index.fsx
 		docs\content\introduction.fsx = docs\content\introduction.fsx
+		docs\content\presentation.fsx = docs\content\presentation.fsx
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Arcadia.MVVM", "src\Arcadia.MVVM\Arcadia.MVVM.fsproj", "{7178C7A8-8CF2-4CFB-8431-A5DDEA28BC01}"

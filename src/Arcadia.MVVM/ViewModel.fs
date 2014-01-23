@@ -17,6 +17,7 @@ type IObservableObject =
     /// triggers PropertyChangedEvent with a given propertyName
     abstract RaisePropertyChanged : string -> unit
 
+/// implements INotifyPropertyChanged
 type ObservableObject() as this = 
     let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
     do (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
@@ -35,12 +36,14 @@ type ObservableObject() as this =
         [<CLIEvent>]
         member I.PropertyChanged = propertyChangedEvent.Publish
 
+
 type IModelBase = 
     inherit IObservableObject
     inherit IDataErrorInfo
     abstract GetValidationError : string -> string
     abstract ValidatedProperties : string [] with get
 
+/// base class for MVVM Models
 type ModelBase() as this = 
     inherit ObservableObject()
     abstract Error : string with get
