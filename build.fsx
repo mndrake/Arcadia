@@ -174,10 +174,7 @@ Target "All" DoNothing
 
 "Clean" ==> "AssemblyInfo" ==> "Build"
 "Build" ==> "All"
-"RunTests" ==> "All"
-
-Target "CI" DoNothing
-
-"Build" ==> "CI"
+"Build" ==> "RunTests" ==> "All"
+"RunTests" ==> "ReleaseDocs" ==> "All"
 
 RunTargetOrDefault "Help"
