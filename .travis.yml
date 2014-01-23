@@ -26,5 +26,5 @@ before_script:
  - chmod +x build.sh
 
 script: 
-  - ./build.sh CI
+  - ./build.sh All
 # - mono --runtime=v4.0 packages/NUnit.Runners/tools/nunit-console.exe tests/Arcadia.Tests/bin/Release/Arcadia.Tests.dll
