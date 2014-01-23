@@ -2,9 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{39F8B9ED-57EE-44D6-B88B-58BAB5792DA0}"
-	ProjectSection(SolutionItems) = preProject
-		src\presentation.fsx = src\presentation.fsx
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{71C3A425-8F3C-4470-B175-71A726FB083C}"
 	ProjectSection(SolutionItems) = preProject
