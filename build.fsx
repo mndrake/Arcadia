@@ -23,7 +23,7 @@ let authors = ["David Carlson"]
 let summary = "An asynchronous calculation framework for MVVM Models"
 let description = """
   An asynchronous calculation framework for MVVM Models"""
-let tags = "F# MVVM"
+let tags = "async F# FSharp MVVM"
 
 let gitHome = "https://github.com/mndrake"
 let gitName = "Arcadia"

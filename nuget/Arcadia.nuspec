@@ -7,7 +7,7 @@
     <owners>@authors@</owners>
     <summary>@summary@</summary>
     <licenseUrl>https://raw.github.com/mndrake/Arcadia/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/mndrake/Arcadia</projectUrl>
+    <projectUrl>http://mndrake.github.io/Arcadia</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
