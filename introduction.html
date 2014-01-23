@@ -199,20 +199,64 @@ If no node ID is given then <code>InputNodes</code> will be named in0, in1, in2,
 
 <span class="c">/// print out the status and value of a given node.</span>
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 121)" onmouseover="showTip(event, 'fs47', 121)" class="i">nodeValue</span>(<span onmouseout="hideTip(event, 'fs48', 122)" onmouseover="showTip(event, 'fs48', 122)" class="i">nodeId</span>) <span class="o">=</span> 
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 123)" onmouseover="showTip(event, 'fs49', 123)" class="i">n</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 124)" onmouseover="showTip(event, 'fs46', 124)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 125)" onmouseover="showTip(event, 'fs50', 125)" class="i">Node</span>(<span onmouseout="hideTip(event, 'fs48', 126)" onmouseover="showTip(event, 'fs48', 126)" class="i">nodeId</span>)
-    <span onmouseout="hideTip(event, 'fs51', 127)" onmouseover="showTip(event, 'fs51', 127)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s"> </span><span class="s">status</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s"> </span><span class="s">value</span><span class="s">:</span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs49', 128)" onmouseover="showTip(event, 'fs49', 128)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 129)" onmouseover="showTip(event, 'fs52', 129)" class="i">Id</span>) (<span onmouseout="hideTip(event, 'fs49', 130)" onmouseover="showTip(event, 'fs49', 130)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 131)" onmouseover="showTip(event, 'fs53', 131)" class="i">Status</span>) (<span onmouseout="hideTip(event, 'fs49', 132)" onmouseover="showTip(event, 'fs49', 132)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 133)" onmouseover="showTip(event, 'fs54', 133)" class="i">Value</span>)
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs49', 123)" onmouseover="showTip(event, 'fs49', 123)" class="i">n</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 124)" onmouseover="showTip(event, 'fs46', 124)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 125)" onmouseover="showTip(event, 'fs50', 125)" class="i">Node</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs51', 126)" onmouseover="showTip(event, 'fs51', 126)" class="i">int</span><span class="o">&gt;</span>(<span onmouseout="hideTip(event, 'fs48', 127)" onmouseover="showTip(event, 'fs48', 127)" class="i">nodeId</span>)
+    <span onmouseout="hideTip(event, 'fs52', 128)" onmouseover="showTip(event, 'fs52', 128)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s"> </span><span class="s">status</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s"> </span><span class="s">value</span><span class="s">:</span><span class="s">%</span><span class="s">i</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs49', 129)" onmouseover="showTip(event, 'fs49', 129)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 130)" onmouseover="showTip(event, 'fs53', 130)" class="i">Id</span>) (<span onmouseout="hideTip(event, 'fs49', 131)" onmouseover="showTip(event, 'fs49', 131)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 132)" onmouseover="showTip(event, 'fs54', 132)" class="i">Status</span>) (<span onmouseout="hideTip(event, 'fs49', 133)" onmouseover="showTip(event, 'fs49', 133)" class="i">n</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 134)" onmouseover="showTip(event, 'fs55', 134)" class="i">Value</span>)
 
-<span onmouseout="hideTip(event, 'fs47', 134)" onmouseover="showTip(event, 'fs47', 134)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Dirty value:0&quot;</span>
+<span onmouseout="hideTip(event, 'fs47', 135)" onmouseover="showTip(event, 'fs47', 135)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Dirty value:0&quot;</span>
 
-<span onmouseout="hideTip(event, 'fs46', 135)" onmouseover="showTip(event, 'fs46', 135)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 136)" onmouseover="showTip(event, 'fs55', 136)" class="i">Calculation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 137)" onmouseover="showTip(event, 'fs56', 137)" class="i">Automatic</span> <span class="o">&lt;-</span> <span class="k">true</span>
+<span onmouseout="hideTip(event, 'fs46', 136)" onmouseover="showTip(event, 'fs46', 136)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 137)" onmouseover="showTip(event, 'fs56', 137)" class="i">Calculation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 138)" onmouseover="showTip(event, 'fs57', 138)" class="i">Automatic</span> <span class="o">&lt;-</span> <span class="k">true</span>
 
 <span class="c">// check again (will need to wait a few seconds while calculations complete)</span>
-<span onmouseout="hideTip(event, 'fs47', 138)" onmouseover="showTip(event, 'fs47', 138)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Valid value:13&quot;</span></pre>
+<span onmouseout="hideTip(event, 'fs47', 139)" onmouseover="showTip(event, 'fs47', 139)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns &quot;out9 status:Valid value:13&quot;</span></pre>
 </td>
 </tr>
 </table>
 
-<p>An example of how this can be implemented in an MVVM application can be found on the GitHub site.</p>
+<p>You can also do manual calculations if you didn't want to have everything calculating automatically.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// set calculations back to manual</span>
+<span onmouseout="hideTip(event, 'fs46', 140)" onmouseover="showTip(event, 'fs46', 140)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs56', 141)" onmouseover="showTip(event, 'fs56', 141)" class="i">Calculation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs57', 142)" onmouseover="showTip(event, 'fs57', 142)" class="i">Automatic</span> <span class="o">&lt;-</span> <span class="k">false</span>
+
+<span class="c">// set the value of in1 to 3 </span>
+<span onmouseout="hideTip(event, 'fs46', 143)" onmouseover="showTip(event, 'fs46', 143)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 144)" onmouseover="showTip(event, 'fs50', 144)" class="i">Node</span>(<span class="s">&quot;</span><span class="s">in1</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">Value</span> <span class="o">&lt;-</span> <span class="n">3</span>
+
+<span class="c">// check the value of nodes dependent on in1</span>
+<span onmouseout="hideTip(event, 'fs47', 145)" onmouseover="showTip(event, 'fs47', 145)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns out9 status: Dirty value:13</span>
+<span onmouseout="hideTip(event, 'fs47', 146)" onmouseover="showTip(event, 'fs47', 146)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out10</span><span class="s">&quot;</span> <span class="c">// returns out10 status: Dirty value: 6</span>
+
+<span class="c">// if we want to get the updated value we can request an update</span>
+<span onmouseout="hideTip(event, 'fs46', 147)" onmouseover="showTip(event, 'fs46', 147)" class="i">ce</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs50', 148)" onmouseover="showTip(event, 'fs50', 148)" class="i">Node</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs51', 149)" onmouseover="showTip(event, 'fs51', 149)" class="i">int</span><span class="o">&gt;</span>(<span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span>)<span class="o">.</span><span class="i">AsyncCalculate</span>()
+
+<span class="c">// wait a couple of seconds (or not and see a Dirty result for out9)</span>
+<span onmouseout="hideTip(event, 'fs47', 150)" onmouseover="showTip(event, 'fs47', 150)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out9</span><span class="s">&quot;</span> <span class="c">// returns out9 status: Valid value:15</span>
+<span onmouseout="hideTip(event, 'fs47', 151)" onmouseover="showTip(event, 'fs47', 151)" class="i">nodeValue</span> <span class="s">&quot;</span><span class="s">out10</span><span class="s">&quot;</span> <span class="c">// returns out10 status: Dirty value: 6</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Since out9 does not depend on out10 it did not recalculate (point 1 from our starting list).</p>
+
+<p>An example of how this can be implemented in an MVVM application can be found on the GitHub site in the src/Samples folder.</p>
 
 <div class="tip" id="fs1">namespace System</div>
 <div class="tip" id="fs2">namespace System.Threading</div>
@@ -264,12 +308,13 @@ If no node ID is given then <code>InputNodes</code> will be named in0, in1, in2,
 <div class="tip" id="fs48">val nodeId : string</div>
 <div class="tip" id="fs49">val n : INode&lt;int&gt;</div>
 <div class="tip" id="fs50">member CalculationEngine.Node : nodeId:string -&gt; INode&lt;&#39;U&gt;</div>
-<div class="tip" id="fs51">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
-<div class="tip" id="fs52">property INode.Id: string</div>
-<div class="tip" id="fs53">property INode.Status: NodeStatus</div>
-<div class="tip" id="fs54">property INode.Value: int</div>
-<div class="tip" id="fs55">property CalculationEngine.Calculation: ICalculationHandler</div>
-<div class="tip" id="fs56">property ICalculationHandler.Automatic: bool</div>
+<div class="tip" id="fs51">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs52">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs53">property INode.Id: string</div>
+<div class="tip" id="fs54">property INode.Status: NodeStatus</div>
+<div class="tip" id="fs55">property INode.Value: int</div>
+<div class="tip" id="fs56">property CalculationEngine.Calculation: ICalculationHandler</div>
+<div class="tip" id="fs57">property ICalculationHandler.Automatic: bool</div>
 
         </div>
         <div class="span3">
@@ -283,7 +328,7 @@ If no node ID is given then <code>InputNodes</code> will be named in0, in1, in2,
             <li><a href="http://github.com/mndrake/Arcadia/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
             
             <li class="nav-header">Getting started</li>
-            <li><a href="/Arcadia/introduction.html">Sample tutorial</a></li>
+            <li><a href="/Arcadia/introduction.html">Introduction</a></li>
 
             <li><a href="/Arcadia/csharp_example.html">C# sample</a></li>
 
