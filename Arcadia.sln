@@ -44,6 +44,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{89F1AACE-91B4-4644-9FFD-9D2C1F1B3E97}"
 	ProjectSection(SolutionItems) = preProject
 		docs\content\csharp_example.md = docs\content\csharp_example.md
+		docs\content\csharp_simple.md = docs\content\csharp_simple.md
 		docs\content\index.fsx = docs\content\index.fsx
 		docs\content\introduction.fsx = docs\content\introduction.fsx
 		docs\content\presentation.fsx = docs\content\presentation.fsx

@@ -1,12 +1,14 @@
 ﻿namespace System
 open System.Reflection
+open System.Runtime.InteropServices
 
 [<assembly: AssemblyTitleAttribute("Arcadia.MVVM")>]
-[<assembly: AssemblyProductAttribute("Arcadia.MVVM")>]
-[<assembly: AssemblyDescriptionAttribute("Lightweight MVVM Utility Library")>]
-[<assembly: AssemblyVersionAttribute("1.0.0")>]
-[<assembly: AssemblyFileVersionAttribute("1.0.0")>]
+[<assembly: ComVisibleAttribute(false)>]
+[<assembly: AssemblyProductAttribute("Arcadia")>]
+[<assembly: AssemblyDescriptionAttribute("An asynchronous calculation framework for MVVM Models")>]
+[<assembly: AssemblyVersionAttribute("0.1.0")>]
+[<assembly: AssemblyFileVersionAttribute("0.1.0")>]
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] Version = "1.0.0"
+    let [<Literal>] Version = "0.1.0"

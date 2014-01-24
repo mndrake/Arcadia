@@ -139,5 +139,7 @@ nodeValue "out10" // returns out10 status: Dirty value: 6
 (**
 Since out9 does not depend on out10 it did not recalculate (point 1 from our starting list).
 
+[Here](csharp_simple.html) is the above example implemented in C#.
+
 An example of how this can be implemented in an MVVM application can be found on the GitHub site in the src/Samples folder.
 *)

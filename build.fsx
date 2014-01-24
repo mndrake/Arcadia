@@ -42,7 +42,8 @@ let releaseNotes = release.Notes |> String.concat "\n"
 // Generate assembly info files with the right version & up-to-date information
 
 Target "AssemblyInfo" (fun _ ->
-    [ ("src/Arcadia/AssemblyInfo.fs", "Arcadia", project, summary) ]
+    [ ("src/Arcadia/AssemblyInfo.fs", "Arcadia", project, summary);
+      ("src/Arcadia.MVVM/AssemblyInfo.fs","Arcadia.MVVM", project, summary) ]
     |> Seq.iter (fun (fileName, title, project, summary) ->
         CreateFSharpAssemblyInfo fileName
            [ Attribute.Title title
@@ -67,7 +68,7 @@ Target "CleanDocs" (fun _ -> CleanDirs ["docs/output"])
 Target "Build" (fun _ ->
     !! "src/Arcadia/Arcadia.fsproj"
     ++ "tests/Arcadia.Tests/Arcadia.Tests.fsproj"
-    |> MSBuildRelease "" "Rebuild"
+    |> MSBuildRelease "bin" "Rebuild"
     |> ignore
 )
 
@@ -85,7 +86,7 @@ Target "RunTests" (fun _ ->
     let nunitPath = sprintf "packages/NUnit.Runners.%s/Tools" nunitVersion
     ActivateFinalTarget "CloseTestRunner"
 
-    !! "tests/Arcadia.Tests/bin/Release/Arcadia.Tests.dll"
+    !! "bin/Arcadia.Tests.dll"
     |> NUnit (fun p ->
         { p with
             ToolPath = nunitPath
@@ -143,7 +144,10 @@ Target "ReleaseDocs" (fun _ ->
 Target "ReleaseBinaries" (fun _ ->
     Repository.clone "" (gitHome + "/" + gitName + ".git") "temp/release"
     Branches.checkoutBranch "temp/release" "release"
-    CopyRecursive "bin" "temp/release" true |> printfn "%A"
+    !! "bin/Arcadia.dll"
+    ++ "bin/Arcadia.MVVM.dll"
+    |> Copy "temp/release"
+    //CopyRecursive "bin" "temp/release" true |> printfn "%A"
     CommandHelper.runSimpleGitCommand "temp/release" "add ." |> printfn "%s"
     let cmd = sprintf """commit -a -m "Update binaries for version %s""" release.NugetVersion
     CommandHelper.runSimpleGitCommand "temp/release" cmd |> printfn "%s"
@@ -180,7 +184,7 @@ Target "All" DoNothing
 
 Target "Release" DoNothing
 "All" ==> "CleanDocs"
-"BuildExtra" ==> "CleanDocs"
+"BuildExtras" ==> "CleanDocs"
 "CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
 "ReleaseDocs" ==> "Release"
 "ReleaseBinaries" ==> "Release"
