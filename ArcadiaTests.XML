@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Arcadia.Tests</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Arcadia.Tests.CalculationEngine">
+
+</member>
+<member name="T:Arcadia.Tests.CalculationHandler">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Arcadia.Tests.InputNode">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Arcadia.Tests.OutputNode">
+
+</member>
+</members>
+</doc>
