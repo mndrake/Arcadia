@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NodeFunc<'T, 'U> - Arcadia</title>
+    <title>CommandViewModel - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -35,10 +35,31 @@
 
 
 
-<h1>NodeFunc<'T, 'U></h1>
+<h1>CommandViewModel</h1>
 <div class="xmldoc">
-<p>delegate of node function with inputs of input node values ('T) to output value ('U)</p>
 </div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '84', 84)" onmouseover="showTip(event, '84', 84)">
+            new(displayName, command)
+          </code>
+          <div class="tip" id="84">
+            <strong>Signature:</strong>(displayName:string * command:ICommand) -&gt; CommandViewModel<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
     <thead>
@@ -48,12 +69,25 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
-            Invoke(arg1)
+          <code onmouseout="hideTip(event, '86', 86)" onmouseover="showTip(event, '86', 86)">
+            Command
           </code>
-          <div class="tip" id="81">
-            <strong>Signature:</strong>&#39;T -&gt; &#39;U<br />
-              <strong>Modifiers:</strong> abstract<br />
+          <div class="tip" id="86">
+            <strong>Signature:</strong>ICommand<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '87', 87)" onmouseover="showTip(event, '87', 87)">
+            DisplayName
+          </code>
+          <div class="tip" id="87">
+            <strong>Signature:</strong>string<br />
                       </div>
         </td>
         <td class="xmldoc">

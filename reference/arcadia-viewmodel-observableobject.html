@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NodeFunc<'T, 'U> - Arcadia</title>
+    <title>ObservableObject - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -35,10 +35,32 @@
 
 
 
-<h1>NodeFunc<'T, 'U></h1>
+<h1>ObservableObject</h1>
 <div class="xmldoc">
-<p>delegate of node function with inputs of input node values ('T) to output value ('U)</p>
+<p>implements INotifyPropertyChanged</p>
 </div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '92', 92)" onmouseover="showTip(event, '92', 92)">
+            new()
+          </code>
+          <div class="tip" id="92">
+            <strong>Signature:</strong>unit -&gt; ObservableObject<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
     <thead>
@@ -48,12 +70,26 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
-            Invoke(arg1)
+          <code onmouseout="hideTip(event, '106', 106)" onmouseover="showTip(event, '106', 106)">
+            OnPropertyChanged(arg1)
           </code>
-          <div class="tip" id="81">
-            <strong>Signature:</strong>&#39;T -&gt; &#39;U<br />
+          <div class="tip" id="106">
+            <strong>Signature:</strong>string -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '107', 107)" onmouseover="showTip(event, '107', 107)">
+            RaisePropertyChanged(propertyName)
+          </code>
+          <div class="tip" id="107">
+            <strong>Signature:</strong>propertyName:string -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">

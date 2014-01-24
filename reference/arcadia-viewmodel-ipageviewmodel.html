@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NodeFunc<'T, 'U> - Arcadia</title>
+    <title>IPageViewModel - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -35,9 +35,8 @@
 
 
 
-<h1>NodeFunc<'T, 'U></h1>
+<h1>IPageViewModel</h1>
 <div class="xmldoc">
-<p>delegate of node function with inputs of input node values ('T) to output value ('U)</p>
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -48,11 +47,56 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
-            Invoke(arg1)
+          <code onmouseout="hideTip(event, '102', 102)" onmouseover="showTip(event, '102', 102)">
+            CloseCommand
           </code>
-          <div class="tip" id="81">
-            <strong>Signature:</strong>&#39;T -&gt; &#39;U<br />
+          <div class="tip" id="102">
+            <strong>Signature:</strong>RelayCommand<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '103', 103)" onmouseover="showTip(event, '103', 103)">
+            Name
+          </code>
+          <div class="tip" id="103">
+            <strong>Signature:</strong>string<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '104', 104)" onmouseover="showTip(event, '104', 104)">
+            OnRequestClose()
+          </code>
+          <div class="tip" id="104">
+            <strong>Signature:</strong>unit -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '105', 105)" onmouseover="showTip(event, '105', 105)">
+            RequestClose
+          </code>
+          <div class="tip" id="105">
+            <strong>Signature:</strong>IEvent&lt;IPageViewModel&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>

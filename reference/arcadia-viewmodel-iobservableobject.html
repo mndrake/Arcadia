@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NodeFunc<'T, 'U> - Arcadia</title>
+    <title>IObservableObject - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -35,9 +35,8 @@
 
 
 
-<h1>NodeFunc<'T, 'U></h1>
+<h1>IObservableObject</h1>
 <div class="xmldoc">
-<p>delegate of node function with inputs of input node values ('T) to output value ('U)</p>
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -48,16 +47,33 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '81', 81)" onmouseover="showTip(event, '81', 81)">
-            Invoke(arg1)
+          <code onmouseout="hideTip(event, '90', 90)" onmouseover="showTip(event, '90', 90)">
+            OnPropertyChanged(arg1)
           </code>
-          <div class="tip" id="81">
-            <strong>Signature:</strong>&#39;T -&gt; &#39;U<br />
+          <div class="tip" id="90">
+            <strong>Signature:</strong>string -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
-        
+        <p>handler for PropertyChanged event</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '91', 91)" onmouseover="showTip(event, '91', 91)">
+            RaisePropertyChanged(arg1)
+          </code>
+          <div class="tip" id="91">
+            <strong>Signature:</strong>string -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+        <p>triggers PropertyChangedEvent with a given propertyName</p>
+
         </td>
       </tr>
     </tbody>

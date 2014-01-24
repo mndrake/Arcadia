@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>InputNode<'U> - Arcadia</title>
+    <title>ModelBase - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -35,9 +35,9 @@
 
 
 
-<h1>InputNode<'U></h1>
+<h1>ModelBase</h1>
 <div class="xmldoc">
-<p>input node used within a CalculationEngine</p>
+<p>base class for MVVM Models</p>
 </div>
   <h3>Constructors</h3>
   <table class="table table-bordered member-list">
@@ -48,25 +48,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
-            new(calculationHandler, ?initialValue)
+          <code onmouseout="hideTip(event, '94', 94)" onmouseover="showTip(event, '94', 94)">
+            new()
           </code>
-          <div class="tip" id="56">
-            <strong>Signature:</strong>(calculationHandler:ICalculationHandler * ?initialValue:&#39;U option) -&gt; InputNode&lt;&#39;U&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
-            new(...)
-          </code>
-          <div class="tip" id="57">
-            <strong>Signature:</strong>(calculationHandler:ICalculationHandler * id:string * ?initialValue:&#39;U option) -&gt; InputNode&lt;&#39;U&gt;<br />
+          <div class="tip" id="94">
+            <strong>Signature:</strong>unit -&gt; ModelBase<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -84,53 +70,12 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
-            add_Changed(arg1)
+          <code onmouseout="hideTip(event, '96', 96)" onmouseover="showTip(event, '96', 96)">
+            Error
           </code>
-          <div class="tip" id="73">
-            <strong>Signature:</strong>ChangedEventHandler -&gt; unit<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
-            Calculation
-          </code>
-          <div class="tip" id="74">
-            <strong>Signature:</strong>ICalculationHandler<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
-            Changed
-          </code>
-          <div class="tip" id="75">
-            <strong>Signature:</strong>IEvent&lt;ChangedEventHandler,ChangedEventArgs&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '76', 76)" onmouseover="showTip(event, '76', 76)">
-            Id
-          </code>
-          <div class="tip" id="76">
+          <div class="tip" id="96">
             <strong>Signature:</strong>string<br />
+              <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -140,11 +85,12 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '77', 77)" onmouseover="showTip(event, '77', 77)">
-            remove_Changed(arg1)
+          <code onmouseout="hideTip(event, '97', 97)" onmouseover="showTip(event, '97', 97)">
+            GetValidationError(arg1)
           </code>
-          <div class="tip" id="77">
-            <strong>Signature:</strong>ChangedEventHandler -&gt; unit<br />
+          <div class="tip" id="97">
+            <strong>Signature:</strong>string -&gt; string<br />
+              <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -154,39 +100,12 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '78', 78)" onmouseover="showTip(event, '78', 78)">
-            ToINode()
+          <code onmouseout="hideTip(event, '98', 98)" onmouseover="showTip(event, '98', 98)">
+            ValidatedProperties
           </code>
-          <div class="tip" id="78">
-            <strong>Signature:</strong>unit -&gt; INode&lt;&#39;U&gt;<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '79', 79)" onmouseover="showTip(event, '79', 79)">
-            Value
-          </code>
-          <div class="tip" id="79">
-            <strong>Signature:</strong>&#39;U<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '80', 80)" onmouseover="showTip(event, '80', 80)">
-            Value()
-          </code>
-          <div class="tip" id="80">
-            <strong>Signature:</strong>unit -&gt; &#39;U<br />
+          <div class="tip" id="98">
+            <strong>Signature:</strong>string []<br />
+              <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
         <td class="xmldoc">
