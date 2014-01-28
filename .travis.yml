@@ -20,3 +20,6 @@ before_script:
 
 script: 
   - ./build.sh All
+
+after_success:
+  - coveralls --exclude lib --exclude tests
