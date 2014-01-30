@@ -1,5 +1,4 @@
 ﻿Status: [![Build Status](https://travis-ci.org/mndrake/Arcadia.png)](https://travis-ci.org/mndrake/Arcadia)
-[![Coverage Status](https://coveralls.io/repos/mndrake/Arcadia/badge.png)](https://coveralls.io/r/mndrake/Arcadia)
 Arcadia
 -------------
 
