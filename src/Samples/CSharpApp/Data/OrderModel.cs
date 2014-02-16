@@ -2,7 +2,7 @@
 {
     using System;
     using System.ComponentModel;
-    using Arcadia.ViewModel;
+    using Arcadia.MVVM;
 
     public class Product
     {

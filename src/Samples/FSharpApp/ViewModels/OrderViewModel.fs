@@ -3,7 +3,7 @@
 open System.ComponentModel
 open System.Linq
 open Arcadia
-open Arcadia.ViewModel
+open Arcadia.MVVM
 open FSharpApp.Models
 
 type OrderViewModel(ce : IOrderCalculationEngine) as this = 

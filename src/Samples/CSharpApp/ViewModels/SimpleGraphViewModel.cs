@@ -3,7 +3,7 @@
     using System;
     using System.Windows.Input;
     using Arcadia;
-    using Arcadia.ViewModel;
+    using Arcadia.MVVM;
     using Arcadia.Graph;
 
     public class SimpleGraphVertex : NodeVertexBase

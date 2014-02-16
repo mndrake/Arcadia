@@ -3,7 +3,7 @@
 open System.Linq
 open Arcadia
 open Arcadia.Graph
-open Arcadia.ViewModel
+open Arcadia.MVVM
 
 type SimpleGraphVertex(node) as this = 
     inherit NodeVertexBase(node)

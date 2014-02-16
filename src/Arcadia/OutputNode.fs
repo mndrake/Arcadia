@@ -2,12 +2,15 @@
 
 open System
 open System.Collections.Generic
+open System.ComponentModel
 open System.Threading
 open Microsoft.FSharp.Reflection
 open Helpers
 
 /// output node used within a CalculationEngine
 type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeInputs : 'N, nodeFunction : 'T -> 'U, ?initialValue) as this =
+
+    let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
 
     // convert tuple to object array
     let nodes = 
@@ -65,7 +68,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                                     try
                                         Some <| func values
                                     with
-                                    | _ -> None
+                                    | e -> System.Diagnostics.Debug.Print(e.ToString()); None
                                 return result }, 
                              (fun v -> 
                                 match v with
@@ -74,7 +77,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                                     inbox.Post(Processed)
                                 |None ->
                                     inbox.Post(Error)), 
-                             (fun e -> 
+                             (fun _ -> 
                                 inbox.Post(Error)),
                                 (fun _ -> inbox.Post(Cancelled)), cts.Token)
                     return! processing()
@@ -157,9 +160,17 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                         | _ -> agent.Post(Changed)))
 
         calculationHandler.Changed.Add(fun _ -> agent.Post(AutoCalculation(calculationHandler.Automatic)))
+        (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
+        changed.Publish.Add(fun _ -> this.RaisePropertyChanged "Value")
 
     new (calculationHandler, nodeInputs, nodeFunction) = OutputNode(calculationHandler, "", nodeInputs, nodeFunction) 
     
+    abstract OnPropertyChanged : string -> unit
+    override this.OnPropertyChanged(_) = ()
+
+    member this.RaisePropertyChanged propertyName = 
+        propertyChangedEvent.Trigger([| this; new PropertyChangedEventArgs(propertyName) |])
+
     member this.Evaluate() = agent.PostAndAsyncReply(fun r -> Eval r)
     member this.GetDependentNodes() = nodes.Clone() |> unbox
     member this.Status = !status
@@ -210,3 +221,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
         member this.Value 
             with get () = this.Value
             and set v = this.Value <- v
+
+    interface INotifyPropertyChanged with
+        [<CLIEvent>]
+        member I.PropertyChanged = propertyChangedEvent.Publish

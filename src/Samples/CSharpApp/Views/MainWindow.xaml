@@ -13,12 +13,14 @@
                       GlowBrush="Black"
                       mc:Ignorable="d"
                       DataContext="{StaticResource MainWindowViewModel}">
+    
+    <Controls:MetroContentControl Content="{Binding CurrentPage}" />
 
-    <Controls:MetroTabControl ItemsSource="{Binding PageViewModels}">
-        <Controls:MetroTabControl.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Name}"/>
-            </DataTemplate>
-        </Controls:MetroTabControl.ItemTemplate>
-    </Controls:MetroTabControl>
+    <!--<Controls:MetroTabControl ItemsSource="{Binding PageViewModels}">
+            <Controls:MetroTabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </Controls:MetroTabControl.ItemTemplate>
+    </Controls:MetroTabControl>-->
 </Controls:MetroWindow>

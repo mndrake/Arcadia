@@ -1,7 +1,7 @@
 ﻿namespace FSharpApp.ViewModels
 
 open System.Collections.ObjectModel
-open Arcadia.ViewModel
+open Arcadia.MVVM
 open FSharpApp.Data
 open FSharpApp.Models
 

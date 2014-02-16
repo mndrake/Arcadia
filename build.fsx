@@ -74,6 +74,7 @@ Target "Build" (fun _ ->
 
 Target "BuildExtras" (fun _ ->
      !! "src/Arcadia.MVVM/Arcadia.MVVM.fsproj"
+     ++ "src/Arcadia.Graph/Arcadia.Graph.csproj"
     |> MSBuildRelease "bin" "Rebuild"
     |> ignore
 )   
@@ -170,9 +171,13 @@ Target "Help" (fun _ ->
     printfn "  * GenerateDocs"
     printfn "  * ReleaseDocs (calls previous)"
     printfn "  * ReleaseBinaries"
+    printfn "  * BuildExtras (builds Arcadia.MVVM and Arcadia.Graph)"
     printfn "  * NuGet (creates package only, doesn't publish)"
     printfn "  * Release (calls previous 4)"
     printfn "")
+
+// the All target is run on Travis CI
+// Release must run on local, since Travis uses Mono and has no WPF libraries
 
 Target "All" DoNothing
 

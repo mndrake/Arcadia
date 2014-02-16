@@ -3,7 +3,7 @@
     using System;
     using Arcadia;
     using Arcadia.Graph;
-    using Arcadia.ViewModel;
+    using Arcadia.MVVM;
 
     public class OrderGraphVertex : NodeVertexBase
     {

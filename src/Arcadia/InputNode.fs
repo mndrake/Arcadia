@@ -7,6 +7,9 @@ open Helpers
 /// input node used within a CalculationEngine
 type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
     let changed = new Event<ChangedEventHandler, ChangedEventArgs>()
+
+    let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
+
     
     let value = 
         match initialValue with
@@ -31,12 +34,24 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
     do 
         propertyChanged <- castAs<INotifyPropertyChanged>(!value)
         if propertyChanged <> null then 
-            propertyChanged.PropertyChanged.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
+            propertyChanged.PropertyChanged.Add(fun _ -> 
+                changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid))
+                this.RaisePropertyChanged "Value")
+
+        (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
+
     
     new(calculationHandler, ?initialValue) = 
         match initialValue with
         | Some v -> InputNode(calculationHandler, "", v)
         | None -> InputNode(calculationHandler, "")
+
+    abstract OnPropertyChanged : string -> unit
+    override this.OnPropertyChanged(_) = ()
+
+    member this.RaisePropertyChanged propertyName = 
+        propertyChangedEvent.Trigger([| this; new PropertyChangedEventArgs(propertyName) |])
+
 
     member this.Id = id
     
@@ -75,3 +90,7 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
         member this.Value 
             with get () = this.Value
             and set v = this.Value <- v
+
+    interface INotifyPropertyChanged with
+        [<CLIEvent>]
+        member I.PropertyChanged = propertyChangedEvent.Publish

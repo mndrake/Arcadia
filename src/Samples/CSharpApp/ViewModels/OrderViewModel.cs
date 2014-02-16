@@ -2,7 +2,7 @@
 {
     using System.ComponentModel;
     using Arcadia;
-    using Arcadia.ViewModel;
+    using Arcadia.MVVM;
     using Data;
     using Models;
 

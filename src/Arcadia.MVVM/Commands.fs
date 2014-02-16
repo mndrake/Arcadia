@@ -1,4 +1,4 @@
-﻿namespace Arcadia.ViewModel
+﻿namespace Arcadia.MVVM
 
 open System
 open System.Collections.ObjectModel
