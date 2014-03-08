@@ -8,8 +8,8 @@ type CalculationNode<'T>() as this =
     let mutable dependentNodes : INode<'T> option = None
     let mutable outNode : INode<'T> option = None
 
-    interface INode<'T> with
-
-        member I.Value = 
+//    interface INode<'T> with
+//
+//        member I.Value = 
 
 
