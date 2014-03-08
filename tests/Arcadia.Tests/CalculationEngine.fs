@@ -81,13 +81,14 @@ let ``Output is dirty when changed``() =
     let ce = CalculationEngine()
     let input = ce.AddInput(1)
     let output = ce.AddOutput(input, (fun (x:int) -> x))
+    output.Evaluate()
+    while output.Status <> NodeStatus.Valid do ()
     // Act
     Async.RunSynchronously(
         async {
-            do! output.Evaluate() |> Async.Ignore
-            input.Value <- 2            
-            let! args = Async.AwaitEvent(output.Changed) 
-            do ()},
+            input.Value <- 2
+            do! Async.AwaitEvent(output.Changed) |> Async.Ignore },
         2000)
     // Assert
+    printfn "output status:%A value:%A" output.Status output.Value
     Assert.AreEqual(NodeStatus.Dirty, output.Status)
