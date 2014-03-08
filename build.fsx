@@ -184,7 +184,7 @@ Target "All" DoNothing
 "Clean" 
  ==> "AssemblyInfo" 
  ==> "Build" 
- ==> "RunTests" 
+ // ==> "RunTests" 
  ==> "All"
 
 Target "Release" DoNothing
