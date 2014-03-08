@@ -1,3 +1,3 @@
 build_script:
-  - ps: .\build.bat All
+  - ps: .\build.cmd All
 test: auto
