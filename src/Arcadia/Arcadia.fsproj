@@ -60,6 +60,7 @@
     <Compile Include="OutputNode.fs" />
     <Compile Include="CalculationHandler.fs" />
     <Compile Include="CalculationEngine.fs" />
+    <Compile Include="CalculationNode.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

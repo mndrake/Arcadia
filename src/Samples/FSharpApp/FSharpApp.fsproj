@@ -60,6 +60,7 @@
     <Compile Include="Data\IDataService.fs" />
     <Compile Include="Data\DataService.fs" />
     <Compile Include="Models\SimpleCalculationEngine.fs" />
+    <Compile Include="Models\CollectionCalculationEngine.fs" />
     <Compile Include="Models\OrderCalculationEngine.fs" />
     <Compile Include="ViewModels\SimpleGraphViewModel.fs" />
     <Compile Include="ViewModels\OrderGraphViewModel.fs" />
