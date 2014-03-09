@@ -186,11 +186,11 @@ Target "All" DoNothing
  ==> "Build" 
  ==> "RunTests"
  ==> "BuildExtras"
+ ==> "NuGet"
  ==> "All"
 
 Target "Release" DoNothing
 "All" ==> "CleanDocs"
-"BuildExtras" ==> "CleanDocs"
 "CleanDocs" ==> "GenerateDocs" ==> "ReleaseDocs"
 "ReleaseDocs" ==> "Release"
 "ReleaseBinaries" ==> "Release"
