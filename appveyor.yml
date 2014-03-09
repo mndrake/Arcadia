@@ -1,4 +1,6 @@
 build_script:
+  - cmd: git config --global push.default simple
+
   - ps: .\build.cmd All
   
 test: auto
