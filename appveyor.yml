@@ -1,3 +1,9 @@
 build_script:
   - ps: .\build.cmd All
+  
 test: auto
+
+artifacts:
+
+  # pushing all *.nupkg files in directory
+  - path: *.nupkg
