@@ -1,5 +1,5 @@
 build_script:
-  - cmd: git config --global push.default simple
+  - cmd: git config --global push.default matching
 
   - ps: .\build.cmd All
   
