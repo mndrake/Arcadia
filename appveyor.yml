@@ -6,4 +6,4 @@ test: auto
 artifacts:
 
   # pushing all *.nupkg files in directory
-  - path: *.nupkg
+  - path: .\bin\*.nupkg
