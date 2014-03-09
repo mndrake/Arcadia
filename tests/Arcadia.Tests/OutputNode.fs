@@ -15,7 +15,7 @@ open System.Threading
 [<Test>]
 let ``Changed Event Triggered on Input Changed``() = 
     // Arrange
-    let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
+    let calc = CalculationHandler(Automatic = true)
     let input = InputNode(calc, 1)
     let output = OutputNode(calc, input, fun (x : int) -> x)
     let triggered = ref false
@@ -24,7 +24,8 @@ let ``Changed Event Triggered on Input Changed``() =
     Async.RunSynchronously(
         async {
             input.Value <- 2
-            while !triggered = false do () },
+            printfn "triggered %b" triggered.Value
+            while !triggered = false do Thread.Sleep(100) },
         2000)
     // Assert
     Assert.IsTrue(!triggered)
