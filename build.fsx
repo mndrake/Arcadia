@@ -187,7 +187,6 @@ Target "All" DoNothing
  ==> "RunTests"
  ==> "BuildExtras"
  ==> "NuGet"
- //==> "ReleaseBinaries"
  ==> "All"
 
 Target "Release" DoNothing
