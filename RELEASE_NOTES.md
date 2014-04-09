@@ -4,5 +4,5 @@
 #### 0.1.0 - 1/22/2014
 * initial release
 
-#### 0.2.0-alpha 4/9/2014
+#### 0.2.0-alpha - 4/9/2014
 * changed API to no longer require explicit dependencies
