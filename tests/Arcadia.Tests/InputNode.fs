@@ -15,7 +15,7 @@ open System.ComponentModel
 let ``Changed Triggered on New Value``() = 
     // Arrange 
     let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
-    let input = InputNode(calc, 0)
+    let input = InputNode(calc,"",0)
     let triggered = ref false
     input.Changed.Add(fun _ -> triggered := true)
     // Act
@@ -31,7 +31,7 @@ let ``Changed Triggered on INotifyPropertyChanged``() =
         Mock<INotifyPropertyChanged>().SetupEvent(fun x -> <@ x.PropertyChanged @>).Publishes(event.Publish)
             .Create()
     let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
-    let input = InputNode(calc, mock)
+    let input = InputNode(calc,"",mock)
     let triggered = ref false
     input.Changed.Add(fun _ -> triggered := true)
     // Act

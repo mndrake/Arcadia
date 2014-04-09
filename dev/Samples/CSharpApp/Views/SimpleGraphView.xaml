@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="CSharpApp.Views.SimpleGraphView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:CSharpApp.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:graph="clr-namespace:Arcadia.Graph;assembly=Arcadia.Graph"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="700">
+    
+    <UserControl.Resources>
+        
+        <!--override default input output vertex templates-->
+        
+        <DataTemplate x:Key="InputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
+            <Border BorderBrush="DarkBlue" 
+                                Background="LightBlue"
+                                BorderThickness="2"
+                                CornerRadius="10,10,10,10"
+                                Padding="0">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Id}" Foreground="Black" />
+                    <TextBox Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Blue" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OutputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
+            <Border x:Name="outBorder" BorderBrush="DarkBlue" 
+                                Background="LightBlue"
+                                BorderThickness="2"
+                                CornerRadius="10,10,10,10"
+                                Padding="0">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock x:Name="outId" Text="{Binding Path=Id}" Foreground="DarkBlue" />
+                    <TextBlock x:Name="outValue" Text="{Binding Path=Value}" Foreground="DarkBlue" />
+                </StackPanel>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="0">
+                    <Setter TargetName="outBorder" Property="BorderBrush" Value="DarkGreen" />
+                    <Setter TargetName="outBorder" Property="Background" Value="LightGreen" />
+                    <Setter TargetName="outId" Property="Foreground" Value="DarkGreen" />
+                    <Setter TargetName="outValue" Property="Foreground" Value="DarkGreen" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="1">
+                    <Setter TargetName="outBorder" Property="BorderBrush" Value="DarkRed" />
+                    <Setter TargetName="outBorder" Property="Background" Value="LightSalmon" />
+                    <Setter TargetName="outId" Property="Foreground" Value="DarkRed" />
+                    <Setter TargetName="outValue" Property="Foreground" Value="DarkRed" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" >
+            <StackPanel Orientation="Horizontal" Background="Black"
+                        HorizontalAlignment="Stretch" Margin="0">
+                <Label Content="AUTO CALCULATE" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox ItemsSource="{Binding BooleanTypes}"
+                          SelectedItem="{Binding Path=AutoCalculate, Mode=TwoWay}"
+                          Width="60" Height="25" Margin="5" />
+                <Label Content="CALCULATE" VerticalAlignment="Center" Foreground="White" />
+                <Button Content="update" Width="75" Height="25" Margin="5" Command="{Binding UpdateGraphCommand}" />
+                <Button Content="out9" Width="75" Height="25" Margin="5" Command="{Binding CalculateFullCommand}" />
+                <Button Content="out4" Width="75" Height="25" Margin="5" Command="{Binding CalculatePartialCommand}" />
+                <Button Content="out10" Width="75" Height="25" Margin="5" Command="{Binding CalculateSecondaryCommand}" />
+                <Button Content="cancel" Background="DarkBlue" Foreground="White" Width="75" Height="25" Margin="5" Command="{Binding CancelCalculateCommand}" />
+            </StackPanel>
+        </StackPanel>
+
+        <graph:NodeGraphControl Grid.Row="1" DataContext="{Binding Graph}" />
+
+    </Grid>
+
+</UserControl>

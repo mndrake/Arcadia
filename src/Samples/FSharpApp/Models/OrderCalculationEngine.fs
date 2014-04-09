@@ -25,7 +25,7 @@ type OrderCalculationEngine(data : IDataService) as this =
     
     // helper functions to add input/output nodes
     let input nodeId x = this.AddInput(x, nodeId)
-    let output nodeId nodes f = this.AddOutput(nodes, NodeFunc(f), nodeId)
+    let output nodeId nodes f = this.AddOutput(nodes, (fun a -> f a), nodeId)
 
     // input backing fields
 

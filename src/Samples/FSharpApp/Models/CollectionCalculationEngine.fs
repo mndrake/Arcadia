@@ -11,7 +11,7 @@ type CollectionCalculationEngine() as this =
     do        
         // helper functions to add input/output nodes
         let inline input x = this.AddInput x
-        let inline output nodes f = this.AddOutput(nodes, NodeFunc(f))
+        let inline output nodes f = this.AddOutput(nodes, f)
 
         // input nodes
         let in0 = input 1

@@ -3,9 +3,6 @@
 open System
 open System.Collections.ObjectModel
 
-/// delegate of node function with inputs of input node values ('T) to output value ('U)
-type NodeFunc<'T, 'U> = delegate of 'T -> 'U
-
 /// asynchronous calculation engine
 type CalculationEngine(calculationHandler : ICalculationHandler) as this = 
 
@@ -40,14 +37,14 @@ type CalculationEngine(calculationHandler : ICalculationHandler) as this =
         this.AddInput(value, nodeId)
 
     /// adds an OutputNode to the CalculationEngine    
-    member this.AddOutput(dependentNodes : 'N, nodeFunction : NodeFunc<'T,'U>, nodeId : string) =
+    member this.AddOutput(dependentNodes : 'N, nodeFunction : Func<'T,'U>, nodeId : string) =
         let f(t) = nodeFunction.Invoke(t)
         let output = OutputNode<'N, 'T, 'U>(this.Calculation, nodeId, dependentNodes, f)
         nodes.Add(output)
         output
 
     /// adds an OutputNode to the CalculationEngine
-    member this.AddOutput(dependentNodes : 'N, nodeFunction : NodeFunc<'T,'U>) =
+    member this.AddOutput(dependentNodes : 'N, nodeFunction : Func<'T,'U>) =
         let nodeId = "out" + string outputCount
         outputCount <- outputCount + 1
         this.AddOutput(dependentNodes, nodeFunction, nodeId)

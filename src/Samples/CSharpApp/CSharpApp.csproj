@@ -196,7 +196,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Arcadia\Arcadia.fsproj">
       <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
-      <Name>Arcadia</Name>
+      <Name>Arcadia %28src\Arcadia%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

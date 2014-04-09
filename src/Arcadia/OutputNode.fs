@@ -55,7 +55,7 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
                         queue.RemoveAt(0)
                         return msg
                 }
-            
+
             let rec calculate() = 
                 async { 
                     let! nodeValues = Async.Parallel(nodes |> Array.map(fun n -> n.Evaluate()))
@@ -164,6 +164,8 @@ type OutputNode<'N, 'T, 'U>(calculationHandler : ICalculationHandler, id, nodeIn
         changed.Publish.Add(fun _ -> this.RaisePropertyChanged "Value")
 
     new (calculationHandler, nodeInputs, nodeFunction) = OutputNode(calculationHandler, "", nodeInputs, nodeFunction) 
+
+    new (nodeInputs, nodeFunction) = OutputNode(new CalculationHandler(), "", nodeInputs, nodeFunction)
     
     abstract OnPropertyChanged : string -> unit
     override this.OnPropertyChanged(_) = ()

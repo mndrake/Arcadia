@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Arcadia.Graph.NodeGraphControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
+             xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+             xmlns:graph="clr-namespace:Arcadia.Graph"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="700">
+
+        <zoom:ZoomControl Background="#ff656565">
+            <graph:NodeGraphLayout
+                        Margin="10"
+                        Graph="{Binding}"
+                        LayoutAlgorithmType="EfficientSugiyama"
+                        OverlapRemovalAlgorithmType="FSA"
+                        HighlightAlgorithmType="Simple" />
+        </zoom:ZoomControl>
+
+    </UserControl>

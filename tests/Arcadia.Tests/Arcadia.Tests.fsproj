@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Arcadia\Arcadia.fsproj">
-      <Name>Arcadia</Name>
+      <Name>Arcadia (src\Arcadia)</Name>
       <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
       <Private>True</Private>
     </ProjectReference>

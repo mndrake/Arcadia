@@ -5,12 +5,11 @@ open System.ComponentModel
 open Helpers
 
 /// input node used within a CalculationEngine
-type InputNode<'U>(calculationHandler, id, ?initialValue) as this = 
+type InputNode<'U>(calculationHandler : ICalculationHandler, id : string, ?initialValue : 'U) as this = 
     let changed = new Event<ChangedEventHandler, ChangedEventArgs>()
 
     let propertyChangedEvent = new DelegateEvent<PropertyChangedEventHandler>()
 
-    
     let value = 
         match initialValue with
         | Some v -> ref v
@@ -40,11 +39,10 @@ type InputNode<'U>(calculationHandler, id, ?initialValue) as this =
 
         (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
 
-    
-    new(calculationHandler, ?initialValue) = 
+    new (?initialValue) =
         match initialValue with
-        | Some v -> InputNode(calculationHandler, "", v)
-        | None -> InputNode(calculationHandler, "")
+        | Some v -> InputNode(new CalculationHandler(), "", v)
+        | None -> InputNode(new CalculationHandler(), "")
 
     abstract OnPropertyChanged : string -> unit
     override this.OnPropertyChanged(_) = ()

@@ -10,8 +10,8 @@
         {
             // NodeFunc wrappers around static methods
 
-            var add2 = new NodeFunc<Tuple<int, int>, int>(x => SimpleMethods.Add2(x.Item1, x.Item2));
-            var add3 = new NodeFunc<Tuple<int, int, int>, int>(x => SimpleMethods.Add3(x.Item1, x.Item2, x.Item3));
+            var add2 = new Func<Tuple<int, int>, int>(x => SimpleMethods.Add2(x.Item1, x.Item2));
+            var add3 = new Func<Tuple<int, int, int>, int>(x => SimpleMethods.Add3(x.Item1, x.Item2, x.Item3));
 
             // input nodes
 
@@ -33,7 +33,6 @@
             // output nodes
 
             //main calculation chain
-
             var out0 = AddOutput(Tuple.Create(in0, in1), add2);
             var out1 = AddOutput(Tuple.Create(in2, in3), add2);
             var out2 = AddOutput(Tuple.Create(in4, in5, in6), add3);
@@ -49,7 +48,7 @@
             var out10 = AddOutput(Tuple.Create(out0, out5), add2);
 
             // single input -> output example
-            var out11 = AddOutput(in13, new NodeFunc<int, int>(x => x));
+            var out11 = AddOutput(in13, new Func<int, int>(x => x));
         }
     }
 }

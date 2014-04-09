@@ -16,7 +16,7 @@ open System.Threading
 let ``Changed Event Triggered on Input Changed``() = 
     // Arrange
     let calc = Mock<ICalculationHandler>().Setup(fun x -> <@ x.Automatic @>).Returns(true).Create()
-    let input = InputNode(calc, 1)
+    let input = InputNode(calc,"" , 1)
     let output = OutputNode(calc, input, fun (x : int) -> x)
     let triggered = ref false
     output.Changed.Add(fun _ -> triggered := true)

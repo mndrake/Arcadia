@@ -15,7 +15,7 @@
 
             // outputs
             var orderResult = AddOutput(Tuple.Create(order, inventory),
-                              new NodeFunc<Tuple<Order, Inventory>, OrderResult>(OrderMethods.GetOrderResults),
+                              new Func<Tuple<Order, Inventory>, OrderResult>(OrderMethods.GetOrderResults),
                               "OrderResult");
 
             Inventory = inventory;
