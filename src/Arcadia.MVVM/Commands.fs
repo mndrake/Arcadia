@@ -11,17 +11,17 @@ type RelayCommandActionDelegate = delegate of obj -> unit
 
 type RelayCommand(canExecute : RelayCommandCanExecuteDelegate, action : RelayCommandActionDelegate) = 
     let event = new DelegateEvent<EventHandler>()
+
+    member this.RaiseCanExecuteChanged(arg) = event.Trigger(arg)
     interface ICommand with
-        
         [<CLIEvent>]
-        member x.CanExecuteChanged = event.Publish
-        
+        member x.CanExecuteChanged = event.Publish        
         member x.CanExecute(arg) = canExecute.Invoke(arg)
         member x.Execute(arg) = action.Invoke(arg)
 
-type ActionDelegate = delegate of unit -> unit
+//type ActionDelegate = delegate of unit -> unit
 
-type ActionCommand(f : ActionDelegate) = 
+type ActionCommand(f : Action) = 
     inherit RelayCommand((fun _ -> true), (fun _ -> f.Invoke()))
 
 [<AutoOpen>]

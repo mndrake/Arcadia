@@ -1,4 +1,4 @@
-﻿namespace FSharpApp.ViewModels
+namespace FSharpApp.ViewModels
 
 open System.Linq
 open Arcadia

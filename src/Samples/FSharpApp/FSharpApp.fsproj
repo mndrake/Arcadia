@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>a17bd663-210e-4274-a87d-8f66b39e1b22</ProjectGuid>
+    <ProjectGuid>{a17bd663-210e-4274-a87d-8f66b39e1b22}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SampleApp.View</RootNamespace>
     <AssemblyName>FSharpApp</AssemblyName>
@@ -60,11 +60,10 @@
     <Compile Include="Data\IDataService.fs" />
     <Compile Include="Data\DataService.fs" />
     <Compile Include="Models\SimpleCalculationEngine.fs" />
-    <Compile Include="Models\CollectionCalculationEngine.fs" />
     <Compile Include="Models\OrderCalculationEngine.fs" />
     <Compile Include="ViewModels\SimpleGraphViewModel.fs" />
-    <Compile Include="ViewModels\OrderGraphViewModel.fs" />
     <Compile Include="ViewModels\OrderViewModel.fs" />
+    <Compile Include="ViewModels\OrderGraphViewModel.fs" />
     <Compile Include="ViewModels\MainWindowViewModel.fs" />
     <Resource Include="Views\SimpleGraphView.xaml" />
     <Compile Include="Views\SimpleGraphView.fs" />
@@ -137,7 +136,7 @@
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Arcadia\Arcadia.fsproj">
-      <Name>Arcadia (src\Arcadia)</Name>
+      <Name>Arcadia</Name>
       <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>
       <Private>True</Private>
     </ProjectReference>

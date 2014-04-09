@@ -15,7 +15,7 @@ type MainWindowViewModel() =
     let dataService = new DataService()
 
     // models
-    let simpleCalc = SimpleCalculationEngine()
+    let simpleCalc = new SimpleCalculationEngine()
     let orderCalc = OrderCalculationEngine(dataService)
 
     // page viewmodels

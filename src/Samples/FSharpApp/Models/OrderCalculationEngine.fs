@@ -4,6 +4,12 @@ open System.Threading
 open Arcadia
 open FSharpApp.Data
 
+namespace FSharpApp.Models
+
+open System.Threading
+open Arcadia
+open FSharpApp.Data
+
 type IOrderCalculationEngine =
     abstract Inventory : INode<Inventory>
     abstract Order : INode<Order>
@@ -22,19 +28,13 @@ module OrderMethods =
 
 type OrderCalculationEngine(data : IDataService) as this = 
     inherit CalculationEngine()
-    
-    // helper functions to add input/output nodes
-    let input nodeId x = this.AddInput(x, nodeId)
-    let output nodeId nodes f = this.AddOutput(nodes, (fun a -> f a), nodeId)
 
     // input backing fields
-
-    let inventory = input "Inventory" <| data.LoadInventory()
-    let order = input "Order" <| data.LoadOrder()
+    let inventory = this.Setable(data.LoadInventory(), "Inventory")
+    let order = this.Setable(data.LoadOrder(), "Order")
 
     // output backing fields
-
-    let orderResult = output "OrderResult" (order, inventory) OrderMethods.getOrderResult
+    let orderResult = this.Computed((fun() -> OrderMethods.getOrderResult(order.Value, inventory.Value)), "OrderResult")
 
     // input nodes
     member this.Inventory = inventory

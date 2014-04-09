@@ -10,13 +10,11 @@
             : base()
         {
             // inputs
-            var inventory = AddInput(data.LoadInventory(), "Inventory");
-            var order = AddInput(data.LoadOrder(), "Order");
+            var inventory = Setable(data.LoadInventory(), "Inventory");
+            var order = Setable(data.LoadOrder(), "Order");
 
             // outputs
-            var orderResult = AddOutput(Tuple.Create(order, inventory),
-                              new Func<Tuple<Order, Inventory>, OrderResult>(OrderMethods.GetOrderResults),
-                              "OrderResult");
+            var orderResult = Computed(() => OrderMethods.GetOrderResults(order, inventory), "OrderResult");
 
             Inventory = inventory;
             Order = order;

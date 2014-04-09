@@ -4,6 +4,7 @@ open System
 open System.Collections.Generic
 open System.Threading
 
+[<Sealed>]
 /// handles calculation state for a CalculationEngine
 type CalculationHandler() as this = 
     let changed = new Event<EventHandler, EventArgs>()

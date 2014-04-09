@@ -9,10 +9,8 @@
 
     public static class OrderMethods
     {
-        public static OrderResult GetOrderResults(Tuple<Order,Inventory> arg)
+        public static OrderResult GetOrderResults(Order order, Inventory inventory)
         {
-            var order = arg.Item1;
-            var inventory = arg.Item2;
             Thread.Sleep(1000);
             var products = inventory.Products.ToDictionary(product => product.ID);
             var preTaxAmount = order.Items.Sum(item => products[item.ProductId].UnitPrice * item.Units);

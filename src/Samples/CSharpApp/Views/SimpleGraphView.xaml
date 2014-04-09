@@ -13,25 +13,41 @@
         <!--override default input output vertex templates-->
         
         <DataTemplate x:Key="InputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
-            <StackPanel Orientation="Vertical" Margin="5">
-                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Id}" Foreground="White" />
-                <TextBox Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Blue" />
-            </StackPanel>
+            <Border BorderBrush="DarkBlue" 
+                                Background="LightBlue"
+                                BorderThickness="2"
+                                CornerRadius="10,10,10,10"
+                                Padding="0">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Id}" Foreground="Black" />
+                    <TextBox Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Blue" />
+                </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="OutputVertexTemplate" DataType="{x:Type vm:SimpleGraphVertex}">
-            <StackPanel Orientation="Vertical" Margin="5">
-                <TextBlock x:Name="outId" Text="{Binding Path=Id}" Foreground="Blue" />
-                <TextBlock x:Name="outValue" Text="{Binding Path=Value}" Foreground="Blue" />
-            </StackPanel>
+            <Border x:Name="outBorder" BorderBrush="DarkBlue" 
+                                Background="LightBlue"
+                                BorderThickness="2"
+                                CornerRadius="10,10,10,10"
+                                Padding="0">
+                <StackPanel Orientation="Vertical" Margin="5">
+                    <TextBlock x:Name="outId" Text="{Binding Path=Id}" Foreground="DarkBlue" />
+                    <TextBlock x:Name="outValue" Text="{Binding Path=Value}" Foreground="DarkBlue" />
+                </StackPanel>
+            </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Status}" Value="0">
-                    <Setter TargetName="outId" Property="Foreground" Value="Red" />
-                    <Setter TargetName="outValue" Property="Foreground" Value="Red" />
+                    <Setter TargetName="outBorder" Property="BorderBrush" Value="DarkGreen" />
+                    <Setter TargetName="outBorder" Property="Background" Value="LightGreen" />
+                    <Setter TargetName="outId" Property="Foreground" Value="DarkGreen" />
+                    <Setter TargetName="outValue" Property="Foreground" Value="DarkGreen" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status}" Value="1">
-                    <Setter TargetName="outId" Property="Foreground" Value="Yellow" />
-                    <Setter TargetName="outValue" Property="Foreground" Value="Yellow" />
+                    <Setter TargetName="outBorder" Property="BorderBrush" Value="DarkRed" />
+                    <Setter TargetName="outBorder" Property="Background" Value="LightSalmon" />
+                    <Setter TargetName="outId" Property="Foreground" Value="DarkRed" />
+                    <Setter TargetName="outValue" Property="Foreground" Value="DarkRed" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
@@ -53,6 +69,7 @@
                           SelectedItem="{Binding Path=AutoCalculate, Mode=TwoWay}"
                           Width="60" Height="25" Margin="5" />
                 <Label Content="CALCULATE" VerticalAlignment="Center" Foreground="White" />
+                <Button Content="update" Width="75" Height="25" Margin="5" Command="{Binding UpdateGraphCommand}" />
                 <Button Content="out9" Width="75" Height="25" Margin="5" Command="{Binding CalculateFullCommand}" />
                 <Button Content="out4" Width="75" Height="25" Margin="5" Command="{Binding CalculatePartialCommand}" />
                 <Button Content="out10" Width="75" Height="25" Margin="5" Command="{Binding CalculateSecondaryCommand}" />

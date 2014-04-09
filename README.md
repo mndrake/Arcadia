@@ -3,6 +3,8 @@
 Arcadia
 -------------
 
+v0.1 branch reflects the current Nuget package and the documentation on http://mndrake.github.io/Arcadia
+
 An asynchronous node based calculation framework.  
 
 Based on presentation on Eden :  

@@ -1,54 +1,68 @@
-﻿
-//delegate CellChange of CellEventType
-//
-//type ICell =
-//    abstract Lock : unit -> unit
-//    abstract Unlock : unit -> unit
+﻿#r "bin/Debug/Arcadia.dll"
+
+open System.Threading
+open Arcadia
+open Arcadia.FSharp
+
+// async functions that are used to calculate output nodes
+let add2 x1 x2 = 
+        Thread.Sleep 250
+        x1 + x2
+
+let add3 x1 x2 x3 = 
+        Thread.Sleep 500
+        x1 + x2 + x3
+
+let add4 x1 x2 x3 x4 = 
+        Thread.Sleep 750
+        x1 + x2 + x3 + x4
+
+let printUpdate =
+    let agent =
+        MailboxProcessor<string * NodeStatus>.Start(fun inbox -> 
+            let rec loop() = 
+                async { 
+                    let! (nodeId,status) = inbox.Receive()
+                    printfn "Id: %s status: %A" nodeId status
+                    return! loop()
+                }
+            loop())
+    let post nodeId nodeStatus = agent.Post(nodeId, nodeStatus)
+    post
+
+let engine =
+    let e = CalculationEngine()
+
+    let inline set v =
+        let n = e.Setable v
+        n.Changed.Add(fun arg -> printUpdate n.Id arg.Status)
+        n
+
+    let inline calc f =
+        let n = e.Computed(fun() -> f())
+        n.Changed.Add(fun arg -> printUpdate n.Id arg.Status)
+        n        
+
+    let in0 = set 1
+    let in1 = set 1
+    let in2 = set 1
+    let out0 = calc (fun () -> !!in0 + !!in1)
+    let out1 = calc (fun () -> !!in1 + !!in2)
+    let out2 = calc (fun () -> !!out0 + !!out1)
+    let out3 = calc (fun () -> !!in0 + !!out2)
+    e
+
+engine.Node<int>("out2")
+
+
+
+let changed = Event<int>()
+let Changed = changed.Publish
+
+//let initialized (e:IEvent<int>) =
+//    let evt = e |> Event.filter(fun arg -> arg = 1)
 //    
-//    event CellChange Change
 
-//    /// <summary>
-//    /// Notification that a cell has changed
-//    /// </summary>
-//    /// <param name="eventType">type of event passed</param>
-//    /// <param name="sender">the cell that triggered this change</param>
-//    /// <param name="epoch">the time epoch of the original source change.. used for throttling</param>
-//    /// <param name="transaction">optionaly the transaction that is completing</param>
-//    public delegate void CellChange (CellEventType eventType, ICell sender, DateTime epoch, ITransaction transaction);
-//
-//    /// <summary>
-//    /// Calllback notification for the completion of all dependant changes in a transaction
-//    /// </summary>
-//    /// <param name="transaction">the transaction being completed</param>
-//    public delegate void TransactionComplete (ITransaction transaction);
+//initialized (Changed)
 
-
-//    public interface ICell
-//    {
-//        void Lock ();
-//        void Unlock ();
-//        event CellChange Change;
-//        void OnChange (CellEventType eventType, ICell root, DateTime epoch, ITransaction transaction);
-//        bool HasListeners { get; }
-//        // The parent property provides for instruments to be composed of a number of cells
-//        IModel Parent { get; set; }
-//        String Mnmonic { get; set; }
-//        ITransaction Transaction { get; set; }
-//        CellMethod Method { get; }
-//        DateTime Epoch { get; }
-//        /// <summary>
-//        /// get the value of the Cell in a generic form
-//        /// </summary>
-//        object BoxValue { get; }
-//        /// <summary>
-//        /// copy the current state from the other cell of the same type as this one
-//        /// </summary>
-//        /// <param name="other">the other cell that has the same type</param>
-//        void Copy (ICell other);
-//
-//        /// <summary>
-//        /// Transfer any subscriptions from this object to the new destination object 
-//        /// </summary>
-//        /// <param name="destination">the recipient of change subscriptions</param>
-//        void TransferTo (ICell destination);
-//    }
+//changed.Trigger(1)
