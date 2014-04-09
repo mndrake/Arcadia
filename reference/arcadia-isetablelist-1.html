@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>INode - Arcadia</title>
+    <title>ISetableList<'T> - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -36,9 +36,8 @@
 
 
 
-<h1>INode</h1>
+<h1>ISetableList<'T></h1>
 <div class="xmldoc">
-<p>untyped interface of InputNode and OutputNode</p>
 </div>
   <h3>Instance members</h3>
   <table class="table table-bordered member-list">
@@ -49,11 +48,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '123', 123)" onmouseover="showTip(event, '123', 123)">
-            add_Changed(arg1)
+          <code onmouseout="hideTip(event, '144', 144)" onmouseover="showTip(event, '144', 144)">
+            add_Added(arg1)
           </code>
-          <div class="tip" id="123">
-            <strong>Signature:</strong>ChangedEventHandler -&gt; unit<br />
+          <div class="tip" id="144">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -64,11 +63,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '124', 124)" onmouseover="showTip(event, '124', 124)">
-            AsyncCalculate()
+          <code onmouseout="hideTip(event, '145', 145)" onmouseover="showTip(event, '145', 145)">
+            add_Cleared(arg1)
           </code>
-          <div class="tip" id="124">
-            <strong>Signature:</strong>unit -&gt; unit<br />
+          <div class="tip" id="145">
+            <strong>Signature:</strong>EventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -79,11 +78,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '125', 125)" onmouseover="showTip(event, '125', 125)">
-            Calculation
+          <code onmouseout="hideTip(event, '146', 146)" onmouseover="showTip(event, '146', 146)">
+            add_Removed(arg1)
           </code>
-          <div class="tip" id="125">
-            <strong>Signature:</strong>ICalculationHandler<br />
+          <div class="tip" id="146">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -94,11 +93,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '126', 126)" onmouseover="showTip(event, '126', 126)">
-            Changed
+          <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
+            add_Updated(arg1)
           </code>
-          <div class="tip" id="126">
-            <strong>Signature:</strong>IEvent&lt;ChangedEventHandler,ChangedEventArgs&gt;<br />
+          <div class="tip" id="147">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -109,11 +108,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '127', 127)" onmouseover="showTip(event, '127', 127)">
-            Evaluate()
+          <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
+            Added
           </code>
-          <div class="tip" id="127">
-            <strong>Signature:</strong>unit -&gt; Async&lt;NodeStatus * obj&gt;<br />
+          <div class="tip" id="148">
+            <strong>Signature:</strong>IEvent&lt;ListEventHandler,ListEventArgs&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -124,11 +123,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '128', 128)" onmouseover="showTip(event, '128', 128)">
-            GetDependentNodes()
+          <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
+            Cleared
           </code>
-          <div class="tip" id="128">
-            <strong>Signature:</strong>unit -&gt; INode []<br />
+          <div class="tip" id="149">
+            <strong>Signature:</strong>IEvent&lt;EventHandler,EventArgs&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -139,11 +138,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '129', 129)" onmouseover="showTip(event, '129', 129)">
-            Id
+          <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
+            remove_Added(arg1)
           </code>
-          <div class="tip" id="129">
-            <strong>Signature:</strong>string<br />
+          <div class="tip" id="150">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -154,11 +153,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '130', 130)" onmouseover="showTip(event, '130', 130)">
-            IsDirty
+          <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
+            remove_Cleared(arg1)
           </code>
-          <div class="tip" id="130">
-            <strong>Signature:</strong>bool<br />
+          <div class="tip" id="151">
+            <strong>Signature:</strong>EventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -169,11 +168,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '131', 131)" onmouseover="showTip(event, '131', 131)">
-            IsInput
+          <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
+            remove_Removed(arg1)
           </code>
-          <div class="tip" id="131">
-            <strong>Signature:</strong>bool<br />
+          <div class="tip" id="152">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -184,11 +183,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '132', 132)" onmouseover="showTip(event, '132', 132)">
-            IsProcessing
+          <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
+            remove_Updated(arg1)
           </code>
-          <div class="tip" id="132">
-            <strong>Signature:</strong>bool<br />
+          <div class="tip" id="153">
+            <strong>Signature:</strong>ListEventHandler -&gt; unit<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -199,11 +198,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '133', 133)" onmouseover="showTip(event, '133', 133)">
-            remove_Changed(arg1)
+          <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
+            Removed
           </code>
-          <div class="tip" id="133">
-            <strong>Signature:</strong>ChangedEventHandler -&gt; unit<br />
+          <div class="tip" id="154">
+            <strong>Signature:</strong>IEvent&lt;ListEventHandler,ListEventArgs&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>
@@ -214,41 +213,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '134', 134)" onmouseover="showTip(event, '134', 134)">
-            Status
+          <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
+            Updated
           </code>
-          <div class="tip" id="134">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '135', 135)" onmouseover="showTip(event, '135', 135)">
-            UntypedValue
-          </code>
-          <div class="tip" id="135">
-            <strong>Signature:</strong>obj<br />
-              <strong>Modifiers:</strong> abstract<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '136', 136)" onmouseover="showTip(event, '136', 136)">
-            UntypedValue()
-          </code>
-          <div class="tip" id="136">
-            <strong>Signature:</strong>unit -&gt; obj<br />
+          <div class="tip" id="155">
+            <strong>Signature:</strong>IEvent&lt;ListEventHandler,ListEventArgs&gt;<br />
               <strong>Modifiers:</strong> abstract<br />
                       </div>
         </td>

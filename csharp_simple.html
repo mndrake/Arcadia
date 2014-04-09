@@ -37,10 +37,51 @@
 
 <p>Review the GitHub site for an example of this in a MVVM app.</p>
 
-<pre lang="csharp"><span class="k">using</span> System;
-<span class="k">using</span> Arcadia;
+<p><strong>version 0.2</strong></p>
 
-<span class="k">public</span> <span class="k">class</span> SimpleCalculationEngine : CalculationEngine
+<pre lang="csharp"><span class="k">public</span> <span class="k">class</span> SimpleCalculationEngine : CalculationEngine
+{
+    <span class="k">public</span> SimpleCalculationEngine()
+        : <span class="k">base</span>()
+    {
+        <span class="c">// input nodes</span>
+        <span class="k">var</span> in0 = Setable(1);
+        <span class="k">var</span> in1 = Setable(1);
+        <span class="k">var</span> in2 = Setable(1);
+        <span class="k">var</span> in3 = Setable(1);
+        <span class="k">var</span> in4 = Setable(1);
+        <span class="k">var</span> in5 = Setable(1);
+        <span class="k">var</span> in6 = Setable(1);
+        <span class="k">var</span> in7 = Setable(1);
+        <span class="k">var</span> in8 = Setable(1);
+        <span class="k">var</span> in9 = Setable(1);
+        <span class="k">var</span> in10 = Setable(1);
+        <span class="k">var</span> in11 = Setable(1);
+        <span class="k">var</span> in12 = Setable(1);
+        <span class="k">var</span> in13 = Setable(1);
+
+        <span class="c">// output nodes</span>
+
+        <span class="c">//main calculation chain</span>
+        <span class="k">var</span> out0 = Computed(() =&gt; in0 + in1);
+        <span class="k">var</span> out1 = Computed(() =&gt; in2 + in3);
+        <span class="k">var</span> out2 = Computed(() =&gt; in4 + in5 + in6);
+        <span class="k">var</span> out3 = Computed(() =&gt; in7 + in8);
+        <span class="k">var</span> out4 = Computed(() =&gt; out1 + out2);
+        <span class="k">var</span> out5 = Computed(() =&gt; out0 + out3);
+        <span class="k">var</span> out6 = Computed(() =&gt; in9 + in10);
+        <span class="k">var</span> out7 = Computed(() =&gt; in11 + in12);
+        <span class="k">var</span> out8 = Computed(() =&gt; out4 + out6);
+        <span class="k">var</span> out9 = Computed(() =&gt; out5 + out7 + out8);
+        <span class="k">var</span> out10 = Computed(() =&gt; out0 + out5);
+
+        <span class="k">var</span> out11 = Computed(() =&gt; in13.Value);
+    }
+}</pre>
+
+<p><strong>version 0.1</strong></p>
+
+<pre lang="csharp"><span class="k">public</span> <span class="k">class</span> SimpleCalculationEngine : CalculationEngine
 {
     <span class="k">public</span> SimpleCalculationEngine()
         : <span class="k">base</span>()

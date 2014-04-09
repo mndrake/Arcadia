@@ -49,10 +49,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '2', 2)" onmouseover="showTip(event, '2', 2)">
+          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
             new()
           </code>
-          <div class="tip" id="2">
+          <div class="tip" id="17">
             <strong>Signature:</strong>unit -&gt; CalculationEngine<br />
                       </div>
         </td>
@@ -63,10 +63,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
             new(calculationHandler)
           </code>
-          <div class="tip" id="4">
+          <div class="tip" id="19">
             <strong>Signature:</strong>calculationHandler:ICalculationHandler -&gt; CalculationEngine<br />
                       </div>
         </td>
@@ -85,70 +85,10 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
-            AddInput(value)
-          </code>
-          <div class="tip" id="16">
-            <strong>Signature:</strong>value:&#39;U -&gt; InputNode&lt;&#39;U&gt;<br />
-                          <strong>Type parameters:</strong> 'U          </div>
-        </td>
-        <td class="xmldoc">
-        <p>adds an InputNode to the CalculationEngine</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
-            AddInput(value, nodeId)
-          </code>
-          <div class="tip" id="17">
-            <strong>Signature:</strong>(value:&#39;U * nodeId:string) -&gt; InputNode&lt;&#39;U&gt;<br />
-                          <strong>Type parameters:</strong> 'U          </div>
-        </td>
-        <td class="xmldoc">
-        <p>adds an InputNode to the CalculationEngine</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
-            AddOutput(dependentNodes, nodeFunction)
-          </code>
-          <div class="tip" id="18">
-            <strong>Signature:</strong>(dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt;) -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />
-                          <strong>Type parameters:</strong> 'N, 'T, 'U          </div>
-        </td>
-        <td class="xmldoc">
-        <p>adds an OutputNode to the CalculationEngine</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
-            AddOutput(...)
-          </code>
-          <div class="tip" id="19">
-            <strong>Signature:</strong>(dependentNodes:&#39;N * nodeFunction:NodeFunc&lt;&#39;T,&#39;U&gt; * nodeId:string) -&gt; OutputNode&lt;&#39;N,&#39;T,&#39;U&gt;<br />
-                          <strong>Type parameters:</strong> 'N, 'T, 'U          </div>
-        </td>
-        <td class="xmldoc">
-        <p>adds an OutputNode to the CalculationEngine</p>
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+          <code onmouseout="hideTip(event, '30', 30)" onmouseover="showTip(event, '30', 30)">
             Calculation
           </code>
-          <div class="tip" id="20">
+          <div class="tip" id="30">
             <strong>Signature:</strong>ICalculationHandler<br />
                       </div>
         </td>
@@ -159,10 +99,70 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+          <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+            Computed(nodeFunction, throttle)
+          </code>
+          <div class="tip" id="32">
+            <strong>Signature:</strong>(nodeFunction:Func&lt;&#39;U&gt; * throttle:int) -&gt; Computed&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an OutputNode to the CalculationEngine</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
+            Computed(nodeFunction)
+          </code>
+          <div class="tip" id="33">
+            <strong>Signature:</strong>nodeFunction:Func&lt;&#39;U&gt; -&gt; Computed&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an OutputNode to the CalculationEngine</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
+            Computed(nodeFunction, nodeId, throttle)
+          </code>
+          <div class="tip" id="34">
+            <strong>Signature:</strong>(nodeFunction:Func&lt;&#39;U&gt; * nodeId:string * throttle:int) -&gt; Computed&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an OutputNode to the CalculationEngine</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+            Computed(nodeFunction, nodeId)
+          </code>
+          <div class="tip" id="35">
+            <strong>Signature:</strong>(nodeFunction:Func&lt;&#39;U&gt; * nodeId:string) -&gt; Computed&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an OutputNode to the CalculationEngine</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
             Node(nodeId)
           </code>
-          <div class="tip" id="21">
+          <div class="tip" id="36">
             <strong>Signature:</strong>nodeId:string -&gt; INode&lt;&#39;U&gt;<br />
                           <strong>Type parameters:</strong> 'U          </div>
         </td>
@@ -174,15 +174,45 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+          <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
             Nodes
           </code>
-          <div class="tip" id="22">
+          <div class="tip" id="37">
             <strong>Signature:</strong>Collection&lt;INode&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
         
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
+            Setable(value)
+          </code>
+          <div class="tip" id="38">
+            <strong>Signature:</strong>value:&#39;U -&gt; Setable&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an InputNode to the CalculationEngine</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '39', 39)" onmouseover="showTip(event, '39', 39)">
+            Setable(value, nodeId)
+          </code>
+          <div class="tip" id="39">
+            <strong>Signature:</strong>(value:&#39;U * nodeId:string) -&gt; Setable&lt;&#39;U&gt;<br />
+                          <strong>Type parameters:</strong> 'U          </div>
+        </td>
+        <td class="xmldoc">
+        <p>adds an InputNode to the CalculationEngine</p>
+
         </td>
       </tr>
     </tbody>
@@ -196,11 +226,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '23', 23)" onmouseover="showTip(event, '23', 23)">
+          <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
             Evaluate(node)
           </code>
-          <div class="tip" id="23">
-            <strong>Signature:</strong>node:INode -&gt; unit<br />
+          <div class="tip" id="55">
+            <strong>Signature:</strong>node:IGetable -&gt; unit<br />
                       </div>
         </td>
         <td class="xmldoc">

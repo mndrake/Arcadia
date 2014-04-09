@@ -37,11 +37,41 @@
 
 <p>Snippet from C# example that can be found on GitHub site.</p>
 
-<pre lang="csharp"><span class="k">using</span> System;
-<span class="k">using</span> Arcadia;
-<span class="k">using</span> Data;
+<p><strong>version 0.2</strong></p>
 
-<span class="k">public</span> <span class="k">class</span> OrderCalculationEngine : CalculationEngine, IOrderCalculationEngine
+<pre lang="csharp"><span class="k">public</span> <span class="k">class</span> OrderCalculationEngine : CalculationEngine, IOrderCalculationEngine
+{
+    <span class="k">public</span> OrderCalculationEngine(IDataService data)
+        : <span class="k">base</span>()
+    {
+        <span class="c">// inputs</span>
+        <span class="k">var</span> inventory = Setable(data.LoadInventory(), <span class="s">"Inventory"</span>);
+        <span class="k">var</span> order = Setable(data.LoadOrder(), <span class="s">"Order"</span>);
+
+        <span class="c">// outputs</span>
+        <span class="k">var</span> orderResult = Computed(() =&gt; OrderMethods.GetOrderResults(order, inventory), <span class="s">"OrderResult"</span>);
+
+        Inventory = inventory;
+        Order = order;
+        OrderResult = orderResult;
+    }
+
+    <span class="k">public</span> INode&lt;Inventory&gt; Inventory { get; <span class="k">private</span> set; }
+
+    <span class="k">public</span> INode&lt;Order&gt; Order { get; <span class="k">private</span> set; }
+
+    <span class="k">public</span> INode&lt;OrderResult&gt; OrderResult { get; <span class="k">private</span> set; }
+
+    <span class="k">public</span> <span class="k">bool</span> AutoCalculate
+    {
+        get { <span class="k">return</span> <span class="k">this</span>.Calculation.Automatic; }
+        set { <span class="k">this</span>.Calculation.Automatic = <span class="k">value</span>; }
+    }
+}</pre>
+
+<p><strong>version 0.1</strong></p>
+
+<pre lang="csharp"><span class="k">public</span> <span class="k">class</span> OrderCalculationEngine : CalculationEngine, IOrderCalculationEngine
 {
     <span class="k">public</span> OrderCalculationEngine(IDataService data)
         : <span class="k">base</span>()

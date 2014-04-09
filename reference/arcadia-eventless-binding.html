@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NodeStatus - Arcadia</title>
+    <title>Binding - Arcadia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="David Carlson">
@@ -36,25 +36,26 @@
 
 
 
-<h1>NodeStatus</h1>
+<h1>Binding</h1>
 <div class="xmldoc">
-<p>the status of InputNodes and OutputNodes</p>
 </div>
-  <h3>Record Fields</h3>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
   <table class="table table-bordered member-list">
     <thead>
-      <tr><td>Record Field</td><td>Description</td></tr>
+      <tr><td>Function or value</td><td>Description</td></tr>
     </thead>
     <tbody>
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '137', 137)" onmouseover="showTip(event, '137', 137)">
-            Cancelled
+          <code onmouseout="hideTip(event, '11', 11)" onmouseover="showTip(event, '11', 11)">
+            CaptureUnbind bindingActivity
           </code>
-          <div class="tip" id="137">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
+          <div class="tip" id="11">
+            <strong>Signature:</strong>bindingActivity:(unit -&gt; unit) -&gt; Action<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -64,12 +65,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '138', 138)" onmouseover="showTip(event, '138', 138)">
-            Dirty
+          <code onmouseout="hideTip(event, '12', 12)" onmouseover="showTip(event, '12', 12)">
+            EmptyAction 
           </code>
-          <div class="tip" id="138">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
+          <div class="tip" id="12">
+            <strong>Signature:</strong>Action<br />
                       </div>
         </td>
         <td class="xmldoc">
@@ -79,71 +79,11 @@
       <tr>
         <td class="member-name">
 
-          <code onmouseout="hideTip(event, '139', 139)" onmouseover="showTip(event, '139', 139)">
-            Error
+          <code onmouseout="hideTip(event, '13', 13)" onmouseover="showTip(event, '13', 13)">
+            Log 
           </code>
-          <div class="tip" id="139">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '140', 140)" onmouseover="showTip(event, '140', 140)">
-            Processing
-          </code>
-          <div class="tip" id="140">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '141', 141)" onmouseover="showTip(event, '141', 141)">
-            Uninitialized
-          </code>
-          <div class="tip" id="141">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '142', 142)" onmouseover="showTip(event, '142', 142)">
-            Valid
-          </code>
-          <div class="tip" id="142">
-            <strong>Signature:</strong>NodeStatus<br />
-              <strong>Modifiers:</strong> static<br />
-                      </div>
-        </td>
-        <td class="xmldoc">
-        
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '143', 143)" onmouseover="showTip(event, '143', 143)">
-            value__
-          </code>
-          <div class="tip" id="143">
-            <strong>Signature:</strong>int<br />
+          <div class="tip" id="13">
+            <strong>Signature:</strong>ListenerStack&lt;Action&gt;<br />
                       </div>
         </td>
         <td class="xmldoc">
