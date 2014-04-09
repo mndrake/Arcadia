@@ -1,4 +1,4 @@
-﻿Status: [![Build Status](https://travis-ci.org/mndrake/Arcadia.png)](https://travis-ci.org/mndrake/Arcadia)
+﻿Status: 
 ﻿[![Build status](https://ci.appveyor.com/api/projects/status/ihku23br40nvcfbi)](https://ci.appveyor.com/project/mndrake/arcadia)
 Arcadia
 -------------

@@ -1,3 +1,20 @@
 build_script:
   - ps: .\build.cmd All
+#  - cmd: git config --global push.default matching
+#  - cmd: git clone "https://github.com/mndrake/Arcadia.git temp/release"
+#  - cmd: git checkout release
+#  - cmd: git add .
+#  316C:\Program Files (x86)\Git\bin\git.exe clone https://github.com/mndrake/Arcadia.git temp/release
+#317C:\Program Files (x86)\Git\bin\git.exe checkout release
+#318Branch release set up to track remote branch release from origin.
+#319C:\Program Files (x86)\Git\bin\git.exe add .
+#320
+#321C:\Program Files (x86)\Git\bin\git.exe commit -a -m "Update binaries for version 0.1.0
+
+  
 test: auto
+
+artifacts:
+
+  # pushing all *.nupkg files in directory
+  - path: .\bin\*.nupkg
