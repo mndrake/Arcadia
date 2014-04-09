@@ -16,8 +16,9 @@ let TestSimple() =
     let calc = CalculationHandler()
     let sum = Computed.From(fun() -> i.Value + j.Value)
     let changed = ref false
-    while sum.Status <> NodeStatus.Valid
-        do Async.RunSynchronously(Async.AwaitEvent(sum.Changed), 2000) |> ignore  
+    // wait for node to update
+    async { while sum.Status <> NodeStatus.Valid do
+                do! Async.Sleep(100) } |> Async.RunSynchronously
     // Assert
     Assert.AreEqual(5, sum.Value)
     sum.Changed.Add(fun _ -> changed := true)
