@@ -19,3 +19,11 @@ TestResults.xml
 
 # Nuget outputs
 nuget/*.nupkg
+nuget/*.nuspec
+
+publish.bat
+
+*.user
+.project
+
+**/_Resharper.*/**
