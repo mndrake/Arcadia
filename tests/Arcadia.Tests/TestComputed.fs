@@ -14,7 +14,6 @@ let TestSimple() =
     let i = Setable.From(2)
     let j = Setable.From(3)
     let calc = CalculationHandler()
-    //calc.Automatic <- false
     let sum = Computed.From(fun() -> i.Value + j.Value)
     while (Async.AwaitEvent(sum.Changed) |> Async.RunSynchronously).Status <> NodeStatus.Valid do ()
     // Assert

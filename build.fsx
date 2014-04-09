@@ -91,6 +91,7 @@ Target "RunTests" (fun _ ->
     |> NUnit (fun p ->
         { p with
             ToolPath = nunitPath
+            Framework = "net-4.0"
             DisableShadowCopy = true
             TimeOut = TimeSpan.FromMinutes 20.
             OutputFile = "TestResults.xml" })
