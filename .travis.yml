@@ -1,6 +1,0 @@
-language: objective-c
-
-# whitelist
-branches:
-  only:
-    - master
