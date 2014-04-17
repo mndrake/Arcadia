@@ -5,9 +5,9 @@
 
     public interface IOrderCalculationEngine
     {
-        INode<Inventory> Inventory { get;} 
-        INode<Order> Order { get; }
-        INode<OrderResult> OrderResult { get; }
+        Inventory Inventory { get; set; }
+        Order Order { get; set; }
+        OrderResult OrderResult { get; }
         bool AutoCalculate { get; set; }
     }
 }            

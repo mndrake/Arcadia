@@ -60,14 +60,12 @@
     <Compile Include="Interfaces.fs" />
     <Compile Include="Extensions.fs" />
     <Compile Include="Forwarder.fs" />
-    <Compile Include="Eventless.fs" />
     <Compile Include="CalculationHandler.fs" />
     <Compile Include="Setable.fs" />
     <Compile Include="Computed.fs" />
     <Compile Include="CalculationEngine.fs" />
     <Compile Include="SetableList.fs" />
     <Compile Include="FSharp.fs" />
-    <None Include="Cell.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

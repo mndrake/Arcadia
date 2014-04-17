@@ -4,17 +4,12 @@ open System.Threading
 open Arcadia
 open FSharpApp.Data
 
-namespace FSharpApp.Models
-
-open System.Threading
-open Arcadia
-open FSharpApp.Data
 
 type IOrderCalculationEngine =
-    abstract Inventory : INode<Inventory>
-    abstract Order : INode<Order>
-    abstract OrderResult : INode<OrderResult>
-    abstract AutoCalculate : bool with get,set
+    abstract Inventory : Inventory with get, set
+    abstract Order : Order with get, set
+    abstract OrderResult : OrderResult with get
+    abstract AutoCalculate : bool with get, set
 
 module OrderMethods = 
     let getOrderResult(order : Order, inventory : Inventory) = 
@@ -36,16 +31,23 @@ type OrderCalculationEngine(data : IDataService) as this =
     // output backing fields
     let orderResult = this.Computed((fun() -> OrderMethods.getOrderResult(order.Value, inventory.Value)), "OrderResult")
 
-    // input nodes
-    member this.Inventory = inventory
-    member this.Order = order
+    member this.Inventory
+        with get() = inventory.Value
+         and set v = inventory.Value <- v
+    member this.Order
+        with get() = order.Value
+         and set v = order.Value <- v
+    member this.OrderResult = orderResult.Value
 
-    // output nodes
-    member this.OrderResult = orderResult
 
     interface IOrderCalculationEngine with
-        member I.Inventory = this.Inventory.ToINode()
-        member I.Order = this.Order.ToINode()
-        member I.OrderResult = this.OrderResult.ToINode()
-        member I.AutoCalculate with get() = this.Calculation.Automatic
-                                and set v = this.Calculation.Automatic <- v
+        member this.Inventory 
+            with get() = inventory.Value
+             and set v = inventory.Value <- v
+        member this.Order
+            with get() = order.Value
+             and set v = order.Value <- v
+        member this.OrderResult = orderResult.Value
+        member this.AutoCalculate 
+            with get() = this.Calculation.Automatic
+             and set v = this.Calculation.Automatic <- v

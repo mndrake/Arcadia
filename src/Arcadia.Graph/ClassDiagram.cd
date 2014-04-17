@@ -3,7 +3,7 @@
   <Class Name="Arcadia.Graph.NodeGraph">
     <Position X="4.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAEQAAAAAAAAAAAAAAEAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>NodeGraph.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -22,7 +22,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Arcadia.Graph.VertexDataTemplateSelector" Collapsed="true">
+  <Class Name="Arcadia.Graph.VertexDataTemplateSelector">
     <Position X="0.5" Y="5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
@@ -37,7 +37,7 @@
     </TypeIdentifier>
   </Interface>
   <Delegate Name="Arcadia.Graph.VertexConstructor">
-    <Position X="2.75" Y="2" Width="1.5" />
+    <Position X="2.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>NodeGraph.cs</FileName>

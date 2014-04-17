@@ -49,10 +49,6 @@ type SetableList<'U>(calculationHandler : ICalculationHandler, ?initialValue : I
                 this.RaisePropertyChanged "Value")
 
         (this :> INotifyPropertyChanged).PropertyChanged.Add(fun arg -> this.OnPropertyChanged(arg.PropertyName))
-//        added.Publish.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
-//        removed.Publish.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
-//        cleared.Publish.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
-//        updated.Publish.Add(fun _ -> changed.Trigger(this, ChangedEventArgs(NodeStatus.Valid)))
 
     new (?initialValue) = 
         match initialValue with

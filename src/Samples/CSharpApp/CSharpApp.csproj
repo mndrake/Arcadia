@@ -135,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\SimpleCalculationEngine.cs" />
-    <Compile Include="Models\SimpleMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -192,7 +191,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Arcadia.MVVM\Arcadia.MVVM.fsproj">
       <Project>{7178c7a8-8cf2-4cfb-8431-a5ddea28bc01}</Project>
-      <Name>Arcadia.MVVM</Name>
+      <Name>Arcadia.MVVM %28src\Arcadia.MVVM%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Arcadia\Arcadia.fsproj">
       <Project>{e17dfc65-f8f8-47e1-9d33-027bf53a8976}</Project>

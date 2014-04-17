@@ -6,26 +6,36 @@
 
     public class OrderCalculationEngine : CalculationEngine, IOrderCalculationEngine
     {
-        public OrderCalculationEngine(IDataService data)
-            : base()
+        Setable<Inventory> _inventory;
+        Setable<Order> _order;
+        Computed<OrderResult> _orderResult;
+
+        public OrderCalculationEngine(IDataService data) : base()
         {
             // inputs
-            var inventory = Setable(data.LoadInventory(), "Inventory");
-            var order = Setable(data.LoadOrder(), "Order");
+            _inventory = Setable(data.LoadInventory(), "Inventory");
+            _order = Setable(data.LoadOrder(), "Order");
 
             // outputs
-            var orderResult = Computed(() => OrderMethods.GetOrderResults(order, inventory), "OrderResult");
-
-            Inventory = inventory;
-            Order = order;
-            OrderResult = orderResult;
+            _orderResult = Computed(() => OrderMethods.GetOrderResults(_order, _inventory), "OrderResult");
         }
 
-        public INode<Inventory> Inventory { get; private set; }
+        public Inventory Inventory
+        {
+            get { return _inventory; }
+            set { _inventory.Value = value; }
+        }
 
-        public INode<Order> Order { get; private set; }
+        public Order Order
+        {
+            get { return _order; }
+            set { _order.Value = value; }
+        }
 
-        public INode<OrderResult> OrderResult { get; private set; }
+        public OrderResult OrderResult 
+        { 
+            get { return _orderResult; } 
+        }
 
         public bool AutoCalculate
         {

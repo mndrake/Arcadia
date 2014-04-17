@@ -1,9 +1,10 @@
 ﻿namespace Arcadia
 
 open System
-open System.Threading
 open System.Collections.Generic
 open System.Collections.ObjectModel
+open System.ComponentModel
+open System.Threading
 
 /// the status of InputNodes and OutputNodes
 type NodeStatus =
@@ -115,8 +116,6 @@ type INode<'U> =
 
 /// interface for CalculationEngine
 type ICalculationEngine = 
+    inherit INotifyPropertyChanged
     abstract Calculation : ICalculationHandler with get
     abstract Nodes : Collection<INode> with get
-//    [<CLIEvent>]
-//    abstract Initialized : IEvent<EventHandler, EventArgs> with get
-//    abstract IsInitialized : bool with get
