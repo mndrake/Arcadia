@@ -33,6 +33,6 @@
 
         public ObservableCollection<PageViewModel> PageViewModels { get; private set; }
 
-        public string Title {get { return "Utopia v0.0"; } }
+        public string Title {get { return "Arcadia v0.2"; } }
     }
 }

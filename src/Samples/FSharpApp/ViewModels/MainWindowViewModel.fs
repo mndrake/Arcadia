@@ -36,5 +36,5 @@ type MainWindowViewModel() =
 
     member val CurrentPage = currentPage
    
-    member this.Title = "Utopia v0.0"
+    member this.Title = "Arcadia v0.2"
     member this.PageViewModels = pages
