@@ -6,3 +6,7 @@
 
 #### 0.2.0-alpha - 4/9/2014
 * changed API to no longer require explicit dependencies
+
+#### 0.2.1 - 4/17/2014
+* initial release version of 0.2
+* CalculationEngine now implements INotifyPropertyChanged
