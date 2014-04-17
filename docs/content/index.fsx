@@ -29,6 +29,12 @@ Samples & documentation
  * [C# Example](csharp_example.html) Snippet from C# example that can be found on GitHub site.
 
  * [API Reference](reference/index.html) all public types, modules and functions in the library.  
+
+There is a sample C# and F# applications on GitHub that demonstrate the core functionality of the Arcadia library.
+The Arcadia.MVVM and Arcadia.Graph libraries used in the applications are not included in the NuGet package, since Arcadia
+is designed to be independent of any specific MVVM framework and could be used with MVVM Light, Catel, etc.
+
+<img src="img/sample_app_1.png" alt="sample app" height="400" width="800">
  
 Contributing and copyright
 --------------------------

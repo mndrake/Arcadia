@@ -69,7 +69,6 @@
                           SelectedItem="{Binding Path=AutoCalculate, Mode=TwoWay}"
                           Width="60" Height="25" Margin="5" />
                 <Label Content="CALCULATE" VerticalAlignment="Center" Foreground="White" />
-                <Button Content="update" Width="75" Height="25" Margin="5" Command="{Binding UpdateGraphCommand}" />
                 <Button Content="out9" Width="75" Height="25" Margin="5" Command="{Binding CalculateFullCommand}" />
                 <Button Content="out4" Width="75" Height="25" Margin="5" Command="{Binding CalculatePartialCommand}" />
                 <Button Content="out10" Width="75" Height="25" Margin="5" Command="{Binding CalculateSecondaryCommand}" />
